@@ -109,10 +109,113 @@ var _hmt = _hmt || [];
 <li>不同的雷达有不同的功能但是大部分都相同，如查用继承就会写很多相同的代码，而且功能和雷达之间是偶合关系强，迁一发而动全身。<br><em>你可以想到类似的场景如:不同的电脑有不同的配置等等</em>  <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2></li>
 <li>如果雷达能动态的添加或者去除某些功能是不是就ok了。  </li>
 <li>但是功能只能适用于雷达，肯定还要与雷达建立关系所以我们提出一个父类  </li>
-<li>然后建立朋友关系（以参数传递）  <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">ModuleBase</span>: <span class="title">LidarBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">private</span> LidarBase lidarModel;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ModuleBase</span>(<span class="params">LidarBase ilm</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            lidarModel = ilm;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">          <span class="keyword">return</span>  lidarModel.LidarOperation();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">这样所有的雷达与功能建立了直接朋友关系。  </div><div class="line"><span class="number">1.</span> 添加绘图功能类</div><div class="line">``` csharp</div><div class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlotModule</span>:<span class="title">ModuleBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">PlotModule</span>(<span class="params">LidarBase ilm</span>):<span class="title">base</span>(<span class="params">ilm</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">             <span class="keyword">base</span>.LidarOperation();</div><div class="line">            AddPlot();</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">      </div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddPlot</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"我可以绘图了"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line"><span class="number">2.</span> 添加开机功能  </div><div class="line">``` csharp</div><div class="line"> <span class="keyword">class</span> <span class="title">StartModule</span> : <span class="title">ModuleBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">StartModule</span>(<span class="params">LidarBase ilm</span>) : <span class="title">base</span>(<span class="params">ilm</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            <span class="keyword">base</span>.LidarOperation();</div><div class="line">            StartLidar();</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"雷达可以开开了"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line"><span class="number">3.</span> 添加关机功能</div><div class="line">``` csharp</div><div class="line">   <span class="keyword">class</span> <span class="title">StopModule</span> : <span class="title">ModuleBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">StopModule</span>(<span class="params">LidarBase ilm</span>) : <span class="title">base</span>(<span class="params">ilm</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            <span class="keyword">base</span>.LidarOperation();</div><div class="line">            StopLidar();</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"我可以关雷达了"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">```  </div><div class="line">所有的功能都可以如此来实现了。然后我们再添加一个风雷达  </div><div class="line">``` csharp</div><div class="line"> <span class="keyword">class</span> <span class="title">WindLidar</span> : <span class="title">LidarBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"我是一个风雷达"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>然后建立朋友关系（以参数传递）  <pre><code class="CSharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">ModuleBase</span>: <span class="title">LidarBase</span>
+  {
+      <span class="keyword">private</span> LidarBase lidarModel;
+      <span class="function"><span class="keyword">public</span> <span class="title">ModuleBase</span>(<span class="params">LidarBase ilm</span>)</span>
+<span class="function">      </span>{
+          lidarModel = ilm;
+      }
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+        <span class="keyword">return</span>  lidarModel.LidarOperation();
+      }
+  }
+}
+</code></pre>
 </li>
 </ul>
-<p>可以这样使用了<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            LidarBase lidar = <span class="keyword">new</span> WindLidar();</div><div class="line">            ModuleBase lidarStartModule = <span class="keyword">new</span> StartModule(lidar);</div><div class="line">            lidarStartModule.LidarOperation();</div><div class="line">            ModuleBase lidarStartPlotModule = <span class="keyword">new</span> PlotModule(lidarStartModule);</div><div class="line">            lidarStartPlotModule.LidarOperation();</div><div class="line">            ModuleBase lidarStartPlotStopModule = <span class="keyword">new</span> StopModule(lidarStartPlotStopModule);</div><div class="line">            lidarStartPlotStopModule.LidarOperation();</div><div class="line">            Console.Read();</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
+<p>这样所有的雷达与功能建立了直接朋友关系。  </p>
+<ol>
+<li><p>添加绘图功能类</p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlotModule</span>:<span class="title">ModuleBase</span>
+ {
+     <span class="function"><span class="keyword">public</span> <span class="title">PlotModule</span>(<span class="params">LidarBase ilm</span>):<span class="title">base</span>(<span class="params">ilm</span>)</span>
+<span class="function">     </span>{
+
+     }
+     <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+          <span class="keyword">base</span>.LidarOperation();
+         AddPlot();
+         <span class="keyword">return</span> <span class="literal">true</span>;
+     }
+
+     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddPlot</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         Console.WriteLine(<span class="string">"我可以绘图了"</span>);
+     }
+ }
+}
+</code></pre>
+</li>
+<li><p>添加开机功能  </p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">StartModule</span> : <span class="title">ModuleBase</span>
+ {
+     <span class="function"><span class="keyword">public</span> <span class="title">StartModule</span>(<span class="params">LidarBase ilm</span>) : <span class="title">base</span>(<span class="params">ilm</span>)</span>
+<span class="function">     </span>{
+
+     }
+     <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         <span class="keyword">base</span>.LidarOperation();
+         StartLidar();
+         <span class="keyword">return</span> <span class="literal">true</span>;
+     }
+
+     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         Console.WriteLine(<span class="string">"雷达可以开开了"</span>);
+     }
+ }
+}
+</code></pre>
+</li>
+<li><p>添加关机功能<br>``` csharp<br>class StopModule : ModuleBase<br> {</p>
+<pre><code>public StopModule(LidarBase ilm) : base(ilm)
+{
+
+}
+
+public override bool LidarOperation()
+{
+    base.LidarOperation();
+    StopLidar();
+    return true;
+}
+
+public void StopLidar()
+{
+    Console.WriteLine(&quot;我可以关雷达了&quot;);
+}
+</code></pre><p> }<br>}</p>
+</li>
+</ol>
+<pre><code>
+所有的功能都可以如此来实现了。然后我们再添加一个风雷达  
+``` csharp
+ class WindLidar : LidarBase
+    {
+        public override bool LidarOperation()
+        {
+            Console.WriteLine(&quot;我是一个风雷达&quot;);
+            return true;
+        }
+    }
+}
+</code></pre><p>可以这样使用了  </p>
+<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">        </span>{
+            LidarBase lidar = <span class="keyword">new</span> WindLidar();
+            ModuleBase lidarStartModule = <span class="keyword">new</span> StartModule(lidar);
+            lidarStartModule.LidarOperation();
+            ModuleBase lidarStartPlotModule = <span class="keyword">new</span> PlotModule(lidarStartModule);
+            lidarStartPlotModule.LidarOperation();
+            ModuleBase lidarStartPlotStopModule = <span class="keyword">new</span> StopModule(lidarStartPlotStopModule);
+            lidarStartPlotStopModule.LidarOperation();
+            Console.Read();
+        }
+</code></pre>
 <p>效果如下：<br><img src="/2017/10/17/设计-装饰者模式/decorator.jpg" alt="效果图" title="效果图">  </p>
 <ul>
 <li>类图<br><strong>占坑</strong><br>注意：我们要分清抽像类和具体功能类的定义和如何附加上去的，它的方式比继承灵活，同时我们可以进行功能的不同的组合。同样也可以动态的却除某些功能。过份使用可能会添加很多小类建议以文件夹的方式组合<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a>  <blockquote>
