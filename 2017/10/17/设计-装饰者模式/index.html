@@ -171,39 +171,42 @@ var _hmt = _hmt || [];
 }
 </code></pre>
 </li>
-<li><p>添加关机功能<br>``` csharp<br>class StopModule : ModuleBase<br> {</p>
-<pre><code>public StopModule(LidarBase ilm) : base(ilm)
-{
+<li><p>添加关机功能</p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">StopModule</span> : <span class="title">ModuleBase</span>
+ {
+     <span class="function"><span class="keyword">public</span> <span class="title">StopModule</span>(<span class="params">LidarBase ilm</span>) : <span class="title">base</span>(<span class="params">ilm</span>)</span>
+<span class="function">     </span>{
 
-}
+     }
 
-public override bool LidarOperation()
-{
-    base.LidarOperation();
-    StopLidar();
-    return true;
-}
+     <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         <span class="keyword">base</span>.LidarOperation();
+         StopLidar();
+         <span class="keyword">return</span> <span class="literal">true</span>;
+     }
 
-public void StopLidar()
-{
-    Console.WriteLine(&quot;我可以关雷达了&quot;);
+     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         Console.WriteLine(<span class="string">"我可以关雷达了"</span>);
+     }
+ }
 }
-</code></pre><p> }<br>}</p>
+</code></pre>
 </li>
 </ol>
-<pre><code>
-所有的功能都可以如此来实现了。然后我们再添加一个风雷达  
-``` csharp
- class WindLidar : LidarBase
+<p>所有的功能都可以如此来实现了。然后我们再添加一个风雷达  </p>
+<pre><code class="csharp"> <span class="keyword">class</span> <span class="title">WindLidar</span> : <span class="title">LidarBase</span>
     {
-        public override bool LidarOperation()
-        {
-            Console.WriteLine(&quot;我是一个风雷达&quot;);
-            return true;
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">LidarOperation</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"我是一个风雷达"</span>);
+            <span class="keyword">return</span> <span class="literal">true</span>;
         }
     }
 }
-</code></pre><p>可以这样使用了  </p>
+</code></pre>
+<p>可以这样使用了  </p>
 <pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
 <span class="function">        </span>{
             LidarBase lidar = <span class="keyword">new</span> WindLidar();
