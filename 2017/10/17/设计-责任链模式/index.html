@@ -9,7 +9,11 @@
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="[设计] 责任链模式">
+    <meta name="description" content="[设计] 责任链模式场景
+雷达的数据有时候需要抽析有时候要做一些处理，有时间不要，一句话也就是代码中会出现很多的if else 语句。这时候一但再修改会带来很大的工作量。  
+常见的写法就是写呗，if else if else …  
+解决办法
+我们把所有的不同条件下的处理都分布到不同的类中，那样我">
     
     
     
@@ -99,10 +103,93 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-责任链模式"><span class="toc-number">1.</span> <span class="toc-text">[设计] 责任链模式</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-责任链模式"><span class="toc-number">1.</span> <span class="toc-text">[设计] 责任链模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.3.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="设计-责任链模式"><a href="#设计-责任链模式" class="headerlink" title="[设计] 责任链模式"></a>[设计] 责任链模式</h1>  
+		<h1 id="设计-责任链模式"><a href="#设计-责任链模式" class="headerlink" title="[设计] 责任链模式"></a>[设计] 责任链模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li><p>雷达的数据有时候需要抽析有时候要做一些处理，有时间不要，一句话也就是代码中会出现很多的if else 语句。这时候一但再修改会带来很大的工作量。  </p>
+<p><em>常见的写法就是写呗，if else if else …</em>  </p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><ul>
+<li>我们把所有的不同条件下的处理都分布到不同的类中，那样我们如果添加条件也就是添加一个类这样就符全设计原则了。</li>
+</ul>
+<ol>
+<li>我们要先确定一下条件处理的对像类也就是请求处理的对象。也就是有一些特殊属性的数据  </li>
+</ol>
+</li>
+</ul>
+<pre><code class="csharp"><span class="keyword">public</span>  <span class="keyword">class</span> <span class="title">RequestDeal</span>
+    {
+        <span class="keyword">public</span> <span class="keyword">int</span> DataLength { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+        <span class="function"><span class="keyword">public</span> <span class="title">RequestDeal</span>(<span class="params"><span class="keyword">int</span> length</span>)</span>
+<span class="function">        </span>{
+            DataLength = length;
+        }
+    }
+</code></pre>
+<ol>
+<li><p>我们添加一个处理类的基类  </p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">DealBase</span>
+ {
+     <span class="keyword">public</span> DealBase NextDeal { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+     <span class="keyword">public</span> <span class="keyword">string</span> FlagStr { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+     <span class="function"><span class="keyword">public</span> <span class="title">DealBase</span>(<span class="params"><span class="keyword">string</span> str</span>)</span>
+<span class="function">     </span>{
+         FlagStr = str;
+     }
+
+     <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DealData</span>(<span class="params">RequestDeal rd</span>)</span>;
+
+ }
+</code></pre>
+</li>
+<li><p>我们这里以长度为标记，实例化两个字类一个小于15的一个大于15的。<br>``` csharp<br>public class LessThan : DealBase<br> {</p>
+<pre><code>public LessThan(string str):base(str)
+{
+
+}
+public override void DealData(RequestDeal rd)
+{
+    if (rd.DataLength&lt;15)
+    {
+        Console.WriteLine(&quot;小于15不做处理责任人：{0}&quot;,FlagStr);
+
+    }
+    else
+    {
+        Console.WriteLine(&quot;大于要做处理了&quot;);
+        NextDeal.DealData(rd);
+    }
+}
+</code></pre><p> }</p>
+</li>
+</ol>
+<p>public class MoreThan : DealBase<br>    {<br>        public MoreThan(string str):base(str)<br>        {</p>
+<pre><code>    }
+    public override void DealData(RequestDeal rd)
+    {
+        if (rd.DataLength&gt;15)
+        {
+            Console.WriteLine(&quot;处理了责任人：{0}&quot;, FlagStr);
+        }
+    }
+}
+</code></pre><pre><code>4. 这时我们可以这样使用，我们指清楚每个条件的下个处理对像之后就可以做对应的处理了。
+``` csharp
+static void Main(string[] args)
+        {
+            RequestDeal rdmin = new RequestDeal(7);
+            RequestDeal rdmax = new RequestDeal(17);
+            DealBase dbmin = new LessThan(&quot;小于15&quot;);
+            DealBase dbmax = new MoreThan(&quot;大于15&quot;);
+            dbmin.NextDeal = dbmax;
+            dbmin.DealData(rdmin);
+            dbmin.DealData(rdmax);
+            Console.Read();
+        }
+</code></pre><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>可能会产生一些其它的小类需要维护。<br>难点就是新增加一些处理可能要修改的东西比较多。<br>还有就是责任链过长性能也会成为一个问题<br>不能保证请求一定会被接收</p>
+<hr>
+<p><strong> 在编码设计中的问题，没有什么是加一层不能解决的。</strong></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
