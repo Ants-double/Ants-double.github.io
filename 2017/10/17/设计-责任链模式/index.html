@@ -142,52 +142,61 @@ var _hmt = _hmt || [];
  }
 </code></pre>
 </li>
-<li><p>我们这里以长度为标记，实例化两个字类一个小于15的一个大于15的。<br>``` csharp<br>public class LessThan : DealBase<br> {</p>
-<pre><code>public LessThan(string str):base(str)
-{
-
-}
-public override void DealData(RequestDeal rd)
-{
-    if (rd.DataLength&lt;15)
-    {
-        Console.WriteLine(&quot;小于15不做处理责任人：{0}&quot;,FlagStr);
-
-    }
-    else
-    {
-        Console.WriteLine(&quot;大于要做处理了&quot;);
-        NextDeal.DealData(rd);
-    }
-}
-</code></pre><p> }</p>
+<li><p>我们这里以长度为标记，实例化两个字类一个小于15的一个大于15的。  </p>
 </li>
 </ol>
-<p>public class MoreThan : DealBase<br>    {<br>        public MoreThan(string str):base(str)<br>        {</p>
-<pre><code>    }
-    public override void DealData(RequestDeal rd)
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LessThan</span> : <span class="title">DealBase</span>
     {
-        if (rd.DataLength&gt;15)
-        {
-            Console.WriteLine(&quot;处理了责任人：{0}&quot;, FlagStr);
+        <span class="function"><span class="keyword">public</span> <span class="title">LessThan</span>(<span class="params"><span class="keyword">string</span> str</span>):<span class="title">base</span>(<span class="params">str</span>)</span>
+<span class="function">        </span>{
+
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DealData</span>(<span class="params">RequestDeal rd</span>)</span>
+<span class="function">        </span>{
+            <span class="keyword">if</span> (rd.DataLength&lt;<span class="number">15</span>)
+            {
+                Console.WriteLine(<span class="string">"小于15不做处理责任人：{0}"</span>,FlagStr);
+
+            }
+            <span class="keyword">else</span>
+            {
+                Console.WriteLine(<span class="string">"大于要做处理了"</span>);
+                NextDeal.DealData(rd);
+            }
         }
     }
-}
-</code></pre><pre><code>
-4. 这时我们可以这样使用，我们指清楚每个条件的下个处理对像之后就可以做对应的处理了。
-``` csharp
-static void Main(string[] args)
-        {
-            RequestDeal rdmin = new RequestDeal(7);
-            RequestDeal rdmax = new RequestDeal(17);
-            DealBase dbmin = new LessThan(&quot;小于15&quot;);
-            DealBase dbmax = new MoreThan(&quot;大于15&quot;);
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MoreThan</span> : <span class="title">DealBase</span>
+    {
+        <span class="function"><span class="keyword">public</span> <span class="title">MoreThan</span>(<span class="params"><span class="keyword">string</span> str</span>):<span class="title">base</span>(<span class="params">str</span>)</span>
+<span class="function">        </span>{
+
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DealData</span>(<span class="params">RequestDeal rd</span>)</span>
+<span class="function">        </span>{
+            <span class="keyword">if</span> (rd.DataLength&gt;<span class="number">15</span>)
+            {
+                Console.WriteLine(<span class="string">"处理了责任人：{0}"</span>, FlagStr);
+            }
+        }
+    }
+</code></pre>
+<ol>
+<li>这时我们可以这样使用，我们指清楚每个条件的下个处理对像之后就可以做对应的处理了。  </li>
+</ol>
+<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">        </span>{
+            RequestDeal rdmin = <span class="keyword">new</span> RequestDeal(<span class="number">7</span>);
+            RequestDeal rdmax = <span class="keyword">new</span> RequestDeal(<span class="number">17</span>);
+            DealBase dbmin = <span class="keyword">new</span> LessThan(<span class="string">"小于15"</span>);
+            DealBase dbmax = <span class="keyword">new</span> MoreThan(<span class="string">"大于15"</span>);
             dbmin.NextDeal = dbmax;
             dbmin.DealData(rdmin);
             dbmin.DealData(rdmax);
             Console.Read();
         }
-</code></pre><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>可能会产生一些其它的小类需要维护。<br>难点就是新增加一些处理可能要修改的东西比较多。<br>还有就是责任链过长性能也会成为一个问题<br>不能保证请求一定会被接收<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a></p>
+</code></pre>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>可能会产生一些其它的小类需要维护。<br>难点就是新增加一些处理可能要修改的东西比较多。<br>还有就是责任链过长性能也会成为一个问题<br>不能保证请求一定会被接收<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a></p>
 <hr>
 <p><strong> 在编码设计中的问题，没有什么是加一层不能解决的。</strong></p>
   
