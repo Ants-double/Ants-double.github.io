@@ -115,18 +115,111 @@ var _hmt = _hmt || [];
 <li>so 我们这里就采用这种思想来实践。  </li>
 </ol>
 <ul>
-<li><p>我们先创建一个雷达基类  </p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">LidarBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">public</span> <span class="keyword">string</span> FlagStr &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LidarBase</span>(<span class="params"><span class="keyword">string</span> flag</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            FlagStr = flag;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span>;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span>;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line">- 我们再创建一个单个的雷达  </div><div class="line">``` csharp</div><div class="line"><span class="keyword">class</span> <span class="title">SingleLidar</span> : <span class="title">LidarBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SingleLidar</span>(<span class="params"><span class="keyword">string</span>  str</span>):<span class="title">base</span>(<span class="params">str</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"开简单的雷达&#123;0&#125;"</span>,FlagStr);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"关简单的雷达&#123;0&#125;"</span>,FlagStr);</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line">- 我们创建一个复杂的雷达  </div><div class="line">``` csharp</div><div class="line"><span class="keyword">class</span> <span class="title">ManyLidar</span> : <span class="title">LidarBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">private</span> List&lt;LidarBase&gt; manyLidar = <span class="keyword">new</span> List&lt;LidarBase&gt;();</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ManyLidar</span>(<span class="params"><span class="keyword">string</span> str</span>) : <span class="title">base</span>(<span class="params">str</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"开复杂的雷达&#123;0&#125;"</span>, FlagStr);</div><div class="line"></div><div class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> manyLidar)</div><div class="line">            &#123;</div><div class="line">                item.StartLidar();</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"关复杂的雷达&#123;0&#125;"</span>, FlagStr);</div><div class="line"></div><div class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> manyLidar)</div><div class="line">            &#123;</div><div class="line">                item.StopLidar();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddLidar</span>(<span class="params">LidarBase lb</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            manyLidar.Add(lb);</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RemoveLidar</span>(<span class="params">LidarBase lb</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            manyLidar.Remove(lb);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OtherOpeartion</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line"></div><div class="line">            Console.WriteLine(<span class="string">"这是我特有的操作&#123;0&#125;"</span>,FlagStr);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">```  </div><div class="line">- 我们可以这样用</div><div class="line">``` csharp</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            ManyLidar ml = <span class="keyword">new</span> ManyLidar(<span class="string">"多服务雷达"</span>);</div><div class="line">            ml.AddLidar(<span class="keyword">new</span> SingleLidar(<span class="string">"风雷达"</span>));</div><div class="line">            ml.AddLidar(<span class="keyword">new</span> SingleLidar(<span class="string">"温雷达"</span>));</div><div class="line">            SingleLidar sl = <span class="keyword">new</span> SingleLidar(<span class="string">"个功能雷达风"</span>);</div><div class="line">            sl.StartLidar();</div><div class="line">            sl.StopLidar();</div><div class="line">            ml.StartLidar();</div><div class="line">            ml.StopLidar();</div><div class="line">            ml.OtherOpeartion();</div><div class="line">            Console.Read();</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>感觉是不是很6666   </p>
-<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p><em>占坑</em></p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
+<li>我们先创建一个雷达基类  </li>
+</ul>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">LidarBase</span>
+    {
+        <span class="keyword">public</span> <span class="keyword">string</span> FlagStr { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+        <span class="function"><span class="keyword">public</span> <span class="title">LidarBase</span>(<span class="params"><span class="keyword">string</span> flag</span>)</span>
+<span class="function">        </span>{
+            FlagStr = flag;
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span>;
+        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span>;
+    }
+</code></pre>
+<ul>
+<li>我们再创建一个单个的雷达  </li>
+</ul>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">SingleLidar</span> : <span class="title">LidarBase</span>
+    {
+        <span class="function"><span class="keyword">public</span> <span class="title">SingleLidar</span>(<span class="params"><span class="keyword">string</span>  str</span>):<span class="title">base</span>(<span class="params">str</span>)</span>
+<span class="function">        </span>{
+
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"开简单的雷达{0}"</span>,FlagStr);
+        }
+
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"关简单的雷达{0}"</span>,FlagStr);
+
+        }
+    }
+</code></pre>
+<ul>
+<li>我们创建一个复杂的雷达  </li>
+</ul>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">ManyLidar</span> : <span class="title">LidarBase</span>
+    {
+        <span class="keyword">private</span> List&lt;LidarBase&gt; manyLidar = <span class="keyword">new</span> List&lt;LidarBase&gt;();
+        <span class="function"><span class="keyword">public</span> <span class="title">ManyLidar</span>(<span class="params"><span class="keyword">string</span> str</span>) : <span class="title">base</span>(<span class="params">str</span>)</span>
+<span class="function">        </span>{
+
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"开复杂的雷达{0}"</span>, FlagStr);
+
+            <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> manyLidar)
+            {
+                item.StartLidar();
+            }
+
+        }
+
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StopLidar</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"关复杂的雷达{0}"</span>, FlagStr);
+
+            <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> manyLidar)
+            {
+                item.StopLidar();
+            }
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddLidar</span>(<span class="params">LidarBase lb</span>)</span>
+<span class="function">        </span>{
+            manyLidar.Add(lb);
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RemoveLidar</span>(<span class="params">LidarBase lb</span>)</span>
+<span class="function">        </span>{
+            manyLidar.Remove(lb);
+        }
+
+        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OtherOpeartion</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+
+            Console.WriteLine(<span class="string">"这是我特有的操作{0}"</span>,FlagStr);
+        }
+    }
+</code></pre>
+<ul>
+<li>我们可以这样用  </li>
+</ul>
+<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">        </span>{
+            ManyLidar ml = <span class="keyword">new</span> ManyLidar(<span class="string">"多服务雷达"</span>);
+            ml.AddLidar(<span class="keyword">new</span> SingleLidar(<span class="string">"风雷达"</span>));
+            ml.AddLidar(<span class="keyword">new</span> SingleLidar(<span class="string">"温雷达"</span>));
+            SingleLidar sl = <span class="keyword">new</span> SingleLidar(<span class="string">"个功能雷达风"</span>);
+            sl.StartLidar();
+            sl.StopLidar();
+            ml.StartLidar();
+            ml.StopLidar();
+            ml.OtherOpeartion();
+            Console.Read();
+        }
+</code></pre>
+<ul>
+<li>感觉是不是很6666   <h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><em>占坑</em><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 </ul>
 <ol>
 <li>这样我们就可以以统一的方式来操作对象和对象容器集合了  </li>
 <li>我们可以更容易的进行扩展</li>
 <li>通病，小类比较多，要懂才更好维护。但是代价绝对比上来就写一个集合各种乱写的要好维护。</li>
-<li>整体和个体的组合选这种是最好的了。</li>
+<li>整体和个体的组合选这种是最好的了。<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a></li>
 </ol>
 <hr>
 <blockquote>
