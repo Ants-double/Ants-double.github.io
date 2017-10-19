@@ -4,17 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>[设计]观察者模式 | Ants-double</title>
+    <title>[设计]]]访问者模式 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="[设计]观察者模式场景
-有很多客户端不定的会连接交互模块，也不知道何时退出，要实现连接上就进行消息推送，不连接就不推送。简单的办法找一个集合来记录所有的对象，如果来消息就扫一遍这个集合，然后执行对应的操作。  解决办法
-
-
-能实现让这个记动权放在客户端手里吗？
-能够依赖于抽象吗？每次观察者都能得到信">
+    <meta name="description" content="[设计]访问者模式场景
+雷达数据要处理的结果分为很多事，有的要转化为出时空图的数据有的要转化为出地图的数据，有的要转化为出波线图的数据以还要加其它图。这时数据源不变但是要经过不同的算法出来不同的数据结构  解决办法
+数据结构是稳定的，操作是变化的那么我就让它们都分离呗，都抽象一下。这样我们在处理数据">
     
     
     
@@ -93,10 +90,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/19/设计-观察者模式/" title="[设计]观察者模式" itemprop="url">[设计]观察者模式</a>
+      <a href="/2017/10/19/设计-访问者模式/" title="[设计]]]访问者模式" itemprop="url">[设计]]]访问者模式</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-10-19T10:22:14.000Z" itemprop="datePublished">2017-10-19</time>
+    <time datetime="2017-10-19T14:03:19.000Z" itemprop="datePublished">2017-10-19</time>
   </p>
 </header>
 	<div class="article-content">
@@ -104,96 +101,103 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-观察者模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]观察者模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#场景"><span class="toc-number">2.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决办法"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">3.1.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">3.2.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-访问者模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]访问者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.3.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="设计-观察者模式"><a href="#设计-观察者模式" class="headerlink" title="[设计]观察者模式"></a>[设计]观察者模式</h1><h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><ul>
-<li>有很多客户端不定的会连接交互模块，也不知道何时退出，要实现连接上就进行消息推送，不连接就不推送。<br><em>简单的办法找一个集合来记录所有的对象，如果来消息就扫一遍这个集合，然后执行对应的操作。</em>  <h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1></li>
-</ul>
-<ol>
-<li>能实现让这个记动权放在客户端手里吗？</li>
-<li>能够依赖于抽象吗？每次观察者都能得到信息吗？</li>
-<li>c# 提供了委托和事件，你要这就是封好的模式，委托不就是一个抽象的观察者吗？</li>
-</ol>
-<ul>
-<li><p>我们先创建一个基于委托的观察者基类  </p>
-<pre><code class="csharp"><span class="keyword">namespace</span> <span class="title">ObserverMode</span>
-{
-  <span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">NotifyEventHander</span>(<span class="params"><span class="keyword">object</span> sender</span>)</span>;
-  <span class="keyword">class</span> <span class="title">SubsciberBase</span>
+		<h1 id="设计-访问者模式"><a href="#设计-访问者模式" class="headerlink" title="[设计]访问者模式"></a>[设计]访问者模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>雷达数据要处理的结果分为很多事，有的要转化为出时空图的数据有的要转化为出地图的数据，有的要转化为出波线图的数据以还要加其它图。<br><em>这时数据源不变但是要经过不同的算法出来不同的数据结构</em>  <h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
+<li>数据结构是稳定的，操作是变化的那么我就让它们都分离呗，都抽象一下。这样我们在处理数据的类中把操作以参数的形式传进去这样我们就可以来实现两者的关系也就是直接朋友的关系了。</li>
+<li><p>这样对我们来说操作是可变化需要更改只要维护这个操作类就可以，就不用动数据结构生成和执行的类。<br>所以我们先创建两个抽象类</p>
+<pre><code class="csharp"><span class="keyword">public</span>  <span class="keyword">interface</span> <span class="title">IVisit</span>
   {
-      <span class="keyword">public</span> NotifyEventHander NotifyEvnet;
-      <span class="keyword">public</span> <span class="keyword">string</span> Flag { <span class="keyword">get</span>; <span class="keyword">set</span>; }
-      <span class="function"><span class="keyword">public</span> <span class="title">SubsciberBase</span>(<span class="params"><span class="keyword">string</span> str</span>)</span>
+      <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">AElement a</span>)</span>;
+      <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">BElement b</span>)</span>;
+  }
+   <span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">ElementBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisit visit</span>)</span>;
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"></span>)</span>;
+  }
+</code></pre>
+<p>-我们实现两种数据的结果也就是我们说的各种目的数据结构</p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AElement</span> : <span class="title">ElementBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisit visit</span>)</span>
 <span class="function">      </span>{
-          Flag = str;
-
+          visit.Visit(<span class="keyword">this</span>);
       }
 
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddObserver</span>(<span class="params">NotifyEventHander neh</span>)</span>
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"></span>)</span>
 <span class="function">      </span>{
-          NotifyEvnet += neh;
-      }
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RemoveObserver</span>(<span class="params">NotifyEventHander neh</span>)</span>
-<span class="function">      </span>{
-          NotifyEvnet -= neh;
-      }
-
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          NotifyEvnet?.Invoke(<span class="keyword">this</span>);
+          Console.WriteLine(<span class="string">"我是A"</span>);
       }
   }
-}
-</code></pre>
-</li>
-<li><p>我们再创建一个观察者 这里我们不做操作，你需要什么你可以做什么 </p>
-<pre><code class="csharp"><span class="keyword">class</span> <span class="title">LidarSubscriber</span>:<span class="title">SubsciberBase</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BElement</span> : <span class="title">ElementBase</span>
   {
-      <span class="function"><span class="keyword">public</span> <span class="title">LidarSubscriber</span>(<span class="params"><span class="keyword">string</span> str</span>):<span class="title">base</span>(<span class="params">str</span>)</span>
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisit visit</span>)</span>
 <span class="function">      </span>{
-
+          visit.Visit(<span class="keyword">this</span>);
+      }
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是B"</span>);
       }
   }
 </code></pre>
 </li>
-<li><p>我们实例化一个客户端类也就是传说中的订阅者  </p>
-<pre><code class="csharp"><span class="keyword">class</span> <span class="title">LidarClient</span>
+<li><p>我们再创建一下结构对象这里采用与网上一样的随机的方式</p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ObjectStruct</span>
   {
-      <span class="keyword">public</span> <span class="keyword">string</span> Name { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+      <span class="keyword">private</span> List&lt;ElementBase&gt; elements = <span class="keyword">new</span> List&lt;ElementBase&gt;();
 
-      <span class="function"><span class="keyword">public</span> <span class="title">LidarClient</span>(<span class="params"><span class="keyword">string</span> name</span>)</span>
-<span class="function">      </span>{
-          Name = name;
+      <span class="keyword">public</span> List&lt;ElementBase&gt; Elements
+      {
+          <span class="keyword">get</span> { <span class="keyword">return</span> elements; }
       }
 
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ReceiveAndPrint</span>(<span class="params"><span class="keyword">object</span> obj</span>)</span>
+      <span class="function"><span class="keyword">public</span> <span class="title">ObjectStruct</span>(<span class="params"></span>)</span>
 <span class="function">      </span>{
-          SubsciberBase sb = obj <span class="keyword">as</span> SubsciberBase;
-          <span class="keyword">if</span> (<span class="literal">null</span>!=sb)
+          Random rd = <span class="keyword">new</span> Random();
+          <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)
           {
-              Console.WriteLine(<span class="string">"{0},{1}"</span>,sb.Flag,Name);
+
+              <span class="keyword">int</span> num = rd.Next(<span class="number">10</span>);
+              <span class="keyword">if</span> (num&gt;<span class="number">5</span>)
+              {
+                  elements.Add(<span class="keyword">new</span> AElement());
+
+              }
+              <span class="keyword">else</span>
+              {
+                  elements.Add(<span class="keyword">new</span> BElement());
+              }
           }
       }
   }
 </code></pre>
 </li>
-<li><p>最后我们在用的时候确定订阅关系   </p>
-<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<li><p>我们再创建具体的访问者</p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CreateVisitor</span> : <span class="title">IVisit</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">AElement a</span>)</span>
 <span class="function">      </span>{
-          SubsciberBase Sb = <span class="keyword">new</span> LidarSubscriber(<span class="string">"Lidar"</span>);
-          LidarClient ld1 = <span class="keyword">new</span> LidarClient(<span class="string">"client1"</span>);
-          LidarClient ld2 = <span class="keyword">new</span> LidarClient(<span class="string">"client2"</span>);
-          LidarClient ld3 = <span class="keyword">new</span> LidarClient(<span class="string">"client3"</span>);
+          a.Print();
+      }
 
-          Sb.AddObserver(<span class="keyword">new</span> NotifyEventHander(ld1.ReceiveAndPrint));
-          Sb.AddObserver(<span class="keyword">new</span> NotifyEventHander(ld2.ReceiveAndPrint));
-          Sb.AddObserver(<span class="keyword">new</span> NotifyEventHander(ld3.ReceiveAndPrint));
-
-          Sb.Update();
-          Console.WriteLine(<span class="string">"*****************"</span>);
-          Sb.RemoveObserver(ld2.ReceiveAndPrint);
-          Sb.Update();
+      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">BElement b</span>)</span>
+<span class="function">      </span>{
+          b.Print();
+      }
+  }
+</code></pre>
+</li>
+<li>我们可以这样用<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">      </span>{
+          ObjectStruct objectstrut = <span class="keyword">new</span> ObjectStruct();
+          <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> objectstrut.Elements)
+          {
+              item.Accept(<span class="keyword">new</span> CreateVisitor());
+          }
           Console.Read();
       }
 </code></pre>
@@ -201,15 +205,12 @@ var _hmt = _hmt || [];
 <li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 </ul>
 <ol>
-<li>我们用了C#封好的接口所以方便了很多。</li>
-<li>观察者的好处就是解耦，也就是说我要做一个事我不讲谁去做我只要最后的结果</li>
-<li>一般在跨系统的时候用的较多，因为两者都依赖于抽象谁都不用理谁。但是最后交互关系在这就足够了，也就是传说的中主在矛盾。</li>
-<li>事件注意C#中的弱事件<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a></li>
+<li>这种结构如果数据结构也经常变化的话是不是发现我们添加访问者的难度还是很大的吧</li>
+<li>这种访问是没有限制的，我们可以访问这些类的所有的东西</li>
+<li>好处也明显就是添加操作也就是访问者的时候特别容易<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a>   </li>
 </ol>
 <hr>
-<blockquote>
-<p><strong>发现好技术好文章是一切的第一步，这里不适用万事开头难，在编程这个世界里最简单的就是第一步，如果你感觉到难，那说明最后的几步可能更难，相对中间容易点。哈哈，坚持吧。</strong></p>
-</blockquote>
+<p><strong>模式是死的，人是活的，但是模式也是可以活用的，不可能一个程序只有一种模式，模式其它就是设计原则的展开，现在有很多的模式没有写入这经典中但是也是常用的。比如DDD这样，学模式用模式而不死于模式。如果老板说实现某个功能快的话有1万块钱，我肯定怎么怎么写了哈哈哈哈</strong></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -219,7 +220,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/10/19/设计-观察者模式/" data-title="[设计]观察者模式 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/10/19/设计-访问者模式/" data-title="[设计]]]访问者模式 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -228,19 +229,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/10/19/设计-访问者模式/" title="[设计]]]访问者模式">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [设计]]]访问者模式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/19/设计-适配器模式/"  title="[设计]适配器模式">
+<a href="/2017/10/19/设计-观察者模式/"  title="[设计]观察者模式">
  <strong>旧一篇:</strong><br/> 
- <span>[设计]适配器模式
+ <span>[设计]观察者模式
 </span>
 </a>
 </div>
@@ -250,7 +243,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="[设计]观察者模式" data-thread-key="设计-观察者模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-观察者模式"></div>
+	<div class="ds-thread" data-title="[设计]]]访问者模式" data-thread-key="设计-访问者模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-访问者模式"></div>
 	
 </section>
 
