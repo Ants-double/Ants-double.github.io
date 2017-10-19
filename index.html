@@ -91,6 +91,119 @@ var _hmt = _hmt || [];
   <article>
     <h1 itemprop="name">
       
+        <a href="/2017/10/19/设计-观察者模式/" title="[设计]观察者模式" itemprop="url">
+      
+        [设计]观察者模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]观察者模式场景
+有很多客户端不定的会连接交互模块，也不知道何时退出，要实现连接上就进行消息推送，不连接就不推送。简单的办法找一个集合来记录所有的对象，如果来消息就扫一遍这个集合，然后执行对应的操作。  解决办法
+
+
+能实现让这个记动权放在客户端手里吗？
+能够依赖于抽象吗？</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-19T10:22:14.000Z" itemprop="datePublished">2017-10-19</time>
+      
+          <a href="/2017/10/19/设计-观察者模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
+        <a href="/2017/10/19/设计-适配器模式/" title="[设计]适配器模式" itemprop="url">
+      
+        [设计]适配器模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]适配器模式场景
+雷达数据是从服务端传过来的，但是历史和实时的数据结构不太一样，但是这样操作数据要么重载但是处理过程基本一样，所以这时间每个都写两个方法维护成本太高  
+所以这里想把实时数据适配成历史的解决方法
+
+
+可以让实时和历史都继承自同一个父类，C# 不支持多继承所以</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-19T10:21:59.000Z" itemprop="datePublished">2017-10-19</time>
+      
+          <a href="/2017/10/19/设计-适配器模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
+        <a href="/2017/10/19/设计-命令模式/" title="[设计]命令模式" itemprop="url">
+      
+        [设计]命令模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]命令模式场景
+要保存数据到文件。但是服务提示的接口有顺序的要求那就 一个挨着一个的调用呗，正确，可是在应用中多线程的情况下，乱的给那什么啊？什么，麻绳。  解决办法
+传之前排好顺序一下传过去。
+当然如果有问题不是加一层可以解决的，那就加两层这个小问题应该加一层就可以了。让</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-19T10:21:40.000Z" itemprop="datePublished">2017-10-19</time>
+      
+          <a href="/2017/10/19/设计-命令模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
+        <a href="/2017/10/19/设计-组合模式/" title="[设计]组合模式" itemprop="url">
+      
+        [设计]组合模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]组合模式场景
+每个雷达功能很多，可是现在要做一个雷达平台就要与多个服务相连接获取数据。简单的办法：肯定是new 多个连接对象，各人连各人的。但是这样容易造成有的个雷达某些功能忘记掉用了，添加一个功能要改多处，人非硬盘怎能不忘  解决办法
+
+
+我们能不能不论单个还是多个都能</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-19T10:19:29.000Z" itemprop="datePublished">2017-10-19</time>
+      
+          <a href="/2017/10/19/设计-组合模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
         <a href="/2017/10/18/C-JavaScript交互/" title="C#JavaScript交互" itemprop="url">
       
         C#JavaScript交互
@@ -248,112 +361,10 @@ var _hmt = _hmt || [];
   </article>
 </section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/17/设计-装饰者模式/" title="[设计]装饰者模式" itemprop="url">
-      
-        [设计]装饰者模式
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >装饰者模式场景
-不同的雷达有不同的功能但是大部分都相同，如查用继承就会写很多相同的代码，而且功能和雷达之间是偶合关系强，迁一发而动全身。你可以想到类似的场景如:不同的电脑有不同的配置等等  解决方法
-如果雷达能动态的添加或者去除某些功能是不是就ok了。  
-但是功能只能适用于雷达</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-17T10:13:15.000Z" itemprop="datePublished">2017-10-17</time>
-      
-          <a href="/2017/10/17/设计-装饰者模式/">阅读更多&raquo;</a>
-      
-    </p>
 
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/17/hexo-所填的坑/" title="[坑]hexo-所填的坑" itemprop="url">
-      
-        [坑]hexo-所填的坑
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >[坑]hexo-所填的坑
-电脑上有两个Github账户，把第一个的ssh密钥全删除了，重新生成后还是不可以用第二个账户登录  
-把windows下的控制面板/用户帐户/凭据管理器/下的github信息也删除了就好了  
-
-hexo 安装不用功  
-全部从官网上下载最新的，因为不成</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-17T05:13:01.000Z" itemprop="datePublished">2017-10-17</time>
-      
-          <a href="/2017/10/17/hexo-所填的坑/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/17/软件设计原则/" title="[设计]软件设计原则" itemprop="url">
-      
-        [设计]软件设计原则
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >[设计]软件设计原则这些原则不遵守程序也可以跑的好好的，只是出错的机率大，修改的难度高而已。  
-1.职责单一原则
-简单的理解就是一个类只做一件事。但是生活中到处都是意外。需求改了，有个数划分的更细了。这时我们有多种选择。1.第一种就是直接改加if 加方法，把这个类改的面目全飞 </p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-17T01:24:51.000Z" itemprop="datePublished">2017-10-17</time>
-      
-          <a href="/2017/10/17/软件设计原则/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/16/test/" title="test" itemprop="url">
-      
-        test
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" ></p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-16T15:27:29.000Z" itemprop="datePublished">2017-10-16</time>
-      
-          <a href="/2017/10/16/test/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
 
 </div>
       <div id="asidepart">

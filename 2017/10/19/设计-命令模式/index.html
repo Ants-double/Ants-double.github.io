@@ -4,17 +4,15 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>C#JavaScript交互 | Ants-double</title>
+    <title>[设计]命令模式 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="[乱语言]C#javascript场景
-有一天发现百度地图只有提示的Javascript的代码没有c#的于是就想到能互相调用吗?解决方法
-上网一查果然不是第一个人，有两种一种引入第三方库，另一种就是用Webbrowser来实现，本文用的第二种方法。
-
-
-首先要搭建一候平台此处WinForm的，拖入一">
+    <meta name="description" content="[设计]命令模式场景
+要保存数据到文件。但是服务提示的接口有顺序的要求那就 一个挨着一个的调用呗，正确，可是在应用中多线程的情况下，乱的给那什么啊？什么，麻绳。  解决办法
+传之前排好顺序一下传过去。
+当然如果有问题不是加一层可以解决的，那就加两层这个小问题应该加一层就可以了。让命令的发出者的执行者">
     
     
     
@@ -93,10 +91,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/18/C-JavaScript交互/" title="C#JavaScript交互" itemprop="url">C#JavaScript交互</a>
+      <a href="/2017/10/19/设计-命令模式/" title="[设计]命令模式" itemprop="url">[设计]命令模式</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-10-18T14:32:43.000Z" itemprop="datePublished">2017-10-18</time>
+    <time datetime="2017-10-19T10:21:40.000Z" itemprop="datePublished">2017-10-19</time>
   </p>
 </header>
 	<div class="article-content">
@@ -104,64 +102,91 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#乱语言-C-javascript"><span class="toc-number">1.</span> <span class="toc-text">[乱语言]C#javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.3.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它问题"><span class="toc-number">1.4.</span> <span class="toc-text">其它问题</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-命令模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]命令模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.3.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="乱语言-C-javascript"><a href="#乱语言-C-javascript" class="headerlink" title="[乱语言]C#javascript"></a>[乱语言]C#javascript</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
-<li>有一天发现百度地图只有提示的Javascript的代码没有c#的于是就想到能互相调用吗?<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2></li>
-<li>上网一查果然不是第一个人，有两种一种引入第三方库，另一种就是用Webbrowser来实现，本文用的第二种方法。</li>
+		<h1 id="设计-命令模式"><a href="#设计-命令模式" class="headerlink" title="[设计]命令模式"></a>[设计]命令模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>要保存数据到文件。但是服务提示的接口有顺序的要求<br><em>那就 一个挨着一个的调用呗，正确，可是在应用中多线程的情况下，乱的给那什么啊？什么，麻绳。</em>  <h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
+<li>传之前排好顺序一下传过去。</li>
+<li>当然如果有问题不是加一层可以解决的，那就加两层这个小问题应该加一层就可以了。让命令的发出者的执行者分开。</li>
+<li>让命令类，发生类，执行类都有自己的抽象类，抽象更稳定，此处只抽了命令，以做演示。</li>
 </ul>
 <ol>
-<li>首先要搭建一候平台此处WinForm的，拖入一个Web一个Button然后开始在下面写调用事件  </li>
-<li><p>此时要看清楚JavaScript的方法名<br>代码如下： </p>
-<pre><code class="csharp"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button1_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
+<li><p>我们先创建一个执行者的类也就是接收命令干活的类。此处不做抽象，看具体问题和环境。设计模式是死的，用的人是活的。</p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ServerReceiver</span>
+ {
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SaveData</span>(<span class="params"></span>)</span>
 <span class="function">     </span>{
-         webBrowser1.Document.InvokeScript(<span class="string">"Run"</span>, <span class="keyword">new</span> <span class="keyword">object</span>[] { <span class="string">"114.34"</span>,<span class="string">"31.23"</span> });
+         Console.WriteLine(<span class="string">"服务保存数据到SqL"</span>);
      }
-
-     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Form1_Load</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.ObjectForScripting = <span class="keyword">this</span>;<span class="comment">//具体公开的对象,这里可以公开自定义对象</span>
-         webBrowser1.Navigate(Application.StartupPath + <span class="string">"/aaa.html"</span>);
-     }
-     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowMsg</span>(<span class="params"><span class="keyword">string</span> msg</span>)</span>
-<span class="function">     </span>{
-         MessageBox.Show(msg);
-
-     }
-
-     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button2_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.Document.InvokeScript(<span class="string">"Run1"</span>, <span class="keyword">new</span> <span class="keyword">object</span>[] { <span class="string">"CShareFunction"</span> });
-     }
+ }
 </code></pre>
 </li>
-<li>就是JavaScript的代码了 </li>
-</ol>
-<pre><code class="html"><span class="tag">&lt;<span class="name">html</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">head</span>&gt;</span>
+<li><p>创建一个命令的基类  </p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">CommandBase</span>
+ {
+     <span class="keyword">protected</span> ServerReceiver SR;
+     <span class="function"><span class="keyword">public</span> <span class="title">CommandBase</span>(<span class="params">ServerReceiver sr</span>)</span>
+<span class="function">     </span>{
+         SR = sr;
+     }
 
-  <span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">body</span>&gt;</span> 
-  <span class="tag">&lt;/<span class="name">body</span>&gt;</span>
-
-   <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="undefined"></span>
-<span class="undefined">    function Run(str)</span>
-<span class="undefined">   {</span>
-<span class="undefined"></span>
-<span class="undefined">        window.external.ShowMsg(str);</span>
-<span class="undefined">   }</span>
-<span class="undefined">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
-   <span class="tag">&lt;/<span class="name">html</span>&gt;</span>
+     <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">ActionCommand</span>(<span class="params"></span>)</span>;
+ }
 </code></pre>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
-<li>就是方法名和参数的调用  <h2 id="其它问题"><a href="#其它问题" class="headerlink" title="其它问题"></a>其它问题</h2></li>
+</li>
+<li><p>创建一个具体的保存命令子类</p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">SaveCommand</span> : <span class="title">CommandBase</span>
+ {
+     <span class="function"><span class="keyword">public</span> <span class="title">SaveCommand</span>(<span class="params">ServerReceiver sr</span>):<span class="title">base</span>(<span class="params">sr</span>)</span>
+<span class="function">     </span>{
+
+     }
+     <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">ActionCommand</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         SR.SaveData();
+     }
+ }
+</code></pre>
+</li>
+<li>创建一个命令发出类 <pre><code class="csharp"><span class="keyword">class</span> <span class="title">CommandInvoke</span>
+ {
+     <span class="keyword">private</span> CommandBase CD;
+     <span class="function"><span class="keyword">public</span> <span class="title">CommandInvoke</span>(<span class="params">CommandBase cb</span>)</span>
+<span class="function">     </span>{
+         CD = cb;
+     }
+     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoCommand</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         CD.ActionCommand();
+     }
+ }
+</code></pre>
+</li>
+<li>我们可以这样用  <pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">     </span>{
+         ServerReceiver sr = <span class="keyword">new</span> ServerReceiver();
+         CommandBase cb = <span class="keyword">new</span> SaveCommand(sr);
+         CommandInvoke ci = <span class="keyword">new</span> CommandInvoke(cb);
+         ci.DoCommand();
+         Console.Read();
+     }
+</code></pre>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2></li>
 </ol>
 <ul>
-<li>就是javascript的回调以用复杂的业务逻辑目前没有想到很好的办法。<br><a href="https://gitee.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
+<li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 </ul>
+<ol>
+<li>这样可以更好的让命令有序，</li>
+<li>可以执行uodo和redo的功能，想想怎么弄，我们可以把命令对象缓存起来啊，这样如果不成功我们redo一下</li>
+<li>扩展容易这是共同的好处了吧</li>
+<li>其实我们可以用命令来实现回调的。  </li>
+</ol>
 <hr>
-<p><strong>相信代码是一个一个的敲出来的，不是想出来也不是说出来的，但是你要想明白我说明白最后才要敲代码</strong></p>
+<blockquote>
+<p><strong>功能实快的快分为真快和假快，一分实现了第二次维护要一天，三次一周….;还有一种10分钟实现了第二次维护也是十分钟三次还是十分钟。那种更好呢？肯定第二种，现实生活中第一种好像活的也不错有可能比第二种还要好呢啊哈哈。</strong></p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -171,7 +196,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/10/18/C-JavaScript交互/" data-title="C#JavaScript交互 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/10/19/设计-命令模式/" data-title="[设计]命令模式 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -181,18 +206,18 @@ var _hmt = _hmt || [];
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/10/19/设计-组合模式/" title="[设计]组合模式">
+ <a href="/2017/10/19/设计-适配器模式/" title="[设计]适配器模式">
   <strong>新一篇:</strong><br/>
   <span>
-  [设计]组合模式</span>
+  [设计]适配器模式</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/10/18/设计-单例模式/"  title="[设计]单例模式">
+<a href="/2017/10/19/设计-组合模式/"  title="[设计]组合模式">
  <strong>旧一篇:</strong><br/> 
- <span>[设计]单例模式
+ <span>[设计]组合模式
 </span>
 </a>
 </div>
@@ -202,7 +227,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="C#JavaScript交互" data-thread-key="C-JavaScript交互" data-author-key="Ants-double" data-url="http://ants-double.xin/post/C-JavaScript交互"></div>
+	<div class="ds-thread" data-title="[设计]命令模式" data-thread-key="设计-命令模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-命令模式"></div>
 	
 </section>
 
