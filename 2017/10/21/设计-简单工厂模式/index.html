@@ -4,14 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>[设计]访问者模式 | Ants-double</title>
+    <title>[设计]简单工厂模式 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="[设计]访问者模式场景
-雷达数据要处理的结果分为很多事，有的要转化为出时空图的数据有的要转化为出地图的数据，有的要转化为出波线图的数据以还要加其它图。这时数据源不变但是要经过不同的算法出来不同的数据结构  解决办法
-数据结构是稳定的，操作是变化的那么我就让它们都分离呗，都抽象一下。这样我们在处理数据">
+    <meta name="description" content="[设计]简单工厂模式场景
+能不能有那么一个东西，我进去一个需求出来一个产品，比如我想要一个风雷达，就出来一个可以测风的雷达，我想要一个温雷达，就出来一个测温的雷达。
+
+
+肯定能，自己建个雷达厂，装上个生产线，要什么有什么*解决办法
+
+
+我们这个雷达厂肯定要有对应的生产线，也就是雷达产生的类
+我们这个">
     
     
     
@@ -90,10 +96,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/19/设计-访问者模式/" title="[设计]访问者模式" itemprop="url">[设计]访问者模式</a>
+      <a href="/2017/10/21/设计-简单工厂模式/" title="[设计]简单工厂模式" itemprop="url">[设计]简单工厂模式</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-10-19T14:03:19.000Z" itemprop="datePublished">2017-10-19</time>
+    <time datetime="2017-10-21T06:00:36.000Z" itemprop="datePublished">2017-10-21</time>
   </p>
 </header>
 	<div class="article-content">
@@ -101,103 +107,69 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-访问者模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]访问者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.3.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-简单工厂模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]简单工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.3.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="设计-访问者模式"><a href="#设计-访问者模式" class="headerlink" title="[设计]访问者模式"></a>[设计]访问者模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
-<li>雷达数据要处理的结果分为很多事，有的要转化为出时空图的数据有的要转化为出地图的数据，有的要转化为出波线图的数据以还要加其它图。<br><em>这时数据源不变但是要经过不同的算法出来不同的数据结构</em>  <h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
-<li>数据结构是稳定的，操作是变化的那么我就让它们都分离呗，都抽象一下。这样我们在处理数据的类中把操作以参数的形式传进去这样我们就可以来实现两者的关系也就是直接朋友的关系了。</li>
-<li><p>这样对我们来说操作是可变化需要更改只要维护这个操作类就可以，就不用动数据结构生成和执行的类。<br>所以我们先创建两个抽象类</p>
-<pre><code class="csharp"><span class="keyword">public</span>  <span class="keyword">interface</span> <span class="title">IVisit</span>
+		<h1 id="设计-简单工厂模式"><a href="#设计-简单工厂模式" class="headerlink" title="[设计]简单工厂模式"></a>[设计]简单工厂模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>能不能有那么一个东西，我进去一个需求出来一个产品，比如我想要一个风雷达，就出来一个可以测风的雷达，我想要一个温雷达，就出来一个测温的雷达。</li>
+</ul>
+<ul>
+<li>肯定能，自己建个雷达厂，装上个生产线，要什么有什么*<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
+</ul>
+<ol>
+<li>我们这个雷达厂肯定要有对应的生产线，也就是雷达产生的类</li>
+<li>我们这个这个厂是不是最变化的就是生产线，如果添加一个生产线就能多生产一种雷达，所以我们设计的原则就是把多变易变的东西弄出去让它单独变，不变的稳定下来。</li>
+</ol>
+<ul>
+<li>首先我们肯定还是要这上一切都依赖于抽象，所以我们先来一个雷达基类。<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">LidarBase</span>
   {
-      <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">AElement a</span>)</span>;
-      <span class="function"><span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">BElement b</span>)</span>;
-  }
-   <span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">ElementBase</span>
-  {
-      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisit visit</span>)</span>;
-      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"></span>)</span>;
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>;
   }
 </code></pre>
-<p>-我们实现两种数据的结果也就是我们说的各种目的数据结构</p>
-<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AElement</span> : <span class="title">ElementBase</span>
+</li>
+<li>我们弄个两个生产线<pre><code class="csharp"><span class="keyword">class</span> <span class="title">TempLidar</span> : <span class="title">LidarBase</span>
   {
-      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisit visit</span>)</span>
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>
 <span class="function">      </span>{
-          visit.Visit(<span class="keyword">this</span>);
-      }
-
-      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          Console.WriteLine(<span class="string">"我是A"</span>);
+          Console.WriteLine(<span class="string">"我是温雷达"</span>);
       }
   }
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BElement</span> : <span class="title">ElementBase</span>
+<span class="keyword">class</span> <span class="title">WindLidar</span> : <span class="title">LidarBase</span>
   {
-      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">IVisit visit</span>)</span>
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>
 <span class="function">      </span>{
-          visit.Visit(<span class="keyword">this</span>);
-      }
-      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          Console.WriteLine(<span class="string">"我是B"</span>);
+          Console.WriteLine(<span class="string">"我是风雷达"</span>);
       }
   }
 </code></pre>
 </li>
-<li><p>我们再创建一下结构对象这里采用与网上一样的随机的方式</p>
-<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ObjectStruct</span>
+<li>最后我们给工厂一个生产接口就是接受需求的地方，也就是区分让那条生产线工作的那么个东西，能区分就好。当然好东西还是有好处的，区分的同时可能还可以做点其它的操作。<pre><code class="csahrp">class LidarFactory
   {
-      <span class="keyword">private</span> List&lt;ElementBase&gt; elements = <span class="keyword">new</span> List&lt;ElementBase&gt;();
-
-      <span class="keyword">public</span> List&lt;ElementBase&gt; Elements
+      public static LidarBase CreatLidar(string lidarFlag)
       {
-          <span class="keyword">get</span> { <span class="keyword">return</span> elements; }
-      }
-
-      <span class="function"><span class="keyword">public</span> <span class="title">ObjectStruct</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          Random rd = <span class="keyword">new</span> Random();
-          <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)
+          LidarBase lb = null;
+          switch (lidarFlag)
           {
-
-              <span class="keyword">int</span> num = rd.Next(<span class="number">10</span>);
-              <span class="keyword">if</span> (num&gt;<span class="number">5</span>)
-              {
-                  elements.Add(<span class="keyword">new</span> AElement());
-
-              }
-              <span class="keyword">else</span>
-              {
-                  elements.Add(<span class="keyword">new</span> BElement());
-              }
+              case &quot;wind&quot;:
+                  lb = new WindLidar();
+                  break;
+              case &quot;temp&quot;:
+                  lb = new TempLidar();
+                  break;
+              default:
+                  break;
           }
+          return lb;
       }
   }
 </code></pre>
 </li>
-<li><p>我们再创建具体的访问者</p>
-<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CreateVisitor</span> : <span class="title">IVisit</span>
-  {
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">AElement a</span>)</span>
+<li>最后客户可以这样用了。<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
 <span class="function">      </span>{
-          a.Print();
-      }
-
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Visit</span>(<span class="params">BElement b</span>)</span>
-<span class="function">      </span>{
-          b.Print();
-      }
-  }
-</code></pre>
-</li>
-<li>我们可以这样用<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
-<span class="function">      </span>{
-          ObjectStruct objectstrut = <span class="keyword">new</span> ObjectStruct();
-          <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> objectstrut.Elements)
-          {
-              item.Accept(<span class="keyword">new</span> CreateVisitor());
-          }
+          LidarBase lb1 = LidarFactory.CreatLidar(<span class="string">"wind"</span>);
+          lb1.CreateLidar();
+          LidarBase lb2 = LidarFactory.CreatLidar(<span class="string">"temp"</span>);
+          lb2.CreateLidar();
           Console.Read();
       }
 </code></pre>
@@ -205,12 +177,17 @@ var _hmt = _hmt || [];
 <li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 </ul>
 <ol>
-<li>这种结构如果数据结构也经常变化的话是不是发现我们添加访问者的难度还是很大的吧</li>
-<li>这种访问是没有限制的，我们可以访问这些类的所有的东西</li>
-<li>好处也明显就是添加操作也就是访问者的时候特别容易<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a>   </li>
+<li>是不是感觉这个工厂没有技术含量，每次想加个东西就要加生产线。</li>
+<li>是不是感觉如果这个工厂停电了，妈的，什么雷达都产生不了。如果一个个直接创建停电一个还能产生其它的呢。</li>
 </ol>
+<ul>
+<li>同样是不是我们不用操作怎么生产了，交给工厂了。</li>
+<li>责任分的更细了，出了问题也方便确定是谁的问题，维护肯定更快更好了</li>
+</ul>
 <hr>
-<p><strong>模式是死的，人是活的，但是模式也是可以活用的，不可能一个程序只有一种模式，模式其它就是设计原则的展开，现在有很多的模式没有写入这经典中但是也是常用的。比如DDD这样，学模式用模式而不死于模式。如果老板说实现某个功能快的话有1万块钱，我肯定怎么怎么写了哈哈哈哈</strong></p>
+<blockquote>
+<p>不论我们面对的是什么，只要敢于面对，这时候才能说我面对了，只要没有死，就别说尽力了。世上千里马少有，伯乐也少有。</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -220,7 +197,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/10/19/设计-访问者模式/" data-title="[设计]访问者模式 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/10/21/设计-简单工厂模式/" data-title="[设计]简单工厂模式 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -230,18 +207,18 @@ var _hmt = _hmt || [];
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/10/21/设计-简单工厂模式/" title="[设计]简单工厂模式">
+ <a href="/2017/10/21/设计-工厂模式/" title="[设计]工厂模式">
   <strong>新一篇:</strong><br/>
   <span>
-  [设计]简单工厂模式</span>
+  [设计]工厂模式</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/10/19/设计-观察者模式/"  title="[设计]观察者模式">
+<a href="/2017/10/19/设计-访问者模式/"  title="[设计]访问者模式">
  <strong>旧一篇:</strong><br/> 
- <span>[设计]观察者模式
+ <span>[设计]访问者模式
 </span>
 </a>
 </div>
@@ -251,7 +228,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="[设计]访问者模式" data-thread-key="设计-访问者模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-访问者模式"></div>
+	<div class="ds-thread" data-title="[设计]简单工厂模式" data-thread-key="设计-简单工厂模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-简单工厂模式"></div>
 	
 </section>
 

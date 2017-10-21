@@ -1,0 +1,519 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>[设计]抽象工厂模式 | Ants-double</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Ants-double">
+    
+    <meta name="description" content="[设计]抽象工厂模式场景
+其实也是解决工厂模式的不足。
+
+
+但是不论怎么改工厂的性质是不会变的。所以雷达产品与功能经常性的变化，建议不要采用这样模式。*解决办法
+
+
+添加抽象工厂的抽象接口是不是就可以添加一种产品了
+添加不同的抽象工厂是不是把实现又向后推了一下，更活性更好了。
+
+
+我们先创建工厂基本">
+    
+    
+    
+    
+    <link rel="alternative" href="/Tinnypp/atom.xml" title="Ants-double" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+
+  
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    
+  
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d182ed77fc48758bf45a33835ee35745";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','.............Add your swiftype userID...............');
+</script>
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Ants-double">Ants-double</a></h1>
+				<h2 class="blog-motto">每天进步一点点</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/Tinnypp">首页</a></li>
+					
+						<li><a href="/Tinnypp/archives">归档</a></li>
+					
+					<li>
+					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-inpu" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>-->
+
+				</ul>
+			</nav>	
+</div>
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/10/21/设计-抽象工厂模式/" title="[设计]抽象工厂模式" itemprop="url">[设计]抽象工厂模式</a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2017-10-21T06:38:12.000Z" itemprop="datePublished">2017-10-21</time>
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title"></strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-抽象工厂模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]抽象工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.3.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
+		</div>
+		
+		<h1 id="设计-抽象工厂模式"><a href="#设计-抽象工厂模式" class="headerlink" title="[设计]抽象工厂模式"></a>[设计]抽象工厂模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>其实也是解决工厂模式的不足。</li>
+</ul>
+<ul>
+<li>但是不论怎么改工厂的性质是不会变的。所以雷达产品与功能经常性的变化，建议不要采用这样模式。*<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
+</ul>
+<ol>
+<li>添加抽象工厂的抽象接口是不是就可以添加一种产品了</li>
+<li>添加不同的抽象工厂是不是把实现又向后推了一下，更活性更好了。</li>
+</ol>
+<ul>
+<li>我们先创建工厂基本和产品基类<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">FactoryBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> LidarBase <span class="title">CreatLidar</span>(<span class="params"></span>)</span>;
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> AirPlaneBase <span class="title">CreatAirPlane</span>(<span class="params"></span>)</span>;
+  }
+<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>;
+  }
+<span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AirPlaneBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">CreatePlane</span>(<span class="params"></span>)</span>;
+  }
+</code></pre>
+</li>
+<li>我们再创建具体的产品子类<pre><code class="csharp"><span class="keyword">class</span> <span class="title">TempLidarBJ</span> : <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是北京的温雷达"</span>);
+      }
+  }
+<span class="keyword">class</span> <span class="title">TempLidarSH</span> : <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是上海的温雷达"</span>);
+      }
+  }
+<span class="keyword">class</span> <span class="title">TempPlaneBJ</span> : <span class="title">AirPlaneBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreatePlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是北京的温飞机"</span>);
+      }
+  }
+<span class="keyword">class</span> <span class="title">TempPlaneSH</span> : <span class="title">AirPlaneBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreatePlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是上海的温飞机"</span>);
+      }
+  }
+<span class="keyword">class</span> <span class="title">WindLidarBJ</span> : <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是北京的风雷达"</span>);
+      }
+  }
+<span class="keyword">class</span> <span class="title">WindLidarSH</span> : <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreateLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是上海的风雷达"</span>);
+      }
+  }
+<span class="keyword">class</span> <span class="title">WindAirPlaneSH</span> : <span class="title">AirPlaneBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreatePlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是上海的风飞机"</span>);
+      }
+  }
+<span class="keyword">class</span> <span class="title">WindAriPlaneBJ</span> : <span class="title">AirPlaneBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CreatePlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"我是北京的风飞机"</span>);
+      }
+  }
+</code></pre>
+</li>
+<li><p>我们可以创建不同的工厂类了</p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">TempFactoryBJ</span> : <span class="title">FactoryBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> AirPlaneBase <span class="title">CreatAirPlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> TempPlaneBJ();
+      }
+
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> LidarBase <span class="title">CreatLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> TempLidarBJ();
+      }
+  }
+<span class="keyword">class</span> <span class="title">TempFactorySH</span> : <span class="title">FactoryBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> AirPlaneBase <span class="title">CreatAirPlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> TempPlaneSH();
+      }
+
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> LidarBase <span class="title">CreatLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+         <span class="keyword">return</span> <span class="keyword">new</span> TempLidarSH();
+      }
+  }
+<span class="keyword">class</span> <span class="title">WindFactorySH</span> : <span class="title">FactoryBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> AirPlaneBase <span class="title">CreatAirPlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> WindAirPlaneSH();
+      }
+
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> LidarBase <span class="title">CreatLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> WindLidarSH();
+      }
+  }
+<span class="keyword">class</span> <span class="title">WindFactoryBJ</span> : <span class="title">FactoryBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> AirPlaneBase <span class="title">CreatAirPlane</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> WindAriPlaneBJ();
+      }
+
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> LidarBase <span class="title">CreatLidar</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> WindLidarBJ();
+      }
+  }
+</code></pre>
+</li>
+<li>我们可以这样用了<br>``` csharp<br>static void Main(string[] args)<pre><code>{
+    FactoryBase bjWindfactory = new WindFactoryBJ();
+    FactoryBase bjTempFactory = new TempFactoryBJ();
+    LidarBase bjWindLidar = bjWindfactory.CreatLidar();
+    bjWindLidar.CreateLidar();
+    LidarBase bjTempLidar = bjTempFactory.CreatLidar();
+    bjTempLidar.CreateLidar();
+    AirPlaneBase bjWindPlane = bjWindfactory.CreatAirPlane();
+    bjWindPlane.CreatePlane();
+    AirPlaneBase bjTempPlane = bjTempFactory.CreatAirPlane();
+    bjTempPlane.CreatePlane();
+    FactoryBase shWindFactory = new WindFactorySH();
+    FactoryBase shTempFactory = new TempFactorySH();
+    LidarBase shWindLidar = shWindFactory.CreatLidar();
+    shWindLidar.CreateLidar();
+    LidarBase shTempLidar = shTempFactory.CreatLidar();
+    shTempLidar.CreateLidar();
+    AirPlaneBase shWindPlane = shWindFactory.CreatAirPlane();
+    shWindPlane.CreatePlane();
+    AirPlaneBase shTempPlane = shTempFactory.CreatAirPlane();
+    shTempPlane.CreatePlane();
+    Console.Read();
+</code></pre></li>
+</ul>
+<pre><code>}
+</code></pre><p>```  </p>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><ul>
+<li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
+</ul>
+<ol>
+<li>子类过多是不是很多呢，每个新品的变化都会带来很多类的添加</li>
+<li>优点还是那些就是耦合度的降底维护成本底，其实我们可以用反射来进行消除那些switch case的操作,反射影响性能，那只是你用的不好，不要害工具。你轮不起金空棒还怪金空棒沉。<br>3.如果一个系统只用产品不在意细节，多个产品只消费其中一个，还有类库的编写，对外提供统一的接口时最好用工厂模式。</li>
+</ol>
+<hr>
+<blockquote>
+<p>不要听风就是雨，眼见不一定为实，用代码说话，用框架说话。不要纵容小人与坏人，这是好人的第一原则，你纵容了小人与坏人，他们的胆子又大了一分那样对社会对公司带的影响就更大了。</p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://ants-double.xin/2017/10/21/设计-抽象工厂模式/" data-title="[设计]抽象工厂模式 | Ants-double" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/10/21/设计-工厂模式/"  title="[设计]工厂模式">
+ <strong>旧一篇:</strong><br/> 
+ <span>[设计]工厂模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="[设计]抽象工厂模式" data-thread-key="设计-抽象工厂模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-抽象工厂模式"></div>
+	
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	<div class="copyright">
+		<span>Powered by <a href="https://github.com/hexojs/hexo">Hexo</a> and theme by 
+		<a href="https://github.com/levonlin/Tinnypp">Tinnypp</a>.</span>
+		
+			<span>© Ants-double</span>
+		
+	<div>
+</div></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"tinnypp"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';    //change to ds.src = '/js/embed.js'; to add useragent for duoshuo
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+<script type="text/javascript">
+  function footerPosition() {
+    var contentHeight = document.documentElement.scrollHeight,
+        winHeight = window.innerHeight;
+    if(contentHeight <= winHeight) {
+      $('footer').addClass('fixed-bottom');
+    } else {
+      $('footer').removeClass('fixed-bottom');
+    }
+  }
+  footerPosition();
+  $(window).resize(footerPosition);
+</script>
+
+
+  </body>
+</html>
