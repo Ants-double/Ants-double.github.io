@@ -248,7 +248,8 @@ var _hmt = _hmt || [];
   }
 </code></pre>
 </li>
-<li>我们可以这样用了<br>``` csharp<br>static void Main(string[] args)<pre><code>{
+<li><p>我们可以这样用了<br>``` csharp<br>static void Main(string[] args)</p>
+<pre><code>{
     FactoryBase bjWindfactory = new WindFactoryBJ();
     FactoryBase bjTempFactory = new TempFactoryBJ();
     LidarBase bjWindLidar = bjWindfactory.CreatLidar();
@@ -273,13 +274,13 @@ var _hmt = _hmt || [];
 </code></pre></li>
 </ul>
 <pre><code>}
-</code></pre><p>```  </p>
+</code></pre><p>```   </p>
 <h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><ul>
 <li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 </ul>
 <ol>
 <li>子类过多是不是很多呢，每个新品的变化都会带来很多类的添加</li>
-<li>优点还是那些就是耦合度的降底维护成本底，其实我们可以用反射来进行消除那些switch case的操作,反射影响性能，那只是你用的不好，不要害工具。你轮不起金空棒还怪金空棒沉。<br>3.如果一个系统只用产品不在意细节，多个产品只消费其中一个，还有类库的编写，对外提供统一的接口时最好用工厂模式。</li>
+<li>优点还是那些就是耦合度的降底维护成本底，其实我们可以用反射来进行消除那些switch case的操作,反射影响性能，那只是你用的不好，不要害工具。你轮不起金空棒还怪金空棒沉。<br>3.如果一个系统只用产品不在意细节，多个产品只消费其中一个，还有类库的编写，对外提供统一的接口时最好用工厂模式。<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a> </li>
 </ol>
 <hr>
 <blockquote>
