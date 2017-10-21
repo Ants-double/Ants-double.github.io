@@ -110,31 +110,39 @@ var _hmt = _hmt || [];
 <li>我们可以创建这个对象的原型，如果需要的时候我们把这个对象的另一份副本返回出来</li>
 <li>由于堆栈的问题可能分为深拷贝和浅拷贝的问题</li>
 <li>C# 提供了ICloneable这个接口让对象类实现这个接口就可以了</li>
-<li>我们这里不使用这个接口，比较简单我们直接写了我们先创建一个基类<br>``` csharp<br>public abstract  class LidarBase<br>  {<pre><code>public string ID { get; set; }
-</code></pre></li>
+<li>我们这里不使用这个接口，比较简单我们直接写了我们先创建一个基类  </li>
 </ul>
-<pre><code>    public LidarBase(string id)
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">LidarBase</span>
     {
-        ID = id;
-    }
-    public abstract LidarBase Clone();
-}
-</code></pre><pre><code>- 我们创建一个具体的对象类
-``` csharp
- class ConcretePrototype : LidarBase
-    {
-        public ConcretePrototype(string id):base(id)
-        {
+        <span class="keyword">public</span> <span class="keyword">string</span> ID { <span class="keyword">get</span>; <span class="keyword">set</span>; }
 
-        }
 
-        public override LidarBase Clone()
-        {
-            return (LidarBase) this.MemberwiseClone();
+
+        <span class="function"><span class="keyword">public</span> <span class="title">LidarBase</span>(<span class="params"><span class="keyword">string</span> id</span>)</span>
+<span class="function">        </span>{
+            ID = id;
         }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> LidarBase <span class="title">Clone</span>(<span class="params"></span>)</span>;
     }
-</code></pre><ul>
-<li>上面可以看到我们用的浅拷贝，之后我们就可以这样用了，大家用的时候要注意引用和值的区别<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+</code></pre>
+<ul>
+<li><p>我们创建一个具体的对象类</p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">ConcretePrototype</span> : <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="title">ConcretePrototype</span>(<span class="params"><span class="keyword">string</span> id</span>):<span class="title">base</span>(<span class="params">id</span>)</span>
+<span class="function">      </span>{
+
+      }
+
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> LidarBase <span class="title">Clone</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> (LidarBase) <span class="keyword">this</span>.MemberwiseClone();
+      }
+  }
+</code></pre>
+</li>
+<li><p>上面可以看到我们用的浅拷贝，之后我们就可以这样用了，大家用的时候要注意引用和值的区别</p>
+<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
 <span class="function">      </span>{
           LidarBase lidar = <span class="keyword">new</span> ConcretePrototype(<span class="string">"wind"</span>);
           LidarBase lidarone = lidar.Clone();
@@ -143,7 +151,9 @@ var _hmt = _hmt || [];
           Console.Read();
       }
 </code></pre>
-<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2></li>
+</li>
+</ul>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><ul>
 <li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 </ul>
 <ol>
