@@ -4,15 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>[设计]原型模式 | Ants-double</title>
+    <title>[设计]享元模式 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="[设计]原型模式场景
-我们有时候要使用不同的雷达对象这样我们就复制一份，这是这样会占很多内存，这时我们可以把这个操作放在要使用之前而不是上来就使用简单的说就是不到万不得一不要去审请内存解决办法
-我们可以创建这个对象的原型，如果需要的时候我们把这个对象的另一份副本返回出来
-由于堆栈的问题可能分为深拷贝">
+    <meta name="description" content="[设计]享元模式场景
+就是一个对象要不停的在用，要不停的复制与拷贝，那这样我们能不能装这个对象不变的部分与变化的部分分开呢简单的说就是能不能不要保存那么多对象，不要那么多内存，那么这些对象内部状态很多的部分组成解决办法
+
+
+我们要做的把对象分为内外两个部分
+
+
+我们先创建一些基类public abs">
     
     
     
@@ -91,10 +95,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/21/设计-原型模式/" title="[设计]原型模式" itemprop="url">[设计]原型模式</a>
+      <a href="/2017/10/22/设计-享元模式/" title="[设计]享元模式" itemprop="url">[设计]享元模式</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-10-21T13:13:19.000Z" itemprop="datePublished">2017-10-21</time>
+    <time datetime="2017-10-22T02:15:57.000Z" itemprop="datePublished">2017-10-22</time>
   </p>
 </header>
 	<div class="article-content">
@@ -102,68 +106,94 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-原型模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]原型模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.3.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-享元模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]享元模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.3.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.4.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="设计-原型模式"><a href="#设计-原型模式" class="headerlink" title="[设计]原型模式"></a>[设计]原型模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
-<li>我们有时候要使用不同的雷达对象这样我们就复制一份，这是这样会占很多内存，这时我们可以把这个操作放在要使用之前而不是上来就使用<br><em>简单的说就是不到万不得一不要去审请内存</em><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
-<li>我们可以创建这个对象的原型，如果需要的时候我们把这个对象的另一份副本返回出来</li>
-<li>由于堆栈的问题可能分为深拷贝和浅拷贝的问题</li>
-<li>C# 提供了ICloneable这个接口让对象类实现这个接口就可以了</li>
-<li>我们这里不使用这个接口，比较简单我们直接写了我们先创建一个基类  </li>
+		<h1 id="设计-享元模式"><a href="#设计-享元模式" class="headerlink" title="[设计]享元模式"></a>[设计]享元模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>就是一个对象要不停的在用，要不停的复制与拷贝，那这样我们能不能装这个对象不变的部分与变化的部分分开呢<br><em>简单的说就是能不能不要保存那么多对象，不要那么多内存，那么这些对象内部状态很多的部分组成</em><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
 </ul>
-<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">LidarBase</span>
-    {
-        <span class="keyword">public</span> <span class="keyword">string</span> ID { <span class="keyword">get</span>; <span class="keyword">set</span>; }
-
-
-
-        <span class="function"><span class="keyword">public</span> <span class="title">LidarBase</span>(<span class="params"><span class="keyword">string</span> id</span>)</span>
-<span class="function">        </span>{
-            ID = id;
-        }
-        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> LidarBase <span class="title">Clone</span>(<span class="params"></span>)</span>;
-    }
-</code></pre>
+<ol>
+<li>我们要做的把对象分为内外两个部分</li>
+</ol>
 <ul>
-<li><p>我们创建一个具体的对象类</p>
-<pre><code class="csharp"><span class="keyword">class</span> <span class="title">ConcretePrototype</span> : <span class="title">LidarBase</span>
+<li>我们先创建一些基类<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">FlyWeight</span>
   {
-      <span class="function"><span class="keyword">public</span> <span class="title">ConcretePrototype</span>(<span class="params"><span class="keyword">string</span> id</span>):<span class="title">base</span>(<span class="params">id</span>)</span>
+      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Opeartion</span>(<span class="params"><span class="keyword">int</span> iNumber</span>)</span>;
+  }
+</code></pre>
+</li>
+<li><p>创建一个具体的和工厂</p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">ConcreterFlyweight</span> : <span class="title">FlyWeight</span>
+  {
+      <span class="keyword">private</span> <span class="keyword">string</span> inNumber;
+      <span class="function"><span class="keyword">public</span> <span class="title">ConcreterFlyweight</span>(<span class="params"><span class="keyword">string</span> innerState</span>)</span>
 <span class="function">      </span>{
-
+          inNumber = innerState;
+      }
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Opeartion</span>(<span class="params"><span class="keyword">int</span> iNumber</span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"外部的{0},内部的{1}"</span>,iNumber,inNumber);
+      }
+  }
+<span class="keyword">class</span> <span class="title">FlyweightFactory</span>
+  {
+      <span class="keyword">public</span> Dictionary&lt;<span class="keyword">string</span>, FlyWeight&gt; flyList = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, FlyWeight&gt;();
+      <span class="function"><span class="keyword">public</span> <span class="title">FlyweightFactory</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          flyList.Add(<span class="string">"A"</span>, <span class="keyword">new</span> ConcreterFlyweight(<span class="string">"A"</span>));
+          flyList.Add(<span class="string">"B"</span>, <span class="keyword">new</span> ConcreterFlyweight(<span class="string">"B"</span>));
       }
 
-      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> LidarBase <span class="title">Clone</span>(<span class="params"></span>)</span>
+      <span class="function"><span class="keyword">public</span> FlyWeight <span class="title">GetFlyWeight</span>(<span class="params"><span class="keyword">string</span> key</span>)</span>
 <span class="function">      </span>{
-          <span class="keyword">return</span> (LidarBase) <span class="keyword">this</span>.MemberwiseClone();
+          <span class="keyword">if</span> (flyList.ContainsKey(key))
+          {
+              <span class="keyword">return</span> flyList[key] <span class="keyword">as</span> FlyWeight;
+          }
+          <span class="keyword">else</span>
+          {
+              <span class="keyword">return</span> <span class="literal">null</span>;
+          }
+
       }
   }
 </code></pre>
 </li>
-<li><p>上面可以看到我们用的浅拷贝，之后我们就可以这样用了，大家用的时候要注意引用和值的区别</p>
+<li><p>我们可以这样用</p>
 <pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
 <span class="function">      </span>{
-          LidarBase lidar = <span class="keyword">new</span> ConcretePrototype(<span class="string">"wind"</span>);
-          LidarBase lidarone = lidar.Clone();
-          Console.WriteLine(lidarone.ID);
-          Console.WriteLine(lidar.ID);
+          <span class="keyword">int</span> exStatue = <span class="number">10</span>;
+          FlyweightFactory factory = <span class="keyword">new</span> FlyweightFactory();
+          FlyWeight fa = factory.GetFlyWeight(<span class="string">"A"</span>);
+          <span class="keyword">if</span> (<span class="literal">null</span>!=fa)
+          {
+              fa.Opeartion(exStatue);
+          }
+          FlyWeight fd = factory.GetFlyWeight(<span class="string">"D"</span>);
+          <span class="keyword">if</span> (<span class="literal">null</span>!=fd)
+          {
+
+              fd.Opeartion(exStatue);
+          }
+          <span class="keyword">else</span>
+          {
+              ConcreterFlyweight d = <span class="keyword">new</span> ConcreterFlyweight(<span class="string">"D"</span>);
+              factory.flyList.Add(<span class="string">"D"</span>, d);
+
+          }
           Console.Read();
       }
 </code></pre>
-</li>
-</ul>
-<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><ul>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2></li>
 <li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 </ul>
 <ol>
-<li>我们不用知道对象的细节就可以创建对象</li>
-<li>我们可以动态的操作对象的个数我们也不用知道对象的等级结构 ，电脑就是二进制你传一样的数据，再转成一样的对象，那就完全一样的，这也是破解一些原理。</li>
-<li>我们必须要写一个Clone的方法，我们要对类的功能仔细的考虑，如果是用别人的类，那难度可能就大了，如果不支持序列化，那估计要几几了。<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a> </li>
+<li>就是细分的话会增加很大的复杂度，没有直接弄很多对象写的爽，但是维护起来还是这个爽</li>
+<li>这个我很少用，基本没有用过用过了再说详细点<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a> </li>
 </ol>
 <hr>
 <blockquote>
-<p>我们要相信自己的代码，写完要进行测试的这个测试不是让测试人员测试，而是我们要建议自己测试工程进行白测而不是让别人来测，这样就会少很多的Bug,当然如果公司以Bug数据来考评那倒是无所谓了，当是要对自己的代码负责，如果真有如上的公司，go go 也不是一个好的选择，不尊重知识与技术，肯定不会在以后的社会中活的很好的公司。</p>
+<p>知道的记下来，经历过的也记下来，那样回忆就有据可查。</p>
 </blockquote>
   
 	</div>
@@ -174,7 +204,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/10/21/设计-原型模式/" data-title="[设计]原型模式 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/10/22/设计-享元模式/" data-title="[设计]享元模式 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -183,19 +213,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/10/22/设计-外观模式/" title="[设计]外观模式">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [设计]外观模式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/21/设计-建造者模式/"  title="[设计]建造者模式">
+<a href="/2017/10/22/设计-外观模式/"  title="[设计]外观模式">
  <strong>旧一篇:</strong><br/> 
- <span>[设计]建造者模式
+ <span>[设计]外观模式
 </span>
 </a>
 </div>
@@ -205,7 +227,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="[设计]原型模式" data-thread-key="设计-原型模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-原型模式"></div>
+	<div class="ds-thread" data-title="[设计]享元模式" data-thread-key="设计-享元模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-享元模式"></div>
 	
 </section>
 
