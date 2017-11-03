@@ -91,6 +91,157 @@ var _hmt = _hmt || [];
   <article>
     <h1 itemprop="name">
       
+        <a href="/2017/10/21/设计-抽象工厂模式/" title="[设计]抽象工厂模式" itemprop="url">
+      
+        [设计]抽象工厂模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]抽象工厂模式场景
+其实也是解决工厂模式的不足。
+
+
+但是不论怎么改工厂的性质是不会变的。所以雷达产品与功能经常性的变化，建议不要采用这样模式。*解决办法
+
+
+添加抽象工厂的抽象接口是不是就可以添加一种产品了
+添加不同的抽象工厂是不是把实现又向后推了一下，更活性更好了。
+
+</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-21T06:38:12.000Z" itemprop="datePublished">2017-10-21</time>
+      
+          <a href="/2017/10/21/设计-抽象工厂模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
+        <a href="/2017/10/21/设计-工厂模式/" title="[设计]工厂模式" itemprop="url">
+      
+        [设计]工厂模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]工厂模式场景
+就是简单工厂模式每次添加一个雷达都要重新改工厂，万一把工厂改坏了，那不就扯淡了。  
+
+
+要想让一个东西变化的东西稳定就抽象它，抽象才稳定，可是最终还是要实现，所以实现要推到子类中了，只要使用之前实现了原则是推迟都是没有问题。*解决办法
+
+
+如上所说，工厂要</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-21T06:23:04.000Z" itemprop="datePublished">2017-10-21</time>
+      
+          <a href="/2017/10/21/设计-工厂模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
+        <a href="/2017/10/21/设计-简单工厂模式/" title="[设计]简单工厂模式" itemprop="url">
+      
+        [设计]简单工厂模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]简单工厂模式场景
+能不能有那么一个东西，我进去一个需求出来一个产品，比如我想要一个风雷达，就出来一个可以测风的雷达，我想要一个温雷达，就出来一个测温的雷达。
+
+
+肯定能，自己建个雷达厂，装上个生产线，要什么有什么*解决办法
+
+
+我们这个雷达厂肯定要有对应的生产线，也就是雷</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-21T06:00:36.000Z" itemprop="datePublished">2017-10-21</time>
+      
+          <a href="/2017/10/21/设计-简单工厂模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
+        <a href="/2017/10/19/设计-访问者模式/" title="[设计]访问者模式" itemprop="url">
+      
+        [设计]访问者模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]访问者模式场景
+雷达数据要处理的结果分为很多事，有的要转化为出时空图的数据有的要转化为出地图的数据，有的要转化为出波线图的数据以还要加其它图。这时数据源不变但是要经过不同的算法出来不同的数据结构  解决办法
+数据结构是稳定的，操作是变化的那么我就让它们都分离呗，都抽象一下</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-19T14:03:19.000Z" itemprop="datePublished">2017-10-19</time>
+      
+          <a href="/2017/10/19/设计-访问者模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
+        <a href="/2017/10/19/设计-观察者模式/" title="[设计]观察者模式" itemprop="url">
+      
+        [设计]观察者模式
+      </a>
+    </h1>
+    
+     
+           <p itemprop="description" >[设计]观察者模式场景
+有很多客户端不定的会连接交互模块，也不知道何时退出，要实现连接上就进行消息推送，不连接就不推送。简单的办法找一个集合来记录所有的对象，如果来消息就扫一遍这个集合，然后执行对应的操作。  解决办法
+
+
+能实现让这个记动权放在客户端手里吗？
+能够依赖于抽象吗？</p>
+        
+    
+    <p class="article-more-link">
+      <time datetime="2017-10-19T10:22:14.000Z" itemprop="datePublished">2017-10-19</time>
+      
+          <a href="/2017/10/19/设计-观察者模式/">阅读更多&raquo;</a>
+      
+    </p>
+
+  </article>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  <article>
+    <h1 itemprop="name">
+      
         <a href="/2017/10/19/设计-适配器模式/" title="[设计]适配器模式" itemprop="url">
       
         [设计]适配器模式
@@ -223,136 +374,6 @@ var _hmt = _hmt || [];
       <time datetime="2017-10-18T12:10:17.000Z" itemprop="datePublished">2017-10-18</time>
       
           <a href="/2017/10/18/设计-单例模式/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/18/设计-桥接模式/" title="[设计]桥接模式" itemprop="url">
-      
-        [设计]桥接模式
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >[设计]桥接模式场景
-我们有很多雷达，所有的产品基本都是差不多的，但是具体的实现细节不太一样，这时如果采用继承，每个雷达子类中都会有很多相同的代码，而且如果修改了父类，所有的子类都要修改。 其实细心就会发现违背了单一职责和开闭原则。最至命的是扩展性太差了。搞的每次一个小功能基本都</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-18T11:25:17.000Z" itemprop="datePublished">2017-10-18</time>
-      
-          <a href="/2017/10/18/设计-桥接模式/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/18/设计-策略模式/" title="[设计]策略模式" itemprop="url">
-      
-        [设计]策略模式
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >[设计]策略模式场景
-雷达每次都有很多的通道，但是每个通道的数据和展示是不太一样的，这样就会形成很多的ifelse switch case 等。所以我们想能不能把所有的通道都封装成一个类呢。答案肯定是可以的。这样我们每次只要切换不能的通道调用不同的类就可以了。简单的也就是说各个通</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-18T11:24:08.000Z" itemprop="datePublished">2017-10-18</time>
-      
-          <a href="/2017/10/18/设计-策略模式/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/17/ForgotPunchClock/" title="[职场]三次忘打卡引发的思考" itemprop="url">
-      
-        [职场]三次忘打卡引发的思考
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >[职场]三次忘打卡引发的思考
-今天发工资了，好开心，可是看到那个数字心中一紧：怎么少了脑子马上转动起来，我请假了吗？我有罚款吗？没有啊。仔细一想我这个月说有三次忘记打卡了（二次是充许的）。可是我提交了忘打卡的记录啊。我有人证啊，我就在老大边上做啊。可以看视频啊。很多办法可能证明我</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-17T11:35:45.000Z" itemprop="datePublished">2017-10-17</time>
-      
-          <a href="/2017/10/17/ForgotPunchClock/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/17/设计-责任链模式/" title="[设计]责任链模式" itemprop="url">
-      
-        [设计]责任链模式
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >[设计] 责任链模式场景
-雷达的数据有时候需要抽析有时候要做一些处理，有时间不要，一句话也就是代码中会出现很多的if else 语句。这时候一但再修改会带来很大的工作量。  
-常见的写法就是写呗，if else if else …  
-解决办法
-我们把所有的不同条件下的处理都分布</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-17T10:58:13.000Z" itemprop="datePublished">2017-10-17</time>
-      
-          <a href="/2017/10/17/设计-责任链模式/">阅读更多&raquo;</a>
-      
-    </p>
-
-  </article>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  <article>
-    <h1 itemprop="name">
-      
-        <a href="/2017/10/17/设计-装饰者模式/" title="[设计]装饰者模式" itemprop="url">
-      
-        [设计]装饰者模式
-      </a>
-    </h1>
-    
-     
-           <p itemprop="description" >装饰者模式场景
-不同的雷达有不同的功能但是大部分都相同，如查用继承就会写很多相同的代码，而且功能和雷达之间是偶合关系强，迁一发而动全身。你可以想到类似的场景如:不同的电脑有不同的配置等等  解决方法
-如果雷达能动态的添加或者去除某些功能是不是就ok了。  
-但是功能只能适用于雷达</p>
-        
-    
-    <p class="article-more-link">
-      <time datetime="2017-10-17T10:13:15.000Z" itemprop="datePublished">2017-10-17</time>
-      
-          <a href="/2017/10/17/设计-装饰者模式/">阅读更多&raquo;</a>
       
     </p>
 

@@ -4,14 +4,10 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>[设计]模版模式 | Ants-double</title>
+    <title>[设计]代理模式 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
-    
-    <meta name="description" content="[设计]模版模式场景
-我们有些操作流程是固定的第一步做什么第二步什么一切都是定的，就像古代的君主一样，生生世世都不变的都东西解决办法
-我们肯定就是在它一出生就它的流程定下来，对于一个对象一出生也就是它如查不继承别人就是它自己，但是设计依赖了抽象的原则是不能变的。所以我们一般是在它的基类的方法中把流程">
     
     
     
@@ -90,10 +86,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/03/设计-模版模式/" title="[设计]模版模式" itemprop="url">[设计]模版模式</a>
+      <a href="/2017/11/03/设计-代理模式/" title="[设计]代理模式" itemprop="url">[设计]代理模式</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-11-03T11:05:43.000Z" itemprop="datePublished">2017-11-03</time>
+    <time datetime="2017-11-03T11:48:58.000Z" itemprop="datePublished">2017-11-03</time>
   </p>
 </header>
 	<div class="article-content">
@@ -101,76 +97,10 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-模版模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]模版模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">1.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.4.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.5.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
+		
 		</div>
 		
-		<h1 id="设计-模版模式"><a href="#设计-模版模式" class="headerlink" title="[设计]模版模式"></a>[设计]模版模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
-<li>我们有些操作流程是固定的第一步做什么第二步什么一切都是定的，就像古代的君主一样，生生世世都不变的都东西<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
-<li>我们肯定就是在它一出生就它的流程定下来，对于一个对象一出生也就是它如查不继承别人就是它自己，但是设计依赖了抽象的原则是不能变的。所以我们一般是在它的基类的方法中把流程固化下来</li>
-<li>还有一点就是要注意，这个方法一定不能被子类重写，不然你懂得，流程就不是固化了</li>
-<li>最近没有写设计模式相关的东西，因为其它的几种模式要不就是太经常见到了，要不就是太不经常见到了。但是想着还是常见的写完了，切记设计模式不止23种但这是第一次系统的总结也最为流传的，现在出了很多的设计模式都有自己的适应特点。这只是招式，不要过度迷恋。  <h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2></li>
-<li><p>我们新建一个子类</p>
-<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">LidarBase</span>
-  {
-
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TemplateFunction</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          StartLidar();
-          StartCollectionData();
-          CloseLidar();
-
-      }
-      <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          Console.WriteLine(<span class="string">"开始开雷达"</span>);
-      }
-      <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">StartCollectionData</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          Console.WriteLine(<span class="string">"开始采数"</span>);
-      }
-      <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">CloseLidar</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          Console.WriteLine(<span class="string">"开始关雷达"</span>);
-      }
-  }
-</code></pre>
-</li>
-<li>我们实例化一个子类<pre><code class="csharp"><span class="keyword">class</span> <span class="title">TempLidar</span>:<span class="title">LidarBase</span>
-  {
-      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">StartLidar</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          <span class="keyword">base</span>.StartLidar();
-          Console.WriteLine(<span class="string">"开始开温雷达"</span>);
-      }
-  }
-</code></pre>
-</li>
-<li><p>最后我们可以这样调用</p>
-<pre><code class="csharp"><span class="keyword">class</span> <span class="title">Program</span>
-  {
-      <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
-<span class="function">      </span>{
-          TempLidar tl = <span class="keyword">new</span> TempLidar();
-          tl.TemplateFunction();
-          Console.Read();
-
-      }
-  }
-</code></pre>
-<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2></li>
-<li>占坑（放心一定会补的，只办为自己家里的电脑有点老破powerdesigner装上卡的点不动，stratuml用不习惯，等习惯了一定补上）<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
-<li>一定要注意流程不变，切以后不论需求怎么更改都不会变的东西最好用，但是有可能变，可能性超过35%就不要了一定要记得问题的2-8定律，80%的问题一定是20%的代码产生的。</li>
-<li>还有子类如果实现过多可能要理清楚子类之间的关系也是一个很大的工作量。</li>
-<li>好处就是开闭吧，代码复用吧，你不用把一个方法到处copy了<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a> </li>
-</ul>
-<hr>
-<ul>
-<li>放上一首今天很火的歌曲哈哈</li>
-<li><a href="http://www.xiami.com/song/1797262971?spm=a1z1s.6843761.1478643741.1.SXKOQG" target="_blank" rel="external">风清扬</a></li>
-</ul>
-<hr>
-<p>-&gt; 码品，也是我们面对这个世界的态度。代码也是我们身影在这个社会上的投射。</p>
-  
+		  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -179,7 +109,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/11/03/设计-模版模式/" data-title="[设计]模版模式 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/03/设计-代理模式/" data-title="[设计]代理模式 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -189,18 +119,18 @@ var _hmt = _hmt || [];
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/11/03/设计-代理模式/" title="[设计]代理模式">
+ <a href="/2017/11/03/设计-中介者模式/" title="[设计]中介者模式">
   <strong>新一篇:</strong><br/>
   <span>
-  [设计]代理模式</span>
+  [设计]中介者模式</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/10/22/设计-享元模式/"  title="[设计]享元模式">
+<a href="/2017/11/03/设计-模版模式/"  title="[设计]模版模式">
  <strong>旧一篇:</strong><br/> 
- <span>[设计]享元模式
+ <span>[设计]模版模式
 </span>
 </a>
 </div>
@@ -210,7 +140,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="[设计]模版模式" data-thread-key="设计-模版模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-模版模式"></div>
+	<div class="ds-thread" data-title="[设计]代理模式" data-thread-key="设计-代理模式" data-author-key="Ants-double" data-url="http://ants-double.xin/post/设计-代理模式"></div>
 	
 </section>
 
