@@ -9,6 +9,14 @@
     
     <meta name="author" content="Ants-double">
     
+    <meta name="description" content="#[设计] 代理模式
+场景
+一个对象没有能力和权限要做一件事，但是另一个对象却有。有一个需求如下一台温雷达客户端可以连温雷达的服务，可是它不能连风雷达的服务，这个时候它想连接风雷达的服务取数据怎么办呢？解决方案
+方法就是模拟一个风雷达的客户端的操作，但是问题是谁来模拟怎么模拟。
+
+
+一种就是直接模拟">
+    
     
     
     
@@ -97,10 +105,61 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CODE"><span class="toc-number">3.</span> <span class="toc-text">CODE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">4.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">5.</span> <span class="toc-text">注意</span></a></li></ol>
 		</div>
 		
-		  
+		<p>#[设计] 代理模式</p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>一个对象没有能力和权限要做一件事，但是另一个对象却有。有一个需求如下一台温雷达客户端可以连温雷达的服务，可是它不能连风雷达的服务，这个时候它想连接风雷达的服务取数据怎么办呢？<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2></li>
+<li>方法就是模拟一个风雷达的客户端的操作，但是问题是谁来模拟怎么模拟。</li>
+</ul>
+<ol>
+<li>一种就是直接模拟，在需要的地方地方都新建一个风雷达的对象，但是这样的硬编码可能造成混乱比如风雷达和温雷达的逻辑操作的混乱</li>
+<li>我们之前说过没有什么问题是加一层解决不了的。所以我们加了一层，这一层有一个学名就是代理，所有的一切都让这个代理操作。</li>
+</ol>
+<ul>
+<li>何时操作的问题也交给这个代理。<h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2></li>
+<li><p>肯定会有一个雷达的基类用来承载对象之前的关系和一些必要的操作</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">LidarBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">GetData</span>(<span class="params"></span>)</span>;</div><div class="line">    &#125;</div><div class="line">``` </div><div class="line">- 这时肯定有一个真实的对象</div><div class="line">``` csharp</div><div class="line"><span class="keyword">class</span> <span class="title">TempLidar</span> : <span class="title">LidarBase</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">GetData</span>(<span class="params"></span>)</span></div><div class="line"><span class="function">        </span>&#123;</div><div class="line">            Console.WriteLine(<span class="string">"这是温雷达数据"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个代理  </p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">ProxyLidar</span> : <span class="title">LidarBase</span>
+  {
+      TempLidar tl = <span class="literal">null</span>;
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">GetData</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          Console.WriteLine(<span class="string">"代理之前可以做的操作"</span>);
+          <span class="keyword">if</span> (<span class="literal">null</span>==tl)
+          {
+              tl = <span class="keyword">new</span> TempLidar();
+
+          }
+          tl.GetData();
+          Console.WriteLine(<span class="string">"代理之后可以做的操作"</span>);
+      }
+  }
+</code></pre>
+</li>
+<li>我们这样用，就是用一个普通的对象一样的用<pre><code class="csharp"><span class="keyword">class</span> <span class="title">Program</span>
+  {
+      <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">      </span>{
+          LidarBase lb = <span class="keyword">new</span> ProxyLidar();
+          lb.GetData();
+          Console.Read();
+      }
+  }
+</code></pre>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2></li>
+<li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
+<li>真实中的代理肯定要在代理前和后做一些相关的操作，还有一个通病就是代码的复杂度的问题</li>
+<li>加了一层肯定对效率有一定的影响，但是我感觉以现在硬件的配置，你只要不在代理中进行超大规模的计算这些效率的影响可以不用太过担心</li>
+<li>好处有通用的好处修改方便，偶合度等等</li>
+<li>还有一点就是可以更好的保护目标对象，也方便进行一些目标对象前置后置的操作。<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a> </li>
+</ul>
+<hr>
+<p>-&gt; 代码的架构不是凭空的想象，而是来源于生活的分类分层。极其相似，却有不同。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
