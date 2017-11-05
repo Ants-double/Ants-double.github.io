@@ -9,6 +9,11 @@
     
     <meta name="author" content="Ants-double">
     
+    <meta name="description" content="[设计]中介者模式场景
+就是两个不同类型的雷达要进行交互，如何实现解决办法
+建立强联系，分别在各自的雷达内部实现另一种雷达的对象，这样就可以通过这个对象来实现。but这种就不能实现代码的复用。
+这时我们可以考虑加一层来实现，在这一层中我们分别实现不同的雷达的对象，所有的操作我们通过一层来操作来实现，">
+    
     
     
     
@@ -97,10 +102,55 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-中介者模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]中介者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CODE"><span class="toc-number">1.3.</span> <span class="toc-text">CODE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.4.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.5.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
 		</div>
 		
-		  
+		<h1 id="设计-中介者模式"><a href="#设计-中介者模式" class="headerlink" title="[设计]中介者模式"></a>[设计]中介者模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>就是两个不同类型的雷达要进行交互，如何实现<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2></li>
+<li>建立强联系，分别在各自的雷达内部实现另一种雷达的对象，这样就可以通过这个对象来实现。but这种就不能实现代码的复用。</li>
+<li>这时我们可以考虑加一层来实现，在这一层中我们分别实现不同的雷达的对象，所有的操作我们通过一层来操作来实现，这一层也就是传说中的中介者</li>
+<li>是不是很有想法，但是这里也说一下缺点。就是这一层要实现的对象，如果有增加那么就要修改中介者类了<h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2></li>
+<li><p>我们可以先分别建立雷达和中介者的基类以及两者之间的联系</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">LidarBase</span></div><div class="line">   &#123;</div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Writelog</span>(<span class="params">MddiatorBase mediator</span>)</span>;</div><div class="line">   &#125;</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">MddiatorBase</span></div><div class="line">   &#123;</div><div class="line">       <span class="keyword">protected</span> LidarBase tempLidar;</div><div class="line">       <span class="keyword">protected</span> LidarBase windLidar;</div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="title">MddiatorBase</span>(<span class="params">LidarBase temp,LidarBase wind</span>)</span></div><div class="line"><span class="function">       </span>&#123;</div><div class="line">           tempLidar = temp;</div><div class="line">           windLidar = wind;</div><div class="line">       &#125;</div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">WriteAll</span>(<span class="params"></span>)</span>;</div><div class="line">     </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>我们再新建一个温风雷达的对象</p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">TempLidar</span> : <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Writelog</span>(<span class="params">MddiatorBase mediator</span>)</span>
+<span class="function">      </span>{
+          mediator.WriteAll();
+      }
+  }
+<span class="keyword">class</span> <span class="title">WindLidar</span> : <span class="title">LidarBase</span>
+  {
+      <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Writelog</span>(<span class="params">MddiatorBase mediator</span>)</span>
+<span class="function">      </span>{
+          mediator.WriteAll();
+      }
+  }
+</code></pre>
+</li>
+<li>这时我们可以这样用<pre><code class="csharp"><span class="keyword">class</span> <span class="title">Program</span>
+  {
+      <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">      </span>{
+          TempLidar temp = <span class="keyword">new</span> TempLidar();
+          WindLidar wind = <span class="keyword">new</span> WindLidar();
+          MddiatorBase mediator = <span class="keyword">new</span> LidarMediator(temp,wind);
+          temp.Writelog(mediator);
+          Console.Read();
+      }
+  }
+</code></pre>
+</li>
+<li>是不是很6666<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2></li>
+<li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
+<li>优点就是抽像了交互，这时候我们可以有更改不用更改具体的雷达对象，只要改中介者就可以了，同样这也是缺点</li>
+<li>一定要是定义好了交互对象的种类及个数这时候用更好。<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a> </li>
+</ul>
+<hr>
+<p>-&gt; 能用和优化相差的不过是那0.01，但是花费的时间和精力却是极不相同，可以为什么我们依然会追求那0.01。那是因为那0.01才能体现出我们的价值。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
