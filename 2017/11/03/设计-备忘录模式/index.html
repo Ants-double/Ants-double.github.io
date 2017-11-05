@@ -9,6 +9,14 @@
     
     <meta name="author" content="Ants-double">
     
+    <meta name="description" content="[设计]备忘录模式场景
+就是想保存一个对象的内部状态，以方便切换的回来的时候，以恢复到原来的状态解决方法
+可以导出一个文本文件来分门别类的存放
+也可以放状态保存到另一个对象中，这个对象专业的用来保存状态
+我们这里备忘录就是用的第二种方式，而且可以在不破坏被保存对象的内部也不破坏现有的封装。
+
+COD">
+    
     
     
     
@@ -97,10 +105,97 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#设计-备忘录模式"><span class="toc-number">1.</span> <span class="toc-text">[设计]备忘录模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CODE"><span class="toc-number">1.3.</span> <span class="toc-text">CODE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类图"><span class="toc-number">1.4.</span> <span class="toc-text">类图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.5.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
 		</div>
 		
-		  
+		<h1 id="设计-备忘录模式"><a href="#设计-备忘录模式" class="headerlink" title="[设计]备忘录模式"></a>[设计]备忘录模式</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>就是想保存一个对象的内部状态，以方便切换的回来的时候，以恢复到原来的状态<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2></li>
+<li>可以导出一个文本文件来分门别类的存放</li>
+<li>也可以放状态保存到另一个对象中，这个对象专业的用来保存状态</li>
+<li>我们这里备忘录就是用的第二种方式，而且可以在不破坏被保存对象的内部也不破坏现有的封装。</li>
+</ul>
+<h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2><ul>
+<li>我们新建一个要保存的对象类<pre><code class="csharp"><span class="keyword">class</span> <span class="title">Lidar</span>
+  {
+      <span class="keyword">public</span> <span class="keyword">string</span> Name { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+      <span class="keyword">public</span> <span class="keyword">string</span> DataNumber { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+  }
+</code></pre>
+</li>
+<li><p>我们新建一个对象的拥有者，拥有者从名子上可以看到这个对象的权力可以用来更改对象的状态以及恢复到对象的状态</p>
+<pre><code class="csharp"><span class="keyword">class</span> <span class="title">LidarOwner</span>
+  {
+      <span class="keyword">public</span> List&lt;Lidar&gt; LidarList { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+      <span class="function"><span class="keyword">public</span> <span class="title">LidarOwner</span>(<span class="params">List&lt;Lidar&gt; lidars</span>)</span>
+<span class="function">      </span>{
+          LidarList = lidars;
+      }
+
+      <span class="function"><span class="keyword">public</span> LidarMemento <span class="title">CreateMemento</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">return</span> <span class="keyword">new</span> LidarMemento(<span class="keyword">new</span> List&lt;Lidar&gt;(LidarList));
+      }
+
+      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RestoreMemento</span>(<span class="params">LidarMemento memento</span>)</span>
+<span class="function">      </span>{
+          LidarList = memento.LidarList;
+      }
+      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)</span>
+<span class="function">      </span>{
+          <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> LidarList)
+          {
+              Console.WriteLine(<span class="string">"{0},{1}"</span>,item.Name,item.DataNumber);
+
+          }
+      }
+</code></pre>
+</li>
+<li>我们创建一个备忘录类用来保存拥有者的状态的状态，所以彼此的类型肯定要一致的<pre><code class="csharp"><span class="keyword">class</span> <span class="title">LidarMemento</span>
+  {
+      <span class="keyword">public</span> List&lt;Lidar&gt; LidarList;
+      <span class="function"><span class="keyword">public</span> <span class="title">LidarMemento</span>(<span class="params">List&lt;Lidar&gt; lidars</span>)</span>
+<span class="function">      </span>{
+          LidarList = lidars;
+      }
+  }
+</code></pre>
+</li>
+<li>之后我们可以再添加一个管理者用来管理备份的东西<pre><code class="csharp"><span class="keyword">class</span> <span class="title">Taker</span>
+  {
+      <span class="keyword">public</span> LidarMemento lidarMemento { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+  }
+</code></pre>
+</li>
+<li>我们可以新建一个测试<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">      </span>{
+          List&lt;Lidar&gt; lidars = <span class="keyword">new</span> List&lt;Lidar&gt;()
+          {
+              <span class="keyword">new</span> Lidar{Name=<span class="string">"wind"</span>,DataNumber=<span class="string">"1"</span>},
+              <span class="keyword">new</span> Lidar{Name=<span class="string">"temp"</span>,DataNumber=<span class="string">"2"</span>},
+              <span class="keyword">new</span> Lidar{Name=<span class="string">"gosail"</span>,DataNumber=<span class="string">"3"</span>}
+          };
+          LidarOwner lidarowner = <span class="keyword">new</span> LidarOwner(lidars);
+          lidarowner.Show();
+          Taker lidarTaker = <span class="keyword">new</span> Taker();
+          lidarTaker.lidarMemento = lidarowner.CreateMemento();
+          lidarowner.LidarList.RemoveAt(<span class="number">1</span>);
+          lidarowner.Show();
+          lidarowner.RestoreMemento(lidarTaker.lidarMemento);
+          lidarowner.Show();
+          Console.Read();
+      }
+</code></pre>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2></li>
+<li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
+<li>就是上面的代码中备份状态的地方，创建备忘的地方我们new 如果是引用类型和值类型会有不同，我们用的是string 可以默认为是深拷贝但是值类型就不同了，大家都懂的，如果万一真不懂就百度一下吧。这是基础的知识了</li>
+<li>同样是上面的代码保存有的问题恢复的地方也有同样的问题</li>
+<li>而且上面的代码只有恢复到最近的也就是一次的状态，但是如果还想恢复到上上次的状态怎么办，这个时候大家都会注意到管理类，想一想，10S后是不是想到，我们可以用一个集合来分别保存不同时期的状态，恢复的时候大家选一个就可以了，是不是与windows还原点的特别的像，我感觉还原点内部也就是这种设计的理念。</li>
+<li>备份如是一直是深考贝会占资源是肯定的，所以一定要想清楚有没有必要备份，以及备份的管理工作。</li>
+<li>一般的系统都应该有这样一种设计，以防软件发生意外时，可以恢复到最近的最正常的状态。<br><a href="https://github.com/Ants-double/DesignPattern" target="_blank" rel="external">源码</a> </li>
+</ul>
+<hr>
+<p>-&gt; 代码这种武功也分为内功也就是基础和技术招式也就是框架，现在的编程社会就是重招式而轻内功，一个合格的侠者肯定是内外都修。可以从招式入门，然后感受内功的深刻。少林的烧火的同样出色但是没有招式的精彩也不好，舞蹈招式很精彩，但是没有内功但支持，终久不能作用于江湖。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
