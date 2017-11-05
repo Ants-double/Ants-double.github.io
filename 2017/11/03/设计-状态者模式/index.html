@@ -110,65 +110,78 @@ var _hmt = _hmt || [];
 <li>正如前面所说的我们就是把状态分离出来，分离一个标准就是依赖倒置</li>
 <li>这样我们可以更清楚的知道状态的逻辑判断</li>
 <li>状态和行为对应是一定要区分<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2></li>
-<li><p>我们新加一个雷达类</p>
-<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Lidar</span>
-  {
-      <span class="keyword">public</span> StatusBase SB = <span class="literal">null</span>;
-
-      <span class="function"><span class="keyword">public</span> <span class="title">Lidar</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          SB = <span class="keyword">new</span> StartStatue(<span class="keyword">this</span>);
-      }
-      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startLidar</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          SB.CehckStauts();
-      }
-     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CloseLidar</span>(<span class="params"></span>)</span>
-<span class="function">      </span>{
-          SB.CehckStauts();
-      }
-  }
-</code></pre>
-</li>
-<li>我们再加一个状态基类<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">StatusBase</span>
-  {
-      <span class="keyword">public</span> Lidar lidar { <span class="keyword">get</span>; <span class="keyword">set</span>; }
-      <span class="keyword">public</span> <span class="keyword">string</span> LidarStatue { <span class="keyword">get</span>; <span class="keyword">set</span>; }
-      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">CehckStauts</span>(<span class="params"></span>)</span>;
-  }
-</code></pre>
-</li>
-<li>添加两个状态，这个我们就不多写逻辑和情况了，所有的都是差不多的，但是记得加的属性一定要有一个开始状态，也就是要有一个默认状态，因为对象一产生肯定就是有状态的<br>``` csharp<br>class StartStatue : StatusBase<br>  {<pre><code>public StartStatue(Lidar ld)
-{
-    Console.WriteLine(&quot;起始&quot;);
-    lidar = ld;
-}
-public override void CehckStauts()
-{
-    Console.WriteLine(&quot;开雷达了&quot;);
-    lidar.SB = new StartedStaue(this);
-}
-</code></pre>  }<br>class StartedStaue : StatusBase<br>  {<pre><code>public StartedStaue(StatusBase sb)
-{
-</code></pre></li>
+<li>我们新加一个雷达类  </li>
 </ul>
-<pre><code>    }
-    public override void CehckStauts()
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Lidar</span>
     {
-        Console.WriteLine(&quot;完成了&quot;);
+        <span class="keyword">public</span> StatusBase SB = <span class="literal">null</span>;
 
+        <span class="function"><span class="keyword">public</span> <span class="title">Lidar</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            SB = <span class="keyword">new</span> StartStatue(<span class="keyword">this</span>);
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startLidar</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            SB.CehckStauts();
+        }
+       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CloseLidar</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            SB.CehckStauts();
+        }
     }
-}
-</code></pre><pre><code>- 我们可以这样用，实际中肯定要比这复杂
-``` csharp
-static void Main(string[] args)
-        {
-            Lidar ld = new Lidar();
+</code></pre>
+<ul>
+<li>我们再加一个状态基类  </li>
+</ul>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="keyword">class</span> <span class="title">StatusBase</span>
+    {
+        <span class="keyword">public</span> Lidar lidar { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+        <span class="keyword">public</span> <span class="keyword">string</span> LidarStatue { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">CehckStauts</span>(<span class="params"></span>)</span>;
+    }
+</code></pre>
+<ul>
+<li>添加两个状态，这个我们就不多写逻辑和情况了，所有的都是差不多的，但是记得加的属性一定要有一个开始状态，也就是要有一个默认状态，因为对象一产生肯定就是有状态的  </li>
+</ul>
+<pre><code class="csharp">  <span class="keyword">class</span> <span class="title">StartStatue</span> : <span class="title">StatusBase</span>
+    {
+        <span class="function"><span class="keyword">public</span> <span class="title">StartStatue</span>(<span class="params">Lidar ld</span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"起始"</span>);
+            lidar = ld;
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CehckStauts</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"开雷达了"</span>);
+            lidar.SB = <span class="keyword">new</span> StartedStaue(<span class="keyword">this</span>);
+        }
+    }
+<span class="keyword">class</span> <span class="title">StartedStaue</span> : <span class="title">StatusBase</span>
+    {
+        <span class="function"><span class="keyword">public</span> <span class="title">StartedStaue</span>(<span class="params">StatusBase sb</span>)</span>
+<span class="function">        </span>{
+
+
+        }
+        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CehckStauts</span>(<span class="params"></span>)</span>
+<span class="function">        </span>{
+            Console.WriteLine(<span class="string">"完成了"</span>);
+
+        }
+    }
+</code></pre>
+<ul>
+<li>我们可以这样用，实际中肯定要比这复杂  </li>
+</ul>
+<pre><code class="csharp"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span>
+<span class="function">        </span>{
+            Lidar ld = <span class="keyword">new</span> Lidar();
             ld.startLidar();
             ld.CloseLidar();
             Console.Read();
         }
-</code></pre><h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><ul>
+</code></pre>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><ul>
 <li>占坑<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 <li>状态过多可以子类过多，通病</li>
 <li>状态可以和观察者或者中介者模式合用，这是常用的情况，因为观察到的状态肯定是多变的</li>
