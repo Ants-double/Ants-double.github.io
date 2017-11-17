@@ -14,10 +14,10 @@
 
 
 先介绍一个常用的播放器VLC Media Player  
-概述
+概述  
 
 
-RTSP(Real-Time-Stream-Protocol)实时流传文本传输协议，语法和参数上与Http相似。但有不同，它能播放从互联网上实时数据，并且能进行控制/像开始/停止/">
+RTSP(Real-Time-Stream-Protocol)实时流传文本传输协议，语法和参数上与Http相似。但有不同，它能播放从互联网上实时数据，并且能进行控制/像开始/停">
     
     
     
@@ -115,12 +115,13 @@ var _hmt = _hmt || [];
 </ul>
 <ol>
 <li>先介绍一个常用的播放器<a href="http://www.videolan.org/" target="_blank" rel="external">VLC Media Player</a>  </li>
-<li>概述</li>
+<li>概述  </li>
 </ol>
 <ul>
 <li>RTSP(Real-Time-Stream-Protocol)实时流传文本传输协议，语法和参数上与Http相似。但有不同，它能播放从互联网上实时数据，并且能进行控制/像开始/停止/暂停/后退/前进。所以一般多用于视频监控行业。</li>
-<li>大家知道http协议都有服务端与客户端同样RTSP也是同样的它也有服务和客户端。通常情况下RTSP并不会把控制信息和流媒体一起传输，一般的流传送可以用RTP/RTCP来传。<br>流程<br>(1) 客户端联接到服务端并发送一个RTSP描述命令 <strong>DESCRIBE</strong>  </li>
+<li>大家知道http协议都有服务端与客户端同样RTSP也是同样的它也有服务和客户端。通常情况下RTSP并不会把控制信息和流媒体一起传输，一般的流传送可以用RTP/RTCP来传。<br>流程  </li>
 </ul>
+<p>(1) 客户端联接到服务端并发送一个RTSP描述命令 <strong>DESCRIBE</strong>  </p>
 <p>(2) 流服务器通过一个SDP描述进行应答，应答信息包括流数量、媒体类型etc  </p>
 <p>(3) 客户端分析SDP描述，并在每个会话流中发送一个建立命令<strong>SETUP</strong> ，建立完成后告诉服务和客户端双方的通讯端口  </p>
 <p>(4)  客户端发送<strong>PLAY</strong> 服务端就开始通过UDP来传RTP包，客户端解包进行显示。同样也可以发送暂停 快进快退等命令  </p>
