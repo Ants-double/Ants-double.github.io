@@ -1,0 +1,402 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>[杂乱]RTSP初视 | Ants-double</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Ants-double">
+    
+    <meta name="description" content="RTSP协议学习（1）目的
+为了实时传输视频
+
+
+先介绍一个常用的播放器VLC Media Player  
+概述
+
+
+RTSP(Real-Time-Stream-Protocol)实时流传文本传输协议，语法和参数上与Http相似。但有不同，它能播放从互联网上实时数据，并且能进行控制/像开始/停止/">
+    
+    
+    
+    
+    <link rel="alternative" href="/Tinnypp/atom.xml" title="Ants-double" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+
+  
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    
+  
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d182ed77fc48758bf45a33835ee35745";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','.............Add your swiftype userID...............');
+</script>
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Ants-double">Ants-double</a></h1>
+				<h2 class="blog-motto">每天进步一点点</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/Tinnypp">首页</a></li>
+					
+						<li><a href="/Tinnypp/archives">归档</a></li>
+					
+					<li>
+					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-inpu" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>-->
+
+				</ul>
+			</nav>	
+</div>
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/11/17/杂乱-RTSP初视/" title="[杂乱]RTSP初视" itemprop="url">[杂乱]RTSP初视</a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2017-11-17T14:47:26.000Z" itemprop="datePublished">2017-11-17</time>
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title"></strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RTSP协议学习（1）"><span class="toc-number">1.</span> <span class="toc-text">RTSP协议学习（1）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目的"><span class="toc-number">2.</span> <span class="toc-text">目的</span></a></li></ol>
+		</div>
+		
+		<h1 id="RTSP协议学习（1）"><a href="#RTSP协议学习（1）" class="headerlink" title="RTSP协议学习（1）"></a>RTSP协议学习（1）</h1><h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><ul>
+<li>为了实时传输视频</li>
+</ul>
+<ol>
+<li>先介绍一个常用的播放器<a href="http://www.videolan.org/" target="_blank" rel="external">VLC Media Player</a>  </li>
+<li>概述</li>
+</ol>
+<ul>
+<li>RTSP(Real-Time-Stream-Protocol)实时流传文本传输协议，语法和参数上与Http相似。但有不同，它能播放从互联网上实时数据，并且能进行控制/像开始/停止/暂停/后退/前进。所以一般多用于视频监控行业。</li>
+<li>大家知道http协议都有服务端与客户端同样RTSP也是同样的它也有服务和客户端。通常情况下RTSP并不会把控制信息和流媒体一起传输，一般的流传送可以用RTP/RTCP来传。<br>流程<br>(1) 客户端联接到服务端并发送一个RTSP描述命令 <strong>DESCRIBE</strong>  </li>
+</ul>
+<p>(2) 流服务器通过一个SDP描述进行应答，应答信息包括流数量、媒体类型etc  </p>
+<p>(3) 客户端分析SDP描述，并在每个会话流中发送一个建立命令<strong>SETUP</strong> ，建立完成后告诉服务和客户端双方的通讯端口  </p>
+<p>(4)  客户端发送<strong>PLAY</strong> 服务端就开始通过UDP来传RTP包，客户端解包进行显示。同样也可以发送暂停 快进快退等命令  </p>
+<p>(5) 最后客户端发送一个终于<strong>TERADOWN</strong> 结束</p>
+<ol>
+<li><p>这是理想的步，像获取服务端的功能，可以双方定好就不用传了也不用请求了可以直接上来就进行流的传输。其中第3步和第4步是必需的。同样只要双方可以完成信息的交互也是可以的。不要死与规定，但是按照规定写出来的代码肯定是方便维护的。  </p>
+</li>
+<li><p>如下  </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OPTIONS</td>
+<td>获得服务器提供的可用方法</td>
+</tr>
+<tr>
+<td>DESCRIBE</td>
+<td>得到会话描述信息</td>
+</tr>
+<tr>
+<td>SETUP</td>
+<td>客户端提醒服务器建立会话，并确定传输模式</td>
+</tr>
+<tr>
+<td>TEARDOWN</td>
+<td>客户端发起关闭请求</td>
+</tr>
+<tr>
+<td>PLAY</td>
+<td>客户端发送播放请求</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>网络是有开放的<a href="https://github.com/EasyDSS/EasyPlayer" target="_blank" rel="external">源码EasyPlayer</a>大家可以参考。</li>
+</ol>
+<hr>
+<blockquote>
+<p> 拿到一个问题，一定要进行分析，不要推拖。尽力去做。有人帮要感谢，没有人帮也自己努力。</p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://ants-double.xin/2017/11/17/杂乱-RTSP初视/" data-title="[杂乱]RTSP初视 | Ants-double" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/11/03/设计-备忘录模式/"  title="[设计]备忘录模式">
+ <strong>旧一篇:</strong><br/> 
+ <span>[设计]备忘录模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="[杂乱]RTSP初视" data-thread-key="杂乱-RTSP初视" data-author-key="Ants-double" data-url="http://ants-double.xin/post/杂乱-RTSP初视"></div>
+	
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	<div class="copyright">
+		<span>Powered by <a href="https://github.com/hexojs/hexo">Hexo</a> and theme by 
+		<a href="https://github.com/levonlin/Tinnypp">Tinnypp</a>.</span>
+		
+			<span>© Ants-double</span>
+		
+	<div>
+</div></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"tinnypp"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';    //change to ds.src = '/js/embed.js'; to add useragent for duoshuo
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+<script type="text/javascript">
+  function footerPosition() {
+    var contentHeight = document.documentElement.scrollHeight,
+        winHeight = window.innerHeight;
+    if(contentHeight <= winHeight) {
+      $('footer').addClass('fixed-bottom');
+    } else {
+      $('footer').removeClass('fixed-bottom');
+    }
+  }
+  footerPosition();
+  $(window).resize(footerPosition);
+</script>
+
+
+  </body>
+</html>
