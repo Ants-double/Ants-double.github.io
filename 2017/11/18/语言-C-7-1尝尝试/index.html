@@ -4,17 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>C#JavaScript交互 | Ants-double</title>
+    <title>[语言]C#7.1尝尝试 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="[乱语言]C#javascript场景
-有一天发现百度地图只有提示的Javascript的代码没有c#的于是就想到能互相调用吗?解决方法
-上网一查果然不是第一个人，有两种一种引入第三方库，另一种就是用Webbrowser来实现，本文用的第二种方法。
-
-
-首先要搭建一候平台此处WinForm的，拖入一">
+    <meta name="description" content="C#7.1
+深入理解C#讲了C#的起源，让我们知道C#是如何呈现今天的这样的子的，但是第三版只是讲到了5，之后的没有讲，但是我们可以知道这是一个不断发展的语言，也不断吸收别的语言优势的语言。C#8.0要出了同时这几天一天在提的Connect()也是让人心动不已。所有的平台所有的语言都可以在这里统一开">
     
     
     
@@ -93,10 +89,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/18/C-JavaScript交互/" title="C#JavaScript交互" itemprop="url">C#JavaScript交互</a>
+      <a href="/2017/11/18/语言-C-7-1尝尝试/" title="[语言]C#7.1尝尝试" itemprop="url">[语言]C#7.1尝尝试</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-10-18T14:32:43.000Z" itemprop="datePublished">2017-10-18</time>
+    <time datetime="2017-11-18T09:27:35.000Z" itemprop="datePublished">2017-11-18</time>
   </p>
 </header>
 	<div class="article-content">
@@ -104,64 +100,57 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#乱语言-C-javascript"><span class="toc-number">1.</span> <span class="toc-text">[乱语言]C#javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.3.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它问题"><span class="toc-number">1.4.</span> <span class="toc-text">其它问题</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-7-1"><span class="toc-number">1.</span> <span class="toc-text">C#7.1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行环境"><span class="toc-number">2.</span> <span class="toc-text">运行环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试代码"><span class="toc-number">3.</span> <span class="toc-text">测试代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#新增乱讲"><span class="toc-number">3.1.</span> <span class="toc-text">新增乱讲</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="乱语言-C-javascript"><a href="#乱语言-C-javascript" class="headerlink" title="[乱语言]C#javascript"></a>[乱语言]C#javascript</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
-<li>有一天发现百度地图只有提示的Javascript的代码没有c#的于是就想到能互相调用吗?<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2></li>
-<li>上网一查果然不是第一个人，有两种一种引入第三方库，另一种就是用Webbrowser来实现，本文用的第二种方法。</li>
+		<h1 id="C-7-1"><a href="#C-7-1" class="headerlink" title="C#7.1"></a>C#7.1</h1><ul>
+<li>深入理解C#讲了C#的起源，让我们知道C#是如何呈现今天的这样的子的，但是第三版只是讲到了5，之后的没有讲，但是我们可以知道这是一个不断发展的语言，也不断吸收别的语言优势的语言。<a href="https://blogs.msdn.microsoft.com/dotnet/2017/11/15/nullable-reference-types-in-csharp/" target="_blank" rel="external">C#8.0</a>要出了同时这几天一天在提的<a href="https://www.microsoft.com/en-us/connectevent/?ocid=AID657138_QSG_SCL_196042" target="_blank" rel="external">Connect()</a>也是让人心动不已。所有的平台所有的语言都可以在这里统一开发连接一切。vsfor AI也是前景不错。激动。。。</li>
+<li>本文主要讲C#7.1<h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1></li>
+<li>vs2017同时版本号要15.3以上，或者.net core sdk 2.0,vs2017默认是不支持此功能的。</li>
+<li>在工程属性-&gt;生成-&gt;高级-&gt;语言版本选择次最新或者7.1都是可以的</li>
+<li>.net 要在4.6.2以上如果选项没有可以自行安装，点击这里进行<a href="https://www.microsoft.com/net/download/windows" target="_blank" rel="external">下载</a>  <h1 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h1>``` csharp<br>using System;<br>using System.Linq;<br>using System.Threading;<br>using System.Threading.Tasks;<br>using static System.Console;</li>
 </ul>
-<ol>
-<li>首先要搭建一候平台此处WinForm的，拖入一个Web一个Button然后开始在下面写调用事件  </li>
-<li><p>此时要看清楚JavaScript的方法名<br>代码如下： </p>
-<pre><code class="csharp"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button1_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.Document.InvokeScript(<span class="string">"Run"</span>, <span class="keyword">new</span> <span class="keyword">object</span>[] { <span class="string">"114.34"</span>,<span class="string">"31.23"</span> });
-     }
+<p>namespace testCSharp7._1<br>{<br>    class Program<br>    {<br>        static async Task Main(string[] args)<br>        {<br>            var results = Enumerable.Range(1, 40)<br>                .Select(input =&gt; (input, task: FibonacciAsync(input)))<br>                .ToArray();</p>
+<pre><code>        foreach (var tuple in results)
+        {
+            WriteLine($&quot;Fib {tuple.input} = {await tuple.task}&quot;);
+        }
+        Console.Read();
+    }
 
-     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Form1_Load</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.ObjectForScripting = <span class="keyword">this</span>;<span class="comment">//具体公开的对象,这里可以公开自定义对象</span>
-         webBrowser1.Navigate(Application.StartupPath + <span class="string">"/aaa.html"</span>);
-     }
-     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowMsg</span>(<span class="params"><span class="keyword">string</span> msg</span>)</span>
-<span class="function">     </span>{
-         MessageBox.Show(msg);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// &lt;summary&gt;   Fibonacci asynchronous. &lt;/summary&gt;
+    ///
+    /// &lt;remarks&gt;   Ants-double, 2017-11-18 17:41:31. &lt;/remarks&gt;
+    ///
+    /// &lt;param name=&quot;n&quot;&gt;        The int to process. &lt;/param&gt;
+    /// &lt;param name=&quot;token&quot;&gt;    (Optional) The token. &lt;/param&gt;
+    ///
+    /// &lt;returns&gt;   A Task&amp;lt;int&amp;gt; &lt;/returns&gt;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-     }
+    private static Task&lt;int&gt; FibonacciAsync(int n, CancellationToken token = default)
+    {
+        return Task.Run(() =&gt; Fib(n).curr, token);
 
-     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button2_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.Document.InvokeScript(<span class="string">"Run1"</span>, <span class="keyword">new</span> <span class="keyword">object</span>[] { <span class="string">"CShareFunction"</span> });
-     }
-</code></pre>
-</li>
-<li>就是JavaScript的代码了 </li>
-</ol>
-<pre><code class="html"><span class="tag">&lt;<span class="name">html</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">head</span>&gt;</span>
-
-  <span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">body</span>&gt;</span> 
-  <span class="tag">&lt;/<span class="name">body</span>&gt;</span>
-
-   <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="undefined"></span>
-<span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">Run</span>(<span class="params">str</span>)</span></span>
-<span class="undefined">   {</span>
-<span class="undefined"></span>
-<span class="javascript">        <span class="built_in">window</span>.external.ShowMsg(str);</span>
-<span class="undefined">   }</span>
-<span class="undefined">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
-   <span class="tag">&lt;/<span class="name">html</span>&gt;</span>
-</code></pre>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
-<li>就是方法名和参数的调用  <h2 id="其它问题"><a href="#其它问题" class="headerlink" title="其它问题"></a>其它问题</h2></li>
-</ol>
-<ul>
-<li>就是javascript的回调以用复杂的业务逻辑目前没有想到很好的办法。<br><a href="https://gitee.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
+        (int curr, int prev) Fib(int i)
+        {
+            if (i is 0) return (1, 0);
+            var (c, p) = Fib(i - 1);
+            return (c + p, c);
+        }
+    }
+}
+</code></pre><p>}<br>```  </p>
+<h2 id="新增乱讲"><a href="#新增乱讲" class="headerlink" title="新增乱讲"></a>新增乱讲</h2><ul>
+<li>异步Main函数，切记异步的Main不能与同步的Main同时存在，还是程序只有一个入口的概念</li>
+<li>默认值 ，大家之前要写一个默认是后面要加上对应的类型，现在可以自行推断，不用手写默认的类型</li>
+<li>第三点也是关于自行推断，是关于元组的自行推断，这样不公节省了一个类型的定义而且对于初始化或返回值也更加清楚明白。<br>*更多细节可以参考<a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-1#language-version-selection" target="_blank" rel="external">官网</a></li>
 </ul>
 <hr>
-<p><strong>相信代码是一个一个的敲出来的，不是想出来也不是说出来的，但是你要想明白我说明白最后才要敲代码</strong></p>
+<blockquote>
+<p>语言的进化最终不过是更加接进我们日常的语言，试想你写文章同时就把程序写好了。那样理解肯定不会是太大的问题了。</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -171,7 +160,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/10/18/C-JavaScript交互/" data-title="C#JavaScript交互 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/18/语言-C-7-1尝尝试/" data-title="[语言]C#7.1尝尝试 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -180,19 +169,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/10/19/设计-组合模式/" title="[设计]组合模式">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [设计]组合模式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/18/设计-单例模式/"  title="[设计]单例模式">
+<a href="/2017/11/18/插件-vs2017使用AtominnerProDocumentationn/"  title="[插件]vs2017使用AtominnerProDocumentationn">
  <strong>旧一篇:</strong><br/> 
- <span>[设计]单例模式
+ <span>[插件]vs2017使用AtominnerProDocumentationn
 </span>
 </a>
 </div>
@@ -202,7 +183,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="C#JavaScript交互" data-thread-key="C-JavaScript交互" data-author-key="Ants-double" data-url="http://ants-double.xin/post/C-JavaScript交互"></div>
+	<div class="ds-thread" data-title="[语言]C#7.1尝尝试" data-thread-key="语言-C-7-1尝尝试" data-author-key="Ants-double" data-url="http://ants-double.xin/post/语言-C-7-1尝尝试"></div>
 	
 </section>
 
