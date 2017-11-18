@@ -4,17 +4,17 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>C#JavaScript交互 | Ants-double</title>
+    <title>[杂乱] nw.js学习 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="[乱语言]C#javascript场景
-有一天发现百度地图只有提示的Javascript的代码没有c#的于是就想到能互相调用吗?解决方法
-上网一查果然不是第一个人，有两种一种引入第三方库，另一种就是用Webbrowser来实现，本文用的第二种方法。
+    <meta name="description" content="nw.js学习安装
+前提条件，要先安装node.js以及nw.js这里说一下开发就下SDK版本的，里面带有有调试工具  运行
+我们先建立一个HelloWord
 
 
-首先要搭建一候平台此处WinForm的，拖入一">
+我们先新建一个文件夹，并在里面创建一个package.json:这个是应用程序的清单文件，它用很多选项，name是软件的名称，main是">
     
     
     
@@ -93,10 +93,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/10/18/C-JavaScript交互/" title="C#JavaScript交互" itemprop="url">C#JavaScript交互</a>
+      <a href="/2017/11/18/杂乱-nw-js学习/" title="[杂乱] nw.js学习" itemprop="url">[杂乱] nw.js学习</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-10-18T14:32:43.000Z" itemprop="datePublished">2017-10-18</time>
+    <time datetime="2017-11-18T02:15:31.000Z" itemprop="datePublished">2017-11-18</time>
   </p>
 </header>
 	<div class="article-content">
@@ -104,64 +104,55 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#乱语言-C-javascript"><span class="toc-number">1.</span> <span class="toc-text">[乱语言]C#javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-number">1.2.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.3.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它问题"><span class="toc-number">1.4.</span> <span class="toc-text">其它问题</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nw-js学习"><span class="toc-number">1.</span> <span class="toc-text">nw.js学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行"><span class="toc-number">1.2.</span> <span class="toc-text">运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与node-js交互"><span class="toc-number">1.3.</span> <span class="toc-text">与node.js交互</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="乱语言-C-javascript"><a href="#乱语言-C-javascript" class="headerlink" title="[乱语言]C#javascript"></a>[乱语言]C#javascript</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
-<li>有一天发现百度地图只有提示的Javascript的代码没有c#的于是就想到能互相调用吗?<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2></li>
-<li>上网一查果然不是第一个人，有两种一种引入第三方库，另一种就是用Webbrowser来实现，本文用的第二种方法。</li>
-</ul>
-<ol>
-<li>首先要搭建一候平台此处WinForm的，拖入一个Web一个Button然后开始在下面写调用事件  </li>
-<li><p>此时要看清楚JavaScript的方法名<br>代码如下： </p>
-<pre><code class="csharp"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button1_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.Document.InvokeScript(<span class="string">"Run"</span>, <span class="keyword">new</span> <span class="keyword">object</span>[] { <span class="string">"114.34"</span>,<span class="string">"31.23"</span> });
-     }
-
-     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Form1_Load</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.ObjectForScripting = <span class="keyword">this</span>;<span class="comment">//具体公开的对象,这里可以公开自定义对象</span>
-         webBrowser1.Navigate(Application.StartupPath + <span class="string">"/aaa.html"</span>);
-     }
-     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowMsg</span>(<span class="params"><span class="keyword">string</span> msg</span>)</span>
-<span class="function">     </span>{
-         MessageBox.Show(msg);
-
-     }
-
-     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button2_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span>
-<span class="function">     </span>{
-         webBrowser1.Document.InvokeScript(<span class="string">"Run1"</span>, <span class="keyword">new</span> <span class="keyword">object</span>[] { <span class="string">"CShareFunction"</span> });
-     }
-</code></pre>
-</li>
-<li>就是JavaScript的代码了 </li>
-</ol>
-<pre><code class="html"><span class="tag">&lt;<span class="name">html</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">head</span>&gt;</span>
-
-  <span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">body</span>&gt;</span> 
-  <span class="tag">&lt;/<span class="name">body</span>&gt;</span>
-
-   <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="undefined"></span>
-<span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">Run</span>(<span class="params">str</span>)</span></span>
-<span class="undefined">   {</span>
-<span class="undefined"></span>
-<span class="javascript">        <span class="built_in">window</span>.external.ShowMsg(str);</span>
-<span class="undefined">   }</span>
-<span class="undefined">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
-   <span class="tag">&lt;/<span class="name">html</span>&gt;</span>
-</code></pre>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
-<li>就是方法名和参数的调用  <h2 id="其它问题"><a href="#其它问题" class="headerlink" title="其它问题"></a>其它问题</h2></li>
+		<h1 id="nw-js学习"><a href="#nw-js学习" class="headerlink" title="nw.js学习"></a>nw.js学习</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>前提条件，要先安装<a href="https://nodejs.org/zh-cn/" target="_blank" rel="external">node.js</a>以及<a href="http://docs.nwjs.io/en/latest/" target="_blank" rel="external">nw.js</a><em>这里说一下开发就下SDK版本的，里面带有有调试工具</em>  <h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2></li>
+<li>我们先建立一个HelloWord</li>
 </ol>
 <ul>
-<li>就是javascript的回调以用复杂的业务逻辑目前没有想到很好的办法。<br><a href="https://gitee.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
+<li>我们先新建一个文件夹，并在里面创建一个package.json:这个是应用程序的清单文件，它用很多选项，name是软件的名称，main是打开的每一个html页面，更多的清单选项可以在<a href="http://docs.nwjs.io/en/latest/References/Manifest%20Format/" target="_blank" rel="external">这里</a>查看。  </li>
+</ul>
+<pre><code class="json">{
+  <span class="attr">"name"</span>: <span class="string">"helloworld"</span>,
+  <span class="attr">"main"</span>: <span class="string">"index.html"</span>
+}
+</code></pre>
+<ul>
+<li>使用js文件做为main,这里指的是如果想在后台起动页面或者是没有页面的程序时可以不用指定html页面，同样你可以在js文件是打开初始化的页面。建议用这种方式，因为可以在启动页面之前做一些你想做的操作<pre><code class="javascript">nw.Window.open(<span class="string">'index.html'</span>, {}, <span class="function"><span class="keyword">function</span>(<span class="params">win</span>) </span>{});
+</code></pre>
+</li>
+<li>新建一个html页面<pre><code class="html"><span class="meta">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="name">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="javascript"><span class="comment">// get the system platform using node.js</span></span>
+<span class="javascript"><span class="keyword">var</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>);</span>
+<span class="javascript"><span class="built_in">document</span>.write(<span class="string">'You are running on '</span>, os.platform());</span>
+<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
+</code></pre>
+</li>
+<li>win系统可以直接把这个文件夹拖到nw.js.exe就可以看到页面效果了。<h2 id="与node-js交互"><a href="#与node-js交互" class="headerlink" title="与node.js交互"></a><a href="https://github.com/nwjs/nw.js/wiki/Using-Node-modules" target="_blank" rel="external">与node.js交互</a></h2></li>
+</ul>
+<ol>
+<li>分为三种情况分别是node.js原生的，第二种就是自己定义的but全是js写的。第三种就是c/C++写的  </li>
+</ol>
+<ul>
+<li>node.js原生的，可以像上面的那样可以直接用。</li>
+<li>第二种又分两类，第一类是写的js模块只是用了node原生的没有用其它的，也可以像第一种一样使用，尽量不要使用<strong>script src=”…”</strong>这个时候地址就是相对与它的引用的模块也就是父类,第二类就是引用了文件中包含Webkit。那么它的父地址就是相对应用程序的根目录，其实你在写的时候会发现../与./或者不写直接写名子，程序都可以自动的运行，因为nw.js会智能的查找。  </li>
+<li>没有用过，但是你要注意的是一定要重新编译一下，所以写的时候一定要用标准的写法，不然编译出来可能就会出问题了，编译的例子可以参看<a href="https://github.com/nwjs/nw.js/wiki/Build-native-modules-with-nw-gyp" target="_blank" rel="external">这里</a>  </li>
 </ul>
 <hr>
-<p><strong>相信代码是一个一个的敲出来的，不是想出来也不是说出来的，但是你要想明白我说明白最后才要敲代码</strong></p>
+<blockquote>
+<p>每天解决一点点的问题，每天进步一点点，敢底头像别人请教，并问出有质量的问题，一次遇到问题就问，一定要自己努力之后再问，这样也能用助于听懂别人说的什么，特别是针对一个新的领域。</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -171,7 +162,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/10/18/C-JavaScript交互/" data-title="C#JavaScript交互 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/18/杂乱-nw-js学习/" data-title="[杂乱] nw.js学习 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -180,19 +171,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/10/19/设计-组合模式/" title="[设计]组合模式">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [设计]组合模式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/10/18/设计-单例模式/"  title="[设计]单例模式">
+<a href="/2017/11/17/杂乱-RTSP初视/"  title="[杂乱]RTSP初视">
  <strong>旧一篇:</strong><br/> 
- <span>[设计]单例模式
+ <span>[杂乱]RTSP初视
 </span>
 </a>
 </div>
@@ -202,7 +185,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="C#JavaScript交互" data-thread-key="C-JavaScript交互" data-author-key="Ants-double" data-url="http://ants-double.xin/post/C-JavaScript交互"></div>
+	<div class="ds-thread" data-title="[杂乱] nw.js学习" data-thread-key="杂乱-nw-js学习" data-author-key="Ants-double" data-url="http://ants-double.xin/post/杂乱-nw-js学习"></div>
 	
 </section>
 
