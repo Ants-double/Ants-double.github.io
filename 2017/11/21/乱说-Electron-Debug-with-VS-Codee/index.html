@@ -4,16 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Ants-double</title>
+    <title>[乱说]Electron Debug with VS Codee | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="title: ‘[乱说]Electron Debug with VS Codee’date: 2017-11-21 19:38:14
-tags:Electron Debug with VS Codee目的
+    <meta name="description" content="Electron Debug with VS Code目的
 实现用VScode 调试Electron的主进程和渲染进程前提条件
 安装VSCode
-安装De">
+安装Debugger for Chrome(不一定要装Chrome浏览器)调主进程不用此插件
+安装Electron  操作流程
+
+
+生成Launch.js">
     
     
     
@@ -92,10 +95,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/21/乱说-Electron-Debug-with-VS-Codee/" title="" itemprop="url"></a>
+      <a href="/2017/11/21/乱说-Electron-Debug-with-VS-Codee/" title="[乱说]Electron Debug with VS Codee" itemprop="url">[乱说]Electron Debug with VS Codee</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-11-21T11:38:14.547Z" itemprop="datePublished">2017-11-21</time>
+    <time datetime="2017-11-21T11:38:14.000Z" itemprop="datePublished">2017-11-21</time>
   </p>
 </header>
 	<div class="article-content">
@@ -103,12 +106,10 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags"><span class="toc-number">1.</span> <span class="toc-text">tags:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Electron-Debug-with-VS-Codee"><span class="toc-number"></span> <span class="toc-text">Electron Debug with VS Codee</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-number">1.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前提条件"><span class="toc-number">2.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作流程"><span class="toc-number">3.</span> <span class="toc-text">操作流程</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Electron-Debug-with-VS-Code"><span class="toc-number">1.</span> <span class="toc-text">Electron Debug with VS Code</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-number">1.1.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前提条件"><span class="toc-number">1.2.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作流程"><span class="toc-number">1.3.</span> <span class="toc-text">操作流程</span></a></li></ol></li></ol>
 		</div>
 		
-		<hr>
-<p>title: ‘[乱说]Electron Debug with VS Codee’<br>date: 2017-11-21 19:38:14</p>
-<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><h1 id="Electron-Debug-with-VS-Codee"><a href="#Electron-Debug-with-VS-Codee" class="headerlink" title="Electron Debug with VS Codee"></a>Electron Debug with VS Codee</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+		<h1 id="Electron-Debug-with-VS-Code"><a href="#Electron-Debug-with-VS-Code" class="headerlink" title="Electron Debug with VS Code"></a>Electron Debug with VS Code</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
 <li>实现用VScode 调试Electron的主进程和渲染进程<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2></li>
 <li>安装<a href="https://code.visualstudio.com/" target="_blank" rel="external">VSCode</a></li>
 <li>安装<a href="https://code.visualstudio.com/docs/editor/extension-gallery" target="_blank" rel="external">Debugger for Chrome</a>(不一定要装Chrome浏览器)调主进程不用此插件</li>
@@ -179,7 +180,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/11/21/乱说-Electron-Debug-with-VS-Codee/" data-title="Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/21/乱说-Electron-Debug-with-VS-Codee/" data-title="[乱说]Electron Debug with VS Codee | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -210,7 +211,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="" data-thread-key="乱说-Electron-Debug-with-VS-Codee" data-author-key="Ants-double" data-url="http://ants-double.xin/post/乱说-Electron-Debug-with-VS-Codee"></div>
+	<div class="ds-thread" data-title="[乱说]Electron Debug with VS Codee" data-thread-key="乱说-Electron-Debug-with-VS-Codee" data-author-key="Ants-double" data-url="http://ants-double.xin/post/乱说-Electron-Debug-with-VS-Codee"></div>
 	
 </section>
 
