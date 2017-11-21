@@ -4,16 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Ants-double</title>
+    <title>[乱说]Electron 无边框窗口最大化最小化关闭功能 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="title: ‘[乱说]Electron Debug with VS Codee’date: 2017-11-21 19:38:14
-tags:Electron Debug with VS Codee目的
-实现用VScode 调试Electron的主进程和渲染进程前提条件
-安装VSCode
-安装De">
+    <meta name="description" content="Electron 无边框窗口最大化最小化关闭功能目的
+实现无边框窗口，并添加最大化最小化和关闭功能前提
+了解Electron 主进程和渲染进程的通讯
+了解 BrowserWindow相关功能操作流程
+
+
+先在界面上放三个按钮
+&amp;lt;body style=&#34;-webkit-app-region: d">
     
     
     
@@ -92,10 +95,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/21/乱说-Electron-Debug-with-VS-Codee/" title="" itemprop="url"></a>
+      <a href="/2017/11/21/乱说-Electron-无边框窗口最大化最小化关闭功能/" title="[乱说]Electron 无边框窗口最大化最小化关闭功能" itemprop="url">[乱说]Electron 无边框窗口最大化最小化关闭功能</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-11-21T11:38:14.547Z" itemprop="datePublished">2017-11-21</time>
+    <time datetime="2017-11-21T13:43:40.000Z" itemprop="datePublished">2017-11-21</time>
   </p>
 </header>
 	<div class="article-content">
@@ -103,66 +106,72 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags"><span class="toc-number">1.</span> <span class="toc-text">tags:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Electron-Debug-with-VS-Codee"><span class="toc-number"></span> <span class="toc-text">Electron Debug with VS Codee</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-number">1.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前提条件"><span class="toc-number">2.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作流程"><span class="toc-number">3.</span> <span class="toc-text">操作流程</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Electron-无边框窗口最大化最小化关闭功能"><span class="toc-number">1.</span> <span class="toc-text">Electron 无边框窗口最大化最小化关闭功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#目的"><span class="toc-number">1.1.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前提"><span class="toc-number">1.2.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作流程"><span class="toc-number">1.3.</span> <span class="toc-text">操作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示"><span class="toc-number">1.4.</span> <span class="toc-text">提示</span></a></li></ol></li></ol>
 		</div>
 		
-		<hr>
-<p>title: ‘[乱说]Electron Debug with VS Codee’<br>date: 2017-11-21 19:38:14</p>
-<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><h1 id="Electron-Debug-with-VS-Codee"><a href="#Electron-Debug-with-VS-Codee" class="headerlink" title="Electron Debug with VS Codee"></a>Electron Debug with VS Codee</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
-<li>实现用VScode 调试Electron的主进程和渲染进程<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2></li>
-<li>安装<a href="https://code.visualstudio.com/" target="_blank" rel="external">VSCode</a></li>
-<li>安装<a href="https://code.visualstudio.com/docs/editor/extension-gallery" target="_blank" rel="external">Debugger for Chrome</a>(不一定要装Chrome浏览器)调主进程不用此插件</li>
-<li>安装<a href="https://electron.org.cn/release.html" target="_blank" rel="external">Electron</a>  <h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2></li>
+		<h1 id="Electron-无边框窗口最大化最小化关闭功能"><a href="#Electron-无边框窗口最大化最小化关闭功能" class="headerlink" title="Electron 无边框窗口最大化最小化关闭功能"></a>Electron 无边框窗口最大化最小化关闭功能</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>实现无边框窗口，并添加最大化最小化和关闭功能<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2></li>
+<li>了解Electron <a href="https://electron.org.cn/doc/api/ipc-main.html" target="_blank" rel="external">主进程和渲染进程的通讯</a></li>
+<li>了解 <a href="https://electronjs.org/docs/api/browser-window" target="_blank" rel="external">BrowserWindow</a>相关功能<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2></li>
 </ul>
 <ol>
-<li>生成Launch.json<br>在左边栏打到调试页，找到调试设置（一个小齿轮）选node.js生成，之后就可以在.vscode文件夹下看到Launch.json文件</li>
-<li><p>添加配置<br>``` json<br>{<br> // 使用 IntelliSense 了解相关属性。<br> // 悬停以查看现有属性的描述。<br> // 欲了解更多信息，请访问: <a href="https://go.microsoft.com/fwlink/?linkid=830387" target="_blank" rel="external">https://go.microsoft.com/fwlink/?linkid=830387</a></p>
-<pre><code>&quot;version&quot;: &quot;0.2.0&quot;,
-&quot;configurations&quot;: [
-  {
-    &quot;name&quot;: &quot;Debug Renderer Process&quot;,
-    &quot;type&quot;: &quot;chrome&quot;,
-    &quot;request&quot;: &quot;launch&quot;,
-    &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron&quot;,
-    &quot;windows&quot;: {
-      &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron.cmd&quot;
-    },
-    &quot;runtimeArgs&quot;: [
-      &quot;${workspaceRoot}/main.js&quot;,
-      &quot;--remote-debugging-port=9222&quot;
-    ],
-    &quot;webRoot&quot;: &quot;${workspaceRoot}&quot;
-  },
-  {
-    &quot;name&quot;: &quot;Debug Main Process&quot;,
-    &quot;type&quot;: &quot;node&quot;,
-    &quot;request&quot;: &quot;launch&quot;,
-    &quot;cwd&quot;: &quot;${workspaceRoot}&quot;,
-    &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron&quot;,
-    &quot;windows&quot;: {
-      &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron.cmd&quot;
-    },
-    &quot;program&quot;: &quot;${workspaceRoot}/main.js&quot;,
-    &quot;protocol&quot;: &quot;legacy&quot;,
+<li><p>先在界面上放三个按钮</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">"-webkit-app-region: drag"</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">section</span> <span class="attr">style</span>=<span class="string">"-webkit-app-region: drag"</span>&gt;</span>
+       <span class="comment">&lt;!--html代码--&gt;</span>
+       <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+   <span class="tag">&lt;/<span class="name">section</span>&gt;</span>
+
+   <span class="tag">&lt;<span class="name">section</span> <span class="attr">style</span>=<span class="string">"-webkit-app-region: no-drag"</span>&gt;</span>
+       <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"maxbt"</span>&gt;</span>max<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+       <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"minbt"</span>&gt;</span>&gt;min<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+       <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"closebt"</span>&gt;</span>&gt;close<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+   <span class="tag">&lt;/<span class="name">section</span>&gt;</span>
+ <span class="comment">&lt;!-- All of the Node.js APIs are available in this renderer process. --&gt;</span>
+ We are using Node.js <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">document.write(process.versions.node)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>,
+ Chromium <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">document.write(process.versions.chrome)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>,
+ and Electron <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">document.write(process.versions.electron)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>.
+
+ <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span>
+<span class="undefined"></span>
+<span class="undefined">  // require('electron').ipcRenderer;</span>
+<span class="undefined">   // You can also require other files to run in this process</span>
+<span class="undefined">   require('./renderer.js')</span>
+<span class="undefined"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+</code></pre>
+<p><strong>-webkit-app-region: drag是可拖动的样式</strong></p>
+</li>
+<li>添加事件把要做的操作发送给主进程<br>``` javascript<br>var ipc = require(‘electron’).ipcRenderer;<br>document.getElementById(‘maxbt’).addEventListener(‘click’, () =&gt; {<br>console.log(‘hello vscode!’)<br>ipc.send(‘window-max’);</li>
+</ol>
+<p>})<br>document.getElementById(‘minbt’).addEventListener(‘click’, () =&gt; {<br>  console.log(‘hello vscode!’)<br>  ipc.send(‘window-min’);</p>
+<p>})<br>document.getElementById(‘closebt’).addEventListener(‘click’, () =&gt; {<br>  console.log(‘hello vscode!’)<br>  ipc.send(‘window-close’);</p>
+<p>})</p>
+<pre><code>3. 在主进程中调相应的方法
+```  javascript
+const electron = require(&apos;electron&apos;)
+const ipc = electron.ipcMain
+//登录窗口最小化
+ipc.on(&apos;window-min&apos;,function(){
+  mainWindow.minimize();
+})
+//登录窗口最大化
+ipc.on(&apos;window-max&apos;,function(){
+  if(mainWindow.isMaximized()){
+      mainWindow.restore();  
+  }else{
+      mainWindow.maximize(); 
   }
-]
-</code></pre></li>
-</ol>
-<p>} </p>
-<pre><code>3. 调试的时候会有下拉框进行选择自己要调的进程 加以加断但是在调渲染进程时不能在main.js中开调试，因为Debugger for chrome 只能同时运行一个实例，查了些资料，都没有很好的办法，用网页就不能用这个了。大家看自己习惯，我是好久没有写过网页了，习惯了在Vs中调试
-``` code
-// Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-</code></pre><ol>
-<li>成功后的图如下图</li>
-</ol>
-<ul>
-<li>主进程<br><img src="/2017/11/21/乱说-Electron-Debug-with-VS-Codee/002.jpg" alt="主进程"></li>
-<li>渲染进程<br><img src="/2017/11/21/乱说-Electron-Debug-with-VS-Codee/001.jpg" alt="渲染进程"><br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
+})
+ipc.on(&apos;window-close&apos;,function(){
+  mainWindow.close();
+})
+</code></pre><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
+<li><a href="https://electron.org.cn/doc/api/ipc-renderer.html" target="_blank" rel="external">ipc</a>不适合大数据通讯，最好只做命令的传递<br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
 </ul>
 <hr>
 <blockquote>
-<p>工欲干其事，必先利其利，找自己喜欢的IDE,放手大干吧。天下尽归我有。</p>
+<p>基础不稳写出来的代码也不是很好，开源的学习成本其实是很高的，特别是对于新手，自己学习一定要把握好度。</p>
 </blockquote>
   
 	</div>
@@ -173,7 +182,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/11/21/乱说-Electron-Debug-with-VS-Codee/" data-title="Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/21/乱说-Electron-无边框窗口最大化最小化关闭功能/" data-title="[乱说]Electron 无边框窗口最大化最小化关闭功能 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -182,19 +191,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/11/21/乱说-Electron-无边框窗口最大化最小化关闭功能/" title="[乱说]Electron 无边框窗口最大化最小化关闭功能">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [乱说]Electron 无边框窗口最大化最小化关闭功能</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/11/18/语言-C-7-1尝尝试/"  title="[语言]C#7.1尝尝试">
+<a href="/2017/11/21/乱说-Electron-Debug-with-VS-Codee/"  title="">
  <strong>旧一篇:</strong><br/> 
- <span>[语言]C#7.1尝尝试
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -204,7 +205,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="" data-thread-key="乱说-Electron-Debug-with-VS-Codee" data-author-key="Ants-double" data-url="http://ants-double.xin/post/乱说-Electron-Debug-with-VS-Codee"></div>
+	<div class="ds-thread" data-title="[乱说]Electron 无边框窗口最大化最小化关闭功能" data-thread-key="乱说-Electron-无边框窗口最大化最小化关闭功能" data-author-key="Ants-double" data-url="http://ants-double.xin/post/乱说-Electron-无边框窗口最大化最小化关闭功能"></div>
 	
 </section>
 
