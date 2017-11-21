@@ -116,44 +116,50 @@ var _hmt = _hmt || [];
 </ul>
 <ol>
 <li>生成Launch.json<br>在左边栏打到调试页，找到调试设置（一个小齿轮）选node.js生成，之后就可以在.vscode文件夹下看到Launch.json文件</li>
-<li><p>添加配置<br>``` json<br>{<br> // 使用 IntelliSense 了解相关属性。<br> // 悬停以查看现有属性的描述。<br> // 欲了解更多信息，请访问: <a href="https://go.microsoft.com/fwlink/?linkid=830387" target="_blank" rel="external">https://go.microsoft.com/fwlink/?linkid=830387</a></p>
-<pre><code>&quot;version&quot;: &quot;0.2.0&quot;,
-&quot;configurations&quot;: [
-  {
-    &quot;name&quot;: &quot;Debug Renderer Process&quot;,
-    &quot;type&quot;: &quot;chrome&quot;,
-    &quot;request&quot;: &quot;launch&quot;,
-    &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron&quot;,
-    &quot;windows&quot;: {
-      &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron.cmd&quot;
-    },
-    &quot;runtimeArgs&quot;: [
-      &quot;${workspaceRoot}/main.js&quot;,
-      &quot;--remote-debugging-port=9222&quot;
-    ],
-    &quot;webRoot&quot;: &quot;${workspaceRoot}&quot;
-  },
-  {
-    &quot;name&quot;: &quot;Debug Main Process&quot;,
-    &quot;type&quot;: &quot;node&quot;,
-    &quot;request&quot;: &quot;launch&quot;,
-    &quot;cwd&quot;: &quot;${workspaceRoot}&quot;,
-    &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron&quot;,
-    &quot;windows&quot;: {
-      &quot;runtimeExecutable&quot;: &quot;${workspaceRoot}/node_modules/.bin/electron.cmd&quot;
-    },
-    &quot;program&quot;: &quot;${workspaceRoot}/main.js&quot;,
-    &quot;protocol&quot;: &quot;legacy&quot;,
-  }
-]
-</code></pre></li>
+<li>添加配置  </li>
 </ol>
-<p>} </p>
-<pre><code>3. 调试的时候会有下拉框进行选择自己要调的进程 加以加断但是在调渲染进程时不能在main.js中开调试，因为Debugger for chrome 只能同时运行一个实例，查了些资料，都没有很好的办法，用网页就不能用这个了。大家看自己习惯，我是好久没有写过网页了，习惯了在Vs中调试
-``` code
-// Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-</code></pre><ol>
+<pre><code class="json">{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+
+        "version": "0.2.0",
+        "configurations": [
+          {
+            <span class="attr">"name"</span>: <span class="string">"Debug Renderer Process"</span>,
+            <span class="attr">"type"</span>: <span class="string">"chrome"</span>,
+            <span class="attr">"request"</span>: <span class="string">"launch"</span>,
+            <span class="attr">"runtimeExecutable"</span>: <span class="string">"${workspaceRoot}/node_modules/.bin/electron"</span>,
+            <span class="attr">"windows"</span>: {
+              <span class="attr">"runtimeExecutable"</span>: <span class="string">"${workspaceRoot}/node_modules/.bin/electron.cmd"</span>
+            },
+            <span class="attr">"runtimeArgs"</span>: [
+              <span class="string">"${workspaceRoot}/main.js"</span>,
+              <span class="string">"--remote-debugging-port=9222"</span>
+            ],
+            <span class="attr">"webRoot"</span>: <span class="string">"${workspaceRoot}"</span>
+          },
+          {
+            <span class="attr">"name"</span>: <span class="string">"Debug Main Process"</span>,
+            <span class="attr">"type"</span>: <span class="string">"node"</span>,
+            <span class="attr">"request"</span>: <span class="string">"launch"</span>,
+            <span class="attr">"cwd"</span>: <span class="string">"${workspaceRoot}"</span>,
+            <span class="attr">"runtimeExecutable"</span>: <span class="string">"${workspaceRoot}/node_modules/.bin/electron"</span>,
+            <span class="attr">"windows"</span>: {
+              <span class="attr">"runtimeExecutable"</span>: <span class="string">"${workspaceRoot}/node_modules/.bin/electron.cmd"</span>
+            },
+            <span class="attr">"program"</span>: <span class="string">"${workspaceRoot}/main.js"</span>,
+            <span class="attr">"protocol"</span>: <span class="string">"legacy"</span>,
+          }
+        ]
+
+}
+</code></pre>
+<ol>
+<li>调试的时候会有下拉框进行选择自己要调的进程 加以加断但是在调渲染进程时不能在main.js中开调试，因为Debugger for chrome 只能同时运行一个实例，查了些资料，都没有很好的办法，用网页就不能用这个了。大家看自己习惯，我是好久没有写过网页了，习惯了在Vs中调试<pre><code class="code">// Open the DevTools.
+// mainWindow.webContents.openDevTools()
+</code></pre>
+</li>
 <li>成功后的图如下图</li>
 </ol>
 <ul>

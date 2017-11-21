@@ -142,31 +142,47 @@ var _hmt = _hmt || [];
 </code></pre>
 <p><strong>-webkit-app-region: drag是可拖动的样式</strong></p>
 </li>
-<li>添加事件把要做的操作发送给主进程<br>``` javascript<br>var ipc = require(‘electron’).ipcRenderer;<br>document.getElementById(‘maxbt’).addEventListener(‘click’, () =&gt; {<br>console.log(‘hello vscode!’)<br>ipc.send(‘window-max’);</li>
+<li>添加事件把要做的操作发送给主进程  </li>
 </ol>
-<p>})<br>document.getElementById(‘minbt’).addEventListener(‘click’, () =&gt; {<br>  console.log(‘hello vscode!’)<br>  ipc.send(‘window-min’);</p>
-<p>})<br>document.getElementById(‘closebt’).addEventListener(‘click’, () =&gt; {<br>  console.log(‘hello vscode!’)<br>  ipc.send(‘window-close’);</p>
-<p>})</p>
-<pre><code>3. 在主进程中调相应的方法
-```  javascript
-const electron = require(&apos;electron&apos;)
-const ipc = electron.ipcMain
-//登录窗口最小化
-ipc.on(&apos;window-min&apos;,function(){
+<pre><code class="javascript"><span class="keyword">var</span> ipc = <span class="built_in">require</span>(<span class="string">'electron'</span>).ipcRenderer;
+<span class="built_in">document</span>.getElementById(<span class="string">'maxbt'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; {
+  <span class="built_in">console</span>.log(<span class="string">'hello vscode!'</span>)
+  ipc.send(<span class="string">'window-max'</span>);
+
+})
+<span class="built_in">document</span>.getElementById(<span class="string">'minbt'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; {
+  <span class="built_in">console</span>.log(<span class="string">'hello vscode!'</span>)
+  ipc.send(<span class="string">'window-min'</span>);
+
+})
+<span class="built_in">document</span>.getElementById(<span class="string">'closebt'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; {
+  <span class="built_in">console</span>.log(<span class="string">'hello vscode!'</span>)
+  ipc.send(<span class="string">'window-close'</span>);
+
+})
+</code></pre>
+<ol>
+<li>在主进程中调相应的方法  </li>
+</ol>
+<pre><code class="javascript"><span class="keyword">const</span> electron = <span class="built_in">require</span>(<span class="string">'electron'</span>)
+<span class="keyword">const</span> ipc = electron.ipcMain
+<span class="comment">//登录窗口最小化</span>
+ipc.on(<span class="string">'window-min'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
   mainWindow.minimize();
 })
-//登录窗口最大化
-ipc.on(&apos;window-max&apos;,function(){
-  if(mainWindow.isMaximized()){
+<span class="comment">//登录窗口最大化</span>
+ipc.on(<span class="string">'window-max'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="keyword">if</span>(mainWindow.isMaximized()){
       mainWindow.restore();  
-  }else{
+  }<span class="keyword">else</span>{
       mainWindow.maximize(); 
   }
 })
-ipc.on(&apos;window-close&apos;,function(){
+ipc.on(<span class="string">'window-close'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
   mainWindow.close();
 })
-</code></pre><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
+</code></pre>
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
 <li><a href="https://electron.org.cn/doc/api/ipc-renderer.html" target="_blank" rel="external">ipc</a>不适合大数据通讯，最好只做命令的传递<br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
 </ul>
 <hr>
