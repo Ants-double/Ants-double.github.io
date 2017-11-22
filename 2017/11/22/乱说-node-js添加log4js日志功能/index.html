@@ -15,7 +15,9 @@
 
 下载 npm install log4js
 
-初始化配置（这里要区分版本号，1.5前后的版本区别比较大，如果提示配置加载不对就可能是版本号的问题了)``` jav">
+初始化配置（这里要区分版本号，1.5前后的版本区别比较大，如果提示配置加载不对就可能是版本号的问题了)  
+
+var">
     
     
     
@@ -114,19 +116,50 @@ var _hmt = _hmt || [];
 <ol>
 <li>下载 <pre><code>npm install log4js
 </code></pre></li>
-<li>初始化配置（这里要区分版本号，1.5前后的版本区别比较大，如果提示配置加载不对就可能是版本号的问题了)<br>``` javascript<br>var log4js = require(‘log4js’);<br>const path = require(‘path’);</li>
+<li>初始化配置（这里要区分版本号，1.5前后的版本区别比较大，如果提示配置加载不对就可能是版本号的问题了)  </li>
 </ol>
-<p>var log = null;<br>function CreatLogger() {<br>  this.Getlog = function () {<br>    if (log == null) {<br>      log4js.configure({<br>        appenders: {<br>          out: { type: ‘console’ },<br>          //out: { type: ‘console’ },<br>          task: { type: ‘dateFile’, filename: path.join(<strong>dirname, ‘/logs/task’),/<em>pattern: “-dd.log”,</em>/ alwaysIncludePattern: true },<br>          result: { type: ‘dateFile’, filename: path.join(</strong>dirname, ‘/logs/result’), /<em>“pattern”: “-dd.log”,</em>/ alwaysIncludePattern: true },<br>          error: { type: ‘dateFile’, filename: path.join(<strong>dirname, ‘/logs/error’), alwaysIncludePattern: true },<br>          default: { type: ‘dateFile’, filename: path.join(</strong>dirname, ‘/logs/default’), alwaysIncludePattern: true },<br>          rate: { type: ‘dateFile’, filename: path.join(__dirname, ‘/logs/rate’), /<em>“pattern”: “-dd.log”,</em>/ alwaysIncludePattern: true }<br>        },<br>        categories: {<br>          default: { appenders: [‘out’, ‘default’], level: ‘info’ },<br>          task: { appenders: [‘task’], level: ‘debug’ },<br>          result: { appenders: [‘result’], level: ‘info’ },<br>          error: { appenders: [‘error’], level: ‘error’ },<br>          rate: { appenders: [‘rate’], level: ‘warn’ }<br>        }<br>      }<br>      );<br>      log = log4js.getLogger(“test”);<br>      log.level = ‘debug’;//trace debug info warn error fatal</p>
-<pre><code>}
-return log;
-</code></pre><p>  }</p>
-<p>}</p>
-<p>module.exports = CreatLogger;</p>
-<pre><code>3. 调用
-``` javascript
-var logob = require(&apos;./logger.js&apos;);
-var log = new logob().Getlog();
-</code></pre><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<pre><code class="javascript"><span class="keyword">var</span> log4js = <span class="built_in">require</span>(<span class="string">'log4js'</span>);
+<span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
+
+<span class="keyword">var</span> log = <span class="literal">null</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">CreatLogger</span>(<span class="params"></span>) </span>{
+  <span class="keyword">this</span>.Getlog = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="keyword">if</span> (log == <span class="literal">null</span>) {
+      log4js.configure({
+        appenders: {
+          out: { <span class="attr">type</span>: <span class="string">'console'</span> },
+          <span class="comment">//out: { type: 'console' },</span>
+          task: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/task'</span>),<span class="comment">/*pattern: "-dd.log",*/</span> alwaysIncludePattern: <span class="literal">true</span> },
+          result: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/result'</span>), <span class="comment">/*"pattern": "-dd.log",*/</span> alwaysIncludePattern: <span class="literal">true</span> },
+          error: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/error'</span>), <span class="attr">alwaysIncludePattern</span>: <span class="literal">true</span> },
+          <span class="keyword">default</span>: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/default'</span>), <span class="attr">alwaysIncludePattern</span>: <span class="literal">true</span> },
+          rate: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/rate'</span>), <span class="comment">/*"pattern": "-dd.log",*/</span> alwaysIncludePattern: <span class="literal">true</span> }
+        },
+        categories: {
+          <span class="keyword">default</span>: { <span class="attr">appenders</span>: [<span class="string">'out'</span>, <span class="string">'default'</span>], <span class="attr">level</span>: <span class="string">'info'</span> },
+          task: { <span class="attr">appenders</span>: [<span class="string">'task'</span>], <span class="attr">level</span>: <span class="string">'debug'</span> },
+          result: { <span class="attr">appenders</span>: [<span class="string">'result'</span>], <span class="attr">level</span>: <span class="string">'info'</span> },
+          error: { <span class="attr">appenders</span>: [<span class="string">'error'</span>], <span class="attr">level</span>: <span class="string">'error'</span> },
+          rate: { <span class="attr">appenders</span>: [<span class="string">'rate'</span>], <span class="attr">level</span>: <span class="string">'warn'</span> }
+        }
+      }
+      );
+      log = log4js.getLogger(<span class="string">"test"</span>);
+      log.level = <span class="string">'debug'</span>;<span class="comment">//trace debug info warn error fatal</span>
+
+    }
+    <span class="keyword">return</span> log;
+  }
+
+}
+
+<span class="built_in">module</span>.exports = CreatLogger;
+</code></pre>
+<ol>
+<li>调用<pre><code class="javascript"><span class="keyword">var</span> logob = <span class="built_in">require</span>(<span class="string">'./logger.js'</span>);
+<span class="keyword">var</span> log = <span class="keyword">new</span> logob().Getlog();
+</code></pre>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2></li>
 <li>不同的版本配置文件不一样。</li>
 <li>上面的单例模式适用于多线程多进程可能会有问题<br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
 </ol>
