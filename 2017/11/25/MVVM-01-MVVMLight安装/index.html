@@ -4,18 +4,28 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>[乱说]Electron-node.js添加log4js日志功能 | Ants-double</title>
+    <title>[MVVM]01-MVVMLight安装 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="Electron  node.js添加log4js日志功能为何要用log4js
-源于C# java 都用这个功能库，比较熟悉，也是比较完善的功能组件使用
+    <meta name="description" content="MVVMlight安装场景
+这里主要讲的是WPF
+先讲操作，后面的章节会讲mvvm的理论，网上也有大量的文章大家可以参考操作
+用源代码安装
 
 
-下载 npm install log4js
+点这里进行下载源代码编译，然后把用到的dll添加到工程中去
 
-初始化配置（这里要区分版本号，1.5前后的版本区别比较大，如果提示配置加载不对就可能是版本号的问">
+
+用nuget安装
+
+
+打开vs在引用添加右键  
+
+
+
+打开nuget输入mvvmlight">
     
     
     
@@ -94,10 +104,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/22/乱说-node-js添加log4js日志功能/" title="[乱说]Electron-node.js添加log4js日志功能" itemprop="url">[乱说]Electron-node.js添加log4js日志功能</a>
+      <a href="/2017/11/25/MVVM-01-MVVMLight安装/" title="[MVVM]01-MVVMLight安装" itemprop="url">[MVVM]01-MVVMLight安装</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-11-22T11:06:00.000Z" itemprop="datePublished">2017-11-22</time>
+    <time datetime="2017-11-25T02:36:12.000Z" itemprop="datePublished">2017-11-25</time>
   </p>
 </header>
 	<div class="article-content">
@@ -105,67 +115,38 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Electron-node-js添加log4js日志功能"><span class="toc-number">1.</span> <span class="toc-text">Electron  node.js添加log4js日志功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为何要用log4js"><span class="toc-number">1.1.</span> <span class="toc-text">为何要用log4js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">1.2.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.3.</span> <span class="toc-text">注意</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MVVMlight安装"><span class="toc-number">1.</span> <span class="toc-text">MVVMlight安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">1.2.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示"><span class="toc-number">1.3.</span> <span class="toc-text">提示</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="Electron-node-js添加log4js日志功能"><a href="#Electron-node-js添加log4js日志功能" class="headerlink" title="Electron  node.js添加log4js日志功能"></a>Electron  node.js添加log4js日志功能</h1><h2 id="为何要用log4js"><a href="#为何要用log4js" class="headerlink" title="为何要用log4js"></a>为何要用<a href="https://github.com/log4js-node/log4js-node" target="_blank" rel="external">log4js</a></h2><ul>
-<li>源于C# java 都用这个功能库，比较熟悉，也是比较完善的功能组件<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2></li>
+		<h1 id="MVVMlight安装"><a href="#MVVMlight安装" class="headerlink" title="MVVMlight安装"></a>MVVMlight安装</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ol>
+<li>这里主要讲的是WPF</li>
+<li>先讲操作，后面的章节会讲mvvm的理论，网上也有大量的文章大家可以参考<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
+<li>用源代码安装</li>
+</ol>
+<ul>
+<li>点<a href="https://github.com/lbugnion/mvvmlight" target="_blank" rel="external">这里</a>进行下载源代码编译，然后把用到的dll添加到工程中去</li>
 </ul>
 <ol>
-<li>下载 <pre><code>npm install log4js
-</code></pre></li>
-<li>初始化配置（这里要区分版本号，1.5前后的版本区别比较大，如果提示配置加载不对就可能是版本号的问题了)  </li>
+<li>用nuget安装</li>
 </ol>
-<pre><code class="javascript"><span class="keyword">var</span> log4js = <span class="built_in">require</span>(<span class="string">'log4js'</span>);
-<span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);
-
-<span class="keyword">var</span> log = <span class="literal">null</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">CreatLogger</span>(<span class="params"></span>) </span>{
-  <span class="keyword">this</span>.Getlog = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="keyword">if</span> (log == <span class="literal">null</span>) {
-      log4js.configure({
-        appenders: {
-          out: { <span class="attr">type</span>: <span class="string">'console'</span> },
-          <span class="comment">//out: { type: 'console' },</span>
-          task: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/task'</span>),<span class="comment">/*pattern: "-dd.log",*/</span> alwaysIncludePattern: <span class="literal">true</span> },
-          result: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/result'</span>), <span class="comment">/*"pattern": "-dd.log",*/</span> alwaysIncludePattern: <span class="literal">true</span> },
-          error: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/error'</span>), <span class="attr">alwaysIncludePattern</span>: <span class="literal">true</span> },
-          <span class="keyword">default</span>: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/default'</span>), <span class="attr">alwaysIncludePattern</span>: <span class="literal">true</span> },
-          rate: { <span class="attr">type</span>: <span class="string">'dateFile'</span>, <span class="attr">filename</span>: path.join(__dirname, <span class="string">'/logs/rate'</span>), <span class="comment">/*"pattern": "-dd.log",*/</span> alwaysIncludePattern: <span class="literal">true</span> }
-        },
-        categories: {
-          <span class="keyword">default</span>: { <span class="attr">appenders</span>: [<span class="string">'out'</span>, <span class="string">'default'</span>], <span class="attr">level</span>: <span class="string">'info'</span> },
-          task: { <span class="attr">appenders</span>: [<span class="string">'task'</span>], <span class="attr">level</span>: <span class="string">'debug'</span> },
-          result: { <span class="attr">appenders</span>: [<span class="string">'result'</span>], <span class="attr">level</span>: <span class="string">'info'</span> },
-          error: { <span class="attr">appenders</span>: [<span class="string">'error'</span>], <span class="attr">level</span>: <span class="string">'error'</span> },
-          rate: { <span class="attr">appenders</span>: [<span class="string">'rate'</span>], <span class="attr">level</span>: <span class="string">'warn'</span> }
-        }
-      }
-      );
-      log = log4js.getLogger(<span class="string">"test"</span>);
-      log.level = <span class="string">'debug'</span>;<span class="comment">//trace debug info warn error fatal</span>
-
-    }
-    <span class="keyword">return</span> log;
-  }
-
-}
-
-<span class="built_in">module</span>.exports = CreatLogger;
-</code></pre>
+<ul>
+<li>打开vs在引用添加右键  </li>
+</ul>
+<p><img src="/2017/11/25/MVVM-01-MVVMLight安装/001.jpg" alt="tupian"></p>
+<ul>
+<li>打开nuget输入mvvmlight之后选版本安装<br><img src="/2017/11/25/MVVM-01-MVVMLight安装/002.jpg" alt="tupian"></li>
+<li>下面的输出窗口会有提示，成功后有添加引用的dll和添加了Viewmodel文件夹<br><img src="/2017/11/25/MVVM-01-MVVMLight安装/003.jpg" alt="tupian"><br>这就完成安装 了</li>
+</ul>
 <ol>
-<li>调用  </li>
+<li>可以用扩展和更新进行安装<br><img src="/2017/11/25/MVVM-01-MVVMLight安装/002.jpg" alt="tupian"></li>
 </ol>
-<pre><code class="javascript"><span class="keyword">var</span> logob = <span class="built_in">require</span>(<span class="string">'./logger.js'</span>);
-<span class="keyword">var</span> log = <span class="keyword">new</span> logob().Getlog();
-</code></pre>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
-<li>不同的版本配置文件不一样。</li>
-<li>上面的单例模式适用于多线程多进程可能会有问题<br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
-</ol>
+<ul>
+<li>工具-&gt;扩展与更新-&gt;联机-输入mvvmlight选择版本安装可以参考这个<a href="http://www.mvvmlight.net/installing/" target="_blank" rel="external">文章</a>  <h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2></li>
+<li>推荐第二种方式，第一种要自己手动建立一些前期的引用，和相应的文件夹</li>
+</ul>
 <hr>
 <blockquote>
-<p>其实最好的学习资料就是官文，可是为何还要再写呢，因为官文大而全没有针对性，写出来自己也记一下，也有针对性。</p>
+<p>MVVM这是一种比较前言的框架，我当前接触的时候还没有被大量使用，现在可以看到android ios都使用了这种框架。</p>
 </blockquote>
   
 	</div>
@@ -176,7 +157,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/11/22/乱说-node-js添加log4js日志功能/" data-title="[乱说]Electron-node.js添加log4js日志功能 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/25/MVVM-01-MVVMLight安装/" data-title="[MVVM]01-MVVMLight安装 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -185,19 +166,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/11/25/MVVM-01-MVVMLight安装/" title="[MVVM]01-MVVMLight安装">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [MVVM]01-MVVMLight安装</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/11/21/乱说-Electron-无边框窗口最大化最小化关闭功能/"  title="[乱说]Electron 无边框窗口最大化最小化关闭功能">
+<a href="/2017/11/22/乱说-node-js添加log4js日志功能/"  title="[乱说]Electron-node.js添加log4js日志功能">
  <strong>旧一篇:</strong><br/> 
- <span>[乱说]Electron 无边框窗口最大化最小化关闭功能
+ <span>[乱说]Electron-node.js添加log4js日志功能
 </span>
 </a>
 </div>
@@ -207,7 +180,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="[乱说]Electron-node.js添加log4js日志功能" data-thread-key="乱说-node-js添加log4js日志功能" data-author-key="Ants-double" data-url="http://ants-double.xin/post/乱说-node-js添加log4js日志功能"></div>
+	<div class="ds-thread" data-title="[MVVM]01-MVVMLight安装" data-thread-key="MVVM-01-MVVMLight安装" data-author-key="Ants-double" data-url="http://ants-double.xin/post/MVVM-01-MVVMLight安装"></div>
 	
 </section>
 
