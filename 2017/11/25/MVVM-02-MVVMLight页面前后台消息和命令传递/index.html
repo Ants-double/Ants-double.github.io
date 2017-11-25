@@ -4,28 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>[MVVM]01-MVVMLight安装 | Ants-double</title>
+    <title>[MVVM]02-MVVMLight页面前后台消息和命令传递 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="MVVMlight安装场景
-这里主要讲的是WPF
-先讲操作，后面的章节会讲mvvm的理论，网上也有大量的文章大家可以参考操作
-用源代码安装
+    <meta name="description" content="MVVMLight页面前后台消息和命令传递场景
+一个文本框一个按钮点击按钮把文本框的内容弹出来操作
 
 
-点这里进行下载源代码编译，然后把用到的dll添加到工程中去
+建立View和ViewMode之间的关系
 
 
-用nuget安装
-
-
-打开vs在引用添加右键  
-
-
-
-打开nuget输入mvvmlight">
+就是指定窗口xaml的Datacontext也就是窗口上下文为ViewMode类可以直接通过绑定来实现
+12345678910111213141516">
     
     
     
@@ -104,10 +96,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/25/MVVM-01-MVVMLight安装/" title="[MVVM]01-MVVMLight安装" itemprop="url">[MVVM]01-MVVMLight安装</a>
+      <a href="/2017/11/25/MVVM-02-MVVMLight页面前后台消息和命令传递/" title="[MVVM]02-MVVMLight页面前后台消息和命令传递" itemprop="url">[MVVM]02-MVVMLight页面前后台消息和命令传递</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-11-25T02:36:12.000Z" itemprop="datePublished">2017-11-25</time>
+    <time datetime="2017-11-25T12:46:50.000Z" itemprop="datePublished">2017-11-25</time>
   </p>
 </header>
 	<div class="article-content">
@@ -115,38 +107,76 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MVVMlight安装"><span class="toc-number">1.</span> <span class="toc-text">MVVMlight安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">1.2.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示"><span class="toc-number">1.3.</span> <span class="toc-text">提示</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MVVMLight页面前后台消息和命令传递"><span class="toc-number">1.</span> <span class="toc-text">MVVMLight页面前后台消息和命令传递</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">1.2.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示"><span class="toc-number">1.3.</span> <span class="toc-text">提示</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="MVVMlight安装"><a href="#MVVMlight安装" class="headerlink" title="MVVMlight安装"></a>MVVMlight安装</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ol>
-<li>这里主要讲的是WPF</li>
-<li>先讲操作，后面的章节会讲mvvm的理论，网上也有大量的文章大家可以参考<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
-<li>用源代码安装</li>
-</ol>
-<ul>
-<li>点<a href="https://github.com/lbugnion/mvvmlight" target="_blank" rel="external">这里</a>进行下载源代码编译，然后把用到的dll添加到工程中去</li>
+		<h1 id="MVVMLight页面前后台消息和命令传递"><a href="#MVVMLight页面前后台消息和命令传递" class="headerlink" title="MVVMLight页面前后台消息和命令传递"></a>MVVMLight页面前后台消息和命令传递</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>一个文本框一个按钮点击按钮把文本框的内容弹出来<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
 </ul>
 <ol>
-<li>用nuget安装</li>
+<li>建立View和ViewMode之间的关系</li>
 </ol>
 <ul>
-<li>打开vs在引用添加右键  </li>
-</ul>
-<p><img src="/2017/11/25/MVVM-01-MVVMLight安装/001.jpg" alt="tupian"></p>
-<ul>
-<li>打开nuget输入mvvmlight之后选版本安装<br><img src="/2017/11/25/MVVM-01-MVVMLight安装/002.jpg" alt="tupian"></li>
-<li>下面的输出窗口会有提示，成功后有添加引用的dll和添加了Viewmodel文件夹<br><img src="/2017/11/25/MVVM-01-MVVMLight安装/003.jpg" alt="tupian"><br>这就完成安装 了</li>
+<li><p>就是指定窗口xaml的Datacontext也就是窗口上下文为ViewMode类<br>可以直接通过绑定来实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> &lt;Application.Resources&gt;</div><div class="line">    &lt;ResourceDictionary&gt;</div><div class="line">      &lt;vm:ViewModelLocator x:Key=&quot;Locator&quot; d:IsDataSource=&quot;True&quot; xmlns:vm=&quot;clr-namespace:MyMvvmLight.ViewModel&quot; /&gt;</div><div class="line">    &lt;/ResourceDictionary&gt;</div><div class="line">  &lt;/Application.Resources&gt;</div><div class="line">  //这个构造器通过nuget是自动安装的但是在uwp不会自动安装，通过lib安装也不会生成</div><div class="line">   DataContext=&quot;&#123;Binding Main, Source=&#123;StaticResource Locator&#125;&#125;&quot;</div><div class="line">```  </div><div class="line">- 可以通过构造函数</div><div class="line">``` </div><div class="line">  public MainView()</div><div class="line">           &#123;</div><div class="line">               this.DataContext = new MainViewModel();// find correct wife</div><div class="line">           &#125;   </div><div class="line">```  </div><div class="line">- 也可以通过xaml文件来实现两者之间的关联</div></pre></td></tr></table></figure>
+<p><window.datacontent></window.datacontent></p>
+<pre><code>&lt;vm:ViewModel /&gt;
+</code></pre><p>  <br>```  </p>
+</li>
 </ul>
 <ol>
-<li>可以用扩展和更新进行安装<br><img src="/2017/11/25/MVVM-01-MVVMLight安装/002.jpg" alt="tupian"></li>
+<li>UI的部分就在xaml文件和xaml文件的cs文件中<pre><code>&lt;TextBox Width=&quot;100&quot; Text=&quot;{Binding Txt,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}&quot; Margin=&quot;246,41,171,65&quot; Background=&quot;LightBlue&quot; /&gt;
+     &lt;Button Width=&quot;100&quot; Height=&quot;30&quot; Command=&quot;{Binding ShowTxtCommand}&quot; Content=&quot;ShowTxtCommand&quot; Margin=&quot;0,100,0,0&quot;&gt;&lt;/Button&gt;
+</code></pre></li>
+<li><p>viewMode可以专心写逻辑，这个需求不用model层，后面的例子会讲到</p>
+<pre><code>//初始化命令
+         ShowTxtCommand = new RelayCommand(ShowMsg, CanShowMsgExecute);
+          private string _txt;
+
+     /// &lt;summary&gt;
+     /// 绑定到界面的Txt
+     /// &lt;/summary&gt;
+     public string Txt
+     {
+         get
+         {
+             return _txt;
+         }
+         set
+         {
+             _txt = value;
+             RaisePropertyChanged(() =&gt; Txt);
+         }
+     }
+
+/// &lt;summary&gt;
+     /// 命令具体实现
+     /// &lt;/summary&gt;
+     private void ShowMsg()
+     {
+         MessageBox.Show(Txt);
+     }
+
+     /// &lt;summary&gt;
+     /// 显示消息命令是否可以执行
+     /// &lt;/summary&gt;
+     /// &lt;returns&gt;&lt;/returns&gt;
+     private bool CanShowMsgExecute()
+     {
+         return !string.IsNullOrEmpty(Txt);
+     }
+</code></pre><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2></li>
 </ol>
 <ul>
-<li>工具-&gt;扩展与更新-&gt;联机-输入mvvmlight选择版本安装可以参考这个<a href="http://www.mvvmlight.net/installing/" target="_blank" rel="external">文章</a>  <h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2></li>
-<li>推荐第二种方式，第一种要自己手动建立一些前期的引用，和相应的文件夹</li>
+<li>RelayCommand是对wpf命令的包装，实现了命令的一些基本操作</li>
+<li>本文的第一个参数就是消息令牌，第二个参数就是按钮（命令的发出者能不能发命令）这里我们可以看到如果文本框没有内容那按钮是不可以用的，所有的操作都在绑定和命令实现过了。</li>
+<li>mvvmlight命令模式如果发现有问题，是这框架有点问题，已修复过了引用<br>using GalaSoft.MvvmLight.CommandWpf;而不是用//using GalaSoft.MvvmLight.Command;<br>wup一定要用//using GalaSoft.MvvmLight.Command;</li>
+<li>一定不要用Click事件，来实现上面相关的功能，你想想你要初始化的时候检查文本框的内容，还要建立两个控件的直接引用关系，而且还要在文本框更改事件下修改按钮的状态。还要进行一系列的检测。</li>
+<li>当然不用命令也可以实现功能，但是命令模式是不优势的，用了wpf的先进的技术却不接受这新新的开发思想，用老的东西思路开发，会让功能和效率有点折扣。也影响开发效率。</li>
 </ul>
 <hr>
 <blockquote>
-<p>MVVM这是一种比较前言的框架，我当前接触的时候还没有被大量使用，现在可以看到android ios都使用了这种框架。</p>
+<p>技术开发一定要配套，为何有很多语言有很多不好的设计却不修复，就因为有很多人用那样不正规的开发手段来开发东西，走在规则的边缘来进行开发。语言一定要用正确的方式打开。潘多拉的盒子大家懂的。</p>
 </blockquote>
   
 	</div>
@@ -157,7 +187,7 @@ var _hmt = _hmt || [];
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/11/25/MVVM-01-MVVMLight安装/" data-title="[MVVM]01-MVVMLight安装 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/25/MVVM-02-MVVMLight页面前后台消息和命令传递/" data-title="[MVVM]02-MVVMLight页面前后台消息和命令传递 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -166,19 +196,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/11/25/MVVM-02-MVVMLight页面前后台消息和命令传递/" title="[MVVM]02-MVVMLight页面前后台消息和命令传递">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [MVVM]02-MVVMLight页面前后台消息和命令传递</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/11/22/乱说-node-js添加log4js日志功能/"  title="[乱说]Electron-node.js添加log4js日志功能">
+<a href="/2017/11/25/MVVM-01-MVVMLight安装/"  title="[MVVM]01-MVVMLight安装">
  <strong>旧一篇:</strong><br/> 
- <span>[乱说]Electron-node.js添加log4js日志功能
+ <span>[MVVM]01-MVVMLight安装
 </span>
 </a>
 </div>
@@ -188,7 +210,7 @@ var _hmt = _hmt || [];
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="[MVVM]01-MVVMLight安装" data-thread-key="MVVM-01-MVVMLight安装" data-author-key="Ants-double" data-url="http://ants-double.xin/post/MVVM-01-MVVMLight安装"></div>
+	<div class="ds-thread" data-title="[MVVM]02-MVVMLight页面前后台消息和命令传递" data-thread-key="MVVM-02-MVVMLight页面前后台消息和命令传递" data-author-key="Ants-double" data-url="http://ants-double.xin/post/MVVM-02-MVVMLight页面前后台消息和命令传递"></div>
 	
 </section>
 
