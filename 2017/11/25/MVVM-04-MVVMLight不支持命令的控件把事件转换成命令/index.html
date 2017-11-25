@@ -4,20 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>[MVVM]02-MVVMLight页面前后台消息和命令传递 | Ants-double</title>
+    <title>[MVVM]04-MVVMLight不支持命令的控件把事件转换成命令 | Ants-double</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ants-double">
     
-    <meta name="description" content="MVVMLight页面前后台消息和命令传递场景
-一个文本框一个按钮点击按钮把文本框的内容弹出来操作
+    <meta name="description" content="MVVMLight不支持命令的控件把事件转换成命令场景
+checkbox不支持命令，但是要在选中在时候在ViewModel中进行相应的操作，那么要怎么实现呢操作
 
 
-建立View和ViewMode之间的关系
+我们可以把事件转化为命令
 
 
-就是指定窗口xaml的Datacontext也就是窗口上下文为ViewMode类可以直接通过绑定来实现
-12345678910111213141516">
+引用System.Windows.Interactivity 在blend中带的有，vs2017引入mv">
     
     
     
@@ -96,10 +95,10 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/11/25/MVVM-02-MVVMLight页面前后台消息和命令传递/" title="[MVVM]02-MVVMLight页面前后台消息和命令传递" itemprop="url">[MVVM]02-MVVMLight页面前后台消息和命令传递</a>
+      <a href="/2017/11/25/MVVM-04-MVVMLight不支持命令的控件把事件转换成命令/" title="[MVVM]04-MVVMLight不支持命令的控件把事件转换成命令" itemprop="url">[MVVM]04-MVVMLight不支持命令的控件把事件转换成命令</a>
   </h1>
   <p class="article-time">
-    <time datetime="2017-11-25T12:46:50.000Z" itemprop="datePublished">2017-11-25</time>
+    <time datetime="2017-11-25T14:06:21.000Z" itemprop="datePublished">2017-11-25</time>
   </p>
 </header>
 	<div class="article-content">
@@ -107,63 +106,59 @@ var _hmt = _hmt || [];
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title"></strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MVVMLight页面前后台消息和命令传递"><span class="toc-number">1.</span> <span class="toc-text">MVVMLight页面前后台消息和命令传递</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">1.2.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示"><span class="toc-number">1.3.</span> <span class="toc-text">提示</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MVVMLight不支持命令的控件把事件转换成命令"><span class="toc-number">1.</span> <span class="toc-text">MVVMLight不支持命令的控件把事件转换成命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">1.2.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示"><span class="toc-number">1.3.</span> <span class="toc-text">提示</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="MVVMLight页面前后台消息和命令传递"><a href="#MVVMLight页面前后台消息和命令传递" class="headerlink" title="MVVMLight页面前后台消息和命令传递"></a>MVVMLight页面前后台消息和命令传递</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
-<li>一个文本框一个按钮点击按钮把文本框的内容弹出来<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
+		<h1 id="MVVMLight不支持命令的控件把事件转换成命令"><a href="#MVVMLight不支持命令的控件把事件转换成命令" class="headerlink" title="MVVMLight不支持命令的控件把事件转换成命令"></a>MVVMLight不支持命令的控件把事件转换成命令</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>checkbox不支持命令，但是要在选中在时候在ViewModel中进行相应的操作，那么要怎么实现呢<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
 </ul>
 <ol>
-<li>建立View和ViewMode之间的关系</li>
+<li>我们可以把事件转化为命令</li>
 </ol>
 <ul>
-<li><p>就是指定窗口xaml的Datacontext也就是窗口上下文为ViewMode类<br>可以直接通过绑定来实现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> &lt;Application.Resources&gt;</div><div class="line">    &lt;ResourceDictionary&gt;</div><div class="line">      &lt;vm:ViewModelLocator x:Key=&quot;Locator&quot; d:IsDataSource=&quot;True&quot; xmlns:vm=&quot;clr-namespace:MyMvvmLight.ViewModel&quot; /&gt;</div><div class="line">    &lt;/ResourceDictionary&gt;</div><div class="line">  &lt;/Application.Resources&gt;</div><div class="line">  //这个构造器通过nuget是自动安装的但是在uwp不会自动安装，通过lib安装也不会生成</div><div class="line">   DataContext=&quot;&#123;Binding Main, Source=&#123;StaticResource Locator&#125;&#125;&quot;</div><div class="line">```  </div><div class="line">- 可以通过构造函数</div><div class="line">``` </div><div class="line">  public MainView()</div><div class="line">           &#123;</div><div class="line">               this.DataContext = new MainViewModel();// find correct wife</div><div class="line">           &#125;   </div><div class="line">```  </div><div class="line">- 也可以通过xaml文件来实现两者之间的关联</div></pre></td></tr></table></figure>
-<p><window.datacontent></window.datacontent></p>
-<pre><code>&lt;vm:ViewModel /&gt;
-</code></pre><p></p>
+<li>引用System.Windows.Interactivity 在blend中带的有，vs2017引入mvvmlight会自动添加</li>
+<li>在xaml引入System.Windows.Interactivity。<pre><code class="xml">xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+</code></pre>
 </li>
 </ul>
-<pre><code>
-2. UI的部分就在xaml文件和xaml文件的cs文件中
-</code></pre><p> <textbox width="100" text="{Binding Txt,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" margin="246,41,171,65" background="LightBlue"><br>        <button width="100" height="30" command="{Binding ShowTxtCommand}" content="ShowTxtCommand" margin="0,100,0,0"></button></textbox></p>
-<pre><code>3. viewMode可以专心写逻辑，这个需求不用model层，后面的例子会讲到
-</code></pre><p> //初始化命令<br>            ShowTxtCommand = new RelayCommand(ShowMsg, CanShowMsgExecute);<br>             private string _txt;</p>
-<pre><code>/// &lt;summary&gt;
-/// 绑定到界面的Txt
-/// &lt;/summary&gt;
-public string Txt
-{
-    get
-    {
-        return _txt;
-    }
-    set
-    {
-        _txt = value;
-        RaisePropertyChanged(() =&gt; Txt);
-    }
-}
-</code></pre><p> /// <summary><br>        /// 命令具体实现<br>        /// </summary><br>        private void ShowMsg()<br>        {<br>            MessageBox.Show(Txt);<br>        }</p>
-<pre><code>/// &lt;summary&gt;
-/// 显示消息命令是否可以执行
-/// &lt;/summary&gt;
-/// &lt;returns&gt;&lt;/returns&gt;
-private bool CanShowMsgExecute()
-{
-    return !string.IsNullOrEmpty(Txt);
-}
-</code></pre><p>```  </p>
-<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
-<li>RelayCommand是对wpf命令的包装，实现了命令的一些基本操作</li>
-<li>本文的第一个参数就是消息令牌，第二个参数就是按钮（命令的发出者能不能发命令）这里我们可以看到如果文本框没有内容那按钮是不可以用的，所有的操作都在绑定和命令实现过了。有多重载参考官文</li>
-<li>mvvmlight命令模式如果发现有问题，是这框架有点问题，已修复过了引用<br>using GalaSoft.MvvmLight.CommandWpf;而不是用//using GalaSoft.MvvmLight.Command;<br>wup一定要用//using GalaSoft.MvvmLight.Command;</li>
-<li>一定不要用Click事件，来实现上面相关的功能，你想想你要初始化的时候检查文本框的内容，还要建立两个控件的直接引用关系，而且还要在文本框更改事件下修改按钮的状态。还要进行一系列的检测。</li>
-<li>当然不用命令也可以实现功能，但是命令模式是不优势的，用了wpf的先进的技术却不接受这新新的开发思想，用老的东西思路开发，会让功能和效率有点折扣。也影响开发效率。<br><img src="/2017/11/25/MVVM-02-MVVMLight页面前后台消息和命令传递/001.gif" alt="result"><br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
+<ol>
+<li>在控件中可以这样使用<br>```  xml<checkbox width="30" height="30" margin="86,65,401,65"><br>         <i:interaction.triggers><br>             <i:eventtrigger eventname="Checked"><br>                 <command:eventtocommand command="{Binding CheckedCommand}"></command:eventtocommand><br>             </i:eventtrigger><br>             <i:eventtrigger eventname="Unchecked"><br>                 <command:eventtocommand command="{Binding UnCheckedCommand}"></command:eventtocommand><br>             </i:eventtrigger><br>         </i:interaction.triggers><br>     </checkbox>
+
+</li>
+</ol>
+<pre><code>3. 在ViewlModel添加对应的事件处理弹框
+```  csharp
+ CheckedCommand = new RelayCommand(Checked);
+
+            UnCheckedCommand = new RelayCommand(UnChecked);
+     public RelayCommand CheckedCommand
+        {
+            get;
+            set;
+        }
+
+        public RelayCommand UnCheckedCommand
+        {
+            get;
+            set;
+        }
+
+        private void Checked()
+        {
+            MessageBox.Show(&quot;Checked&quot;);
+        }
+
+        private void UnChecked()
+        {
+            MessageBox.Show(&quot;Unchecked&quot;);
+        }
+</code></pre><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
+<li>命令可以很好的添加快捷键的后面的文会讲到。WPF内部在的优化特别是最新的一版更新中有明显的改进</li>
+<li>如果不到万不得一的情况下一定遵守MVVM的规则，代码实现功能那里都可以写，乱写一方便是不方便维护，另一方便执行的效率，你不懂后台的执行，可怕的就是乱写。用了最近的性能拿到了结果。<br><img src="/2017/11/25/MVVM-04-MVVMLight不支持命令的控件把事件转换成命令/003.gif" alt="result"><br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
 </ul>
 <hr>
 <blockquote>
-<p>技术开发一定要配套，为何有很多语言有很多不好的设计却不修复，就因为有很多人用那样不正规的开发手段来开发东西，走在规则的边缘来进行开发。语言一定要用正确的方式打开。潘多拉的盒子大家懂的。</p>
+<p>我有时候会被别人说这个可以用什么什么可以很方便的实现，我当然知道，一个独立的功能实现难，但一般不是世界难题都可以解决，但是放在现有的系统中，如何是对现有系统最小更改和影响的情况下实现呢。为了一个功能更改太量的现有功能，那种方法我不认为是最优秀的。理解细节和整体把握就是最大的底气。我是码农，但我爱惜我自己的土地。</p>
 </blockquote>
   
 	</div>
@@ -174,7 +169,7 @@ private bool CanShowMsgExecute()
 
 <div class="article-share" id="share">
 
-  <div data-url="http://ants-double.xin/2017/11/25/MVVM-02-MVVMLight页面前后台消息和命令传递/" data-title="[MVVM]02-MVVMLight页面前后台消息和命令传递 | Ants-double" data-tsina="" class="share clearfix">
+  <div data-url="http://ants-double.xin/2017/11/25/MVVM-04-MVVMLight不支持命令的控件把事件转换成命令/" data-title="[MVVM]04-MVVMLight不支持命令的控件把事件转换成命令 | Ants-double" data-tsina="" class="share clearfix">
   </div>
 
 </div>
@@ -183,19 +178,11 @@ private bool CanShowMsgExecute()
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/11/25/MVVM-02-MVVMLight页面间传递消息/" title="[MVVM]03-MVVMLight页面间传递消息">
-  <strong>新一篇:</strong><br/>
-  <span>
-  [MVVM]03-MVVMLight页面间传递消息</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/11/25/MVVM-01-MVVMLight安装/"  title="[MVVM]01-MVVMLight安装">
+<a href="/2017/11/25/MVVM-02-MVVMLight页面间传递消息/"  title="[MVVM]03-MVVMLight页面间传递消息">
  <strong>旧一篇:</strong><br/> 
- <span>[MVVM]01-MVVMLight安装
+ <span>[MVVM]03-MVVMLight页面间传递消息
 </span>
 </a>
 </div>
@@ -205,7 +192,7 @@ private bool CanShowMsgExecute()
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="[MVVM]02-MVVMLight页面前后台消息和命令传递" data-thread-key="MVVM-02-MVVMLight页面前后台消息和命令传递" data-author-key="Ants-double" data-url="http://ants-double.xin/post/MVVM-02-MVVMLight页面前后台消息和命令传递"></div>
+	<div class="ds-thread" data-title="[MVVM]04-MVVMLight不支持命令的控件把事件转换成命令" data-thread-key="MVVM-04-MVVMLight不支持命令的控件把事件转换成命令" data-author-key="Ants-double" data-url="http://ants-double.xin/post/MVVM-04-MVVMLight不支持命令的控件把事件转换成命令"></div>
 	
 </section>
 
