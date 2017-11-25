@@ -121,53 +121,40 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> &lt;Application.Resources&gt;</div><div class="line">    &lt;ResourceDictionary&gt;</div><div class="line">      &lt;vm:ViewModelLocator x:Key=&quot;Locator&quot; d:IsDataSource=&quot;True&quot; xmlns:vm=&quot;clr-namespace:MyMvvmLight.ViewModel&quot; /&gt;</div><div class="line">    &lt;/ResourceDictionary&gt;</div><div class="line">  &lt;/Application.Resources&gt;</div><div class="line">  //这个构造器通过nuget是自动安装的但是在uwp不会自动安装，通过lib安装也不会生成</div><div class="line">   DataContext=&quot;&#123;Binding Main, Source=&#123;StaticResource Locator&#125;&#125;&quot;</div><div class="line">```  </div><div class="line">- 可以通过构造函数</div><div class="line">``` </div><div class="line">  public MainView()</div><div class="line">           &#123;</div><div class="line">               this.DataContext = new MainViewModel();// find correct wife</div><div class="line">           &#125;   </div><div class="line">```  </div><div class="line">- 也可以通过xaml文件来实现两者之间的关联</div></pre></td></tr></table></figure>
 <p><window.datacontent></window.datacontent></p>
 <pre><code>&lt;vm:ViewModel /&gt;
-</code></pre><p>  <br>```  </p>
+</code></pre><p></p>
 </li>
 </ul>
-<ol>
-<li>UI的部分就在xaml文件和xaml文件的cs文件中<pre><code>&lt;TextBox Width=&quot;100&quot; Text=&quot;{Binding Txt,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}&quot; Margin=&quot;246,41,171,65&quot; Background=&quot;LightBlue&quot; /&gt;
-     &lt;Button Width=&quot;100&quot; Height=&quot;30&quot; Command=&quot;{Binding ShowTxtCommand}&quot; Content=&quot;ShowTxtCommand&quot; Margin=&quot;0,100,0,0&quot;&gt;&lt;/Button&gt;
-</code></pre></li>
-<li><p>viewMode可以专心写逻辑，这个需求不用model层，后面的例子会讲到</p>
-<pre><code>//初始化命令
-         ShowTxtCommand = new RelayCommand(ShowMsg, CanShowMsgExecute);
-          private string _txt;
-
-     /// &lt;summary&gt;
-     /// 绑定到界面的Txt
-     /// &lt;/summary&gt;
-     public string Txt
-     {
-         get
-         {
-             return _txt;
-         }
-         set
-         {
-             _txt = value;
-             RaisePropertyChanged(() =&gt; Txt);
-         }
-     }
-
-/// &lt;summary&gt;
-     /// 命令具体实现
-     /// &lt;/summary&gt;
-     private void ShowMsg()
-     {
-         MessageBox.Show(Txt);
-     }
-
-     /// &lt;summary&gt;
-     /// 显示消息命令是否可以执行
-     /// &lt;/summary&gt;
-     /// &lt;returns&gt;&lt;/returns&gt;
-     private bool CanShowMsgExecute()
-     {
-         return !string.IsNullOrEmpty(Txt);
-     }
-</code></pre><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2></li>
-</ol>
-<ul>
+<pre><code>
+2. UI的部分就在xaml文件和xaml文件的cs文件中
+</code></pre><p> <textbox width="100" text="{Binding Txt,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" margin="246,41,171,65" background="LightBlue"><br>        <button width="100" height="30" command="{Binding ShowTxtCommand}" content="ShowTxtCommand" margin="0,100,0,0"></button></textbox></p>
+<pre><code>3. viewMode可以专心写逻辑，这个需求不用model层，后面的例子会讲到
+</code></pre><p> //初始化命令<br>            ShowTxtCommand = new RelayCommand(ShowMsg, CanShowMsgExecute);<br>             private string _txt;</p>
+<pre><code>/// &lt;summary&gt;
+/// 绑定到界面的Txt
+/// &lt;/summary&gt;
+public string Txt
+{
+    get
+    {
+        return _txt;
+    }
+    set
+    {
+        _txt = value;
+        RaisePropertyChanged(() =&gt; Txt);
+    }
+}
+</code></pre><p> /// <summary><br>        /// 命令具体实现<br>        /// </summary><br>        private void ShowMsg()<br>        {<br>            MessageBox.Show(Txt);<br>        }</p>
+<pre><code>/// &lt;summary&gt;
+/// 显示消息命令是否可以执行
+/// &lt;/summary&gt;
+/// &lt;returns&gt;&lt;/returns&gt;
+private bool CanShowMsgExecute()
+{
+    return !string.IsNullOrEmpty(Txt);
+}
+</code></pre><p>```  </p>
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
 <li>RelayCommand是对wpf命令的包装，实现了命令的一些基本操作</li>
 <li>本文的第一个参数就是消息令牌，第二个参数就是按钮（命令的发出者能不能发命令）这里我们可以看到如果文本框没有内容那按钮是不可以用的，所有的操作都在绑定和命令实现过了。</li>
 <li>mvvmlight命令模式如果发现有问题，是这框架有点问题，已修复过了引用<br>using GalaSoft.MvvmLight.CommandWpf;而不是用//using GalaSoft.MvvmLight.Command;<br>wup一定要用//using GalaSoft.MvvmLight.Command;</li>
