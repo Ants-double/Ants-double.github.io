@@ -122,37 +122,49 @@ var _hmt = _hmt || [];
 </li>
 </ul>
 <ol>
-<li>在控件中可以这样使用<br>```  xml<checkbox width="30" height="30" margin="86,65,401,65"><br>         <i:interaction.triggers><br>             <i:eventtrigger eventname="Checked"><br>                 <command:eventtocommand command="{Binding CheckedCommand}"></command:eventtocommand><br>             </i:eventtrigger><br>             <i:eventtrigger eventname="Unchecked"><br>                 <command:eventtocommand command="{Binding UnCheckedCommand}"></command:eventtocommand><br>             </i:eventtrigger><br>         </i:interaction.triggers><br>     </checkbox>
-
-</li>
+<li>在控件中可以这样使用  </li>
 </ol>
-<pre><code>3. 在ViewlModel添加对应的事件处理弹框
-```  csharp
- CheckedCommand = new RelayCommand(Checked);
+<pre><code class="xml"><span class="tag">&lt;<span class="name">CheckBox</span> <span class="attr">Width</span>=<span class="string">"30"</span> <span class="attr">Height</span>=<span class="string">"30"</span> <span class="attr">Margin</span>=<span class="string">"86,65,401,65"</span>&gt;</span>
+          <span class="tag">&lt;<span class="name">i:Interaction.Triggers</span>&gt;</span>
+              <span class="tag">&lt;<span class="name">i:EventTrigger</span> <span class="attr">EventName</span>=<span class="string">"Checked"</span>&gt;</span>
+                  <span class="tag">&lt;<span class="name">command:EventToCommand</span> <span class="attr">Command</span>=<span class="string">"{Binding CheckedCommand}"</span>&gt;</span><span class="tag">&lt;/<span class="name">command:EventToCommand</span>&gt;</span>
+              <span class="tag">&lt;/<span class="name">i:EventTrigger</span>&gt;</span>
+              <span class="tag">&lt;<span class="name">i:EventTrigger</span> <span class="attr">EventName</span>=<span class="string">"Unchecked"</span>&gt;</span>
+                  <span class="tag">&lt;<span class="name">command:EventToCommand</span> <span class="attr">Command</span>=<span class="string">"{Binding UnCheckedCommand}"</span>&gt;</span><span class="tag">&lt;/<span class="name">command:EventToCommand</span>&gt;</span>
+              <span class="tag">&lt;/<span class="name">i:EventTrigger</span>&gt;</span>
+          <span class="tag">&lt;/<span class="name">i:Interaction.Triggers</span>&gt;</span>
+      <span class="tag">&lt;/<span class="name">CheckBox</span>&gt;</span>
+</code></pre>
+<ol>
+<li><p>在ViewlModel添加对应的事件处理弹框</p>
+<pre><code class="csharp">CheckedCommand = <span class="keyword">new</span> RelayCommand(Checked);
 
-            UnCheckedCommand = new RelayCommand(UnChecked);
-     public RelayCommand CheckedCommand
-        {
-            get;
-            set;
-        }
+         UnCheckedCommand = <span class="keyword">new</span> RelayCommand(UnChecked);
+  <span class="keyword">public</span> RelayCommand CheckedCommand
+     {
+         <span class="keyword">get</span>;
+         <span class="keyword">set</span>;
+     }
 
-        public RelayCommand UnCheckedCommand
-        {
-            get;
-            set;
-        }
+     <span class="keyword">public</span> RelayCommand UnCheckedCommand
+     {
+         <span class="keyword">get</span>;
+         <span class="keyword">set</span>;
+     }
 
-        private void Checked()
-        {
-            MessageBox.Show(&quot;Checked&quot;);
-        }
+     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Checked</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         MessageBox.Show(<span class="string">"Checked"</span>);
+     }
 
-        private void UnChecked()
-        {
-            MessageBox.Show(&quot;Unchecked&quot;);
-        }
-</code></pre><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><ul>
+     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">UnChecked</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         MessageBox.Show(<span class="string">"Unchecked"</span>);
+     }
+</code></pre>
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2></li>
+</ol>
+<ul>
 <li>命令可以很好的添加快捷键的后面的文会讲到。WPF内部在的优化特别是最新的一版更新中有明显的改进</li>
 <li>如果不到万不得一的情况下一定遵守MVVM的规则，代码实现功能那里都可以写，乱写一方便是不方便维护，另一方便执行的效率，你不懂后台的执行，可怕的就是乱写。用了最近的性能拿到了结果。<br><img src="/2017/11/25/MVVM-04-MVVMLight不支持命令的控件把事件转换成命令/003.gif" alt="result"><br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
 </ul>
