@@ -1,0 +1,506 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>[MVVM]05-MvvmLight页面与Model层的交互含UI线程  | Ants-double</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Ants-double">
+    
+    <meta name="description" content="MvvmLight页面与Model层的交互含UI线程场景
+页面初始化显示model层的信息，并且可以通过ViewModel更改相应的信息后及时在View上显示操作
+
+
+添加windows.xaml并添加对应的ViewModel并建立关联
+&amp;lt;Grid&amp;gt;
+    &amp;lt;Grid.Colum">
+    
+    
+    
+    
+    <link rel="alternative" href="/Tinnypp/atom.xml" title="Ants-double" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+
+  
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    
+  
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d182ed77fc48758bf45a33835ee35745";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','.............Add your swiftype userID...............');
+</script>
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Ants-double">Ants-double</a></h1>
+				<h2 class="blog-motto">每天进步一点点</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/Tinnypp">首页</a></li>
+					
+						<li><a href="/Tinnypp/archives">归档</a></li>
+					
+					<li>
+					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-inpu" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>-->
+
+				</ul>
+			</nav>	
+</div>
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/11/26/MVVM-05-MvvmLight页面与Model层的交互含UI线程/" title="[MVVM]05-MvvmLight页面与Model层的交互含UI线程 " itemprop="url">[MVVM]05-MvvmLight页面与Model层的交互含UI线程 </a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2017-11-26T03:02:52.000Z" itemprop="datePublished">2017-11-26</time>
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title"></strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MvvmLight页面与Model层的交互含UI线程"><span class="toc-number">1.</span> <span class="toc-text">MvvmLight页面与Model层的交互含UI线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景"><span class="toc-number">1.1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">1.2.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示"><span class="toc-number">1.3.</span> <span class="toc-text">提示</span></a></li></ol></li></ol>
+		</div>
+		
+		<h1 id="MvvmLight页面与Model层的交互含UI线程"><a href="#MvvmLight页面与Model层的交互含UI线程" class="headerlink" title="MvvmLight页面与Model层的交互含UI线程"></a>MvvmLight页面与Model层的交互含UI线程</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul>
+<li>页面初始化显示model层的信息，并且可以通过ViewModel更改相应的信息后及时在View上显示<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
+</ul>
+<ol>
+<li><p>添加windows.xaml并添加对应的ViewModel并建立关联</p>
+<pre><code class="xml"><span class="tag">&lt;<span class="name">Grid</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">Grid.ColumnDefinitions</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">ColumnDefinition</span>/&gt;</span>
+        <span class="tag">&lt;<span class="name">ColumnDefinition</span>/&gt;</span>
+    <span class="tag">&lt;/<span class="name">Grid.ColumnDefinitions</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Grid.Column</span>=<span class="string">"0"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">Text</span>=<span class="string">"{Binding Teacher.Name}"</span>&gt;</span><span class="tag">&lt;/<span class="name">TextBlock</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">Text</span>=<span class="string">"{Binding Teacher.Age}"</span>&gt;</span><span class="tag">&lt;/<span class="name">TextBlock</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">ListView</span> <span class="attr">ItemsSource</span>=<span class="string">"{Binding Teacher.Students}"</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">ListView.View</span>&gt;</span>
+                <span class="tag">&lt;<span class="name">GridView</span>&gt;</span>
+                    <span class="tag">&lt;<span class="name">GridViewColumn</span> <span class="attr">Header</span>=<span class="string">"姓名"</span> <span class="attr">DisplayMemberBinding</span>=<span class="string">"{Binding Name}"</span> &gt;</span><span class="tag">&lt;/<span class="name">GridViewColumn</span>&gt;</span>
+                    <span class="tag">&lt;<span class="name">GridViewColumn</span> <span class="attr">Header</span>=<span class="string">"年龄"</span> <span class="attr">DisplayMemberBinding</span>=<span class="string">"{Binding Age}"</span>&gt;</span><span class="tag">&lt;/<span class="name">GridViewColumn</span>&gt;</span>
+                <span class="tag">&lt;/<span class="name">GridView</span>&gt;</span>
+            <span class="tag">&lt;/<span class="name">ListView.View</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">ListView</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Grid.Column</span>=<span class="string">"1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Content</span>=<span class="string">"改变教师名称"</span> <span class="attr">Command</span>=<span class="string">"{Binding ChangeTeacherNameCommand}"</span>&gt;</span><span class="tag">&lt;/<span class="name">Button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Content</span>=<span class="string">"增加学生"</span> <span class="attr">Command</span>=<span class="string">"{Binding AddStudentCommand}"</span>&gt;</span><span class="tag">&lt;/<span class="name">Button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Content</span>=<span class="string">"改变最后一名学生名称"</span> <span class="attr">Command</span>=<span class="string">"{Binding ChangeLastStudentNameCommand}"</span>&gt;</span><span class="tag">&lt;/<span class="name">Button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">Grid</span>&gt;</span>
+</code></pre>
+</li>
+<li><p>添加ViewModel </p>
+<pre><code class="csharp"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Window2ViewModel</span> : <span class="title">ViewModelBase</span>
+ {
+     <span class="keyword">private</span> Teacher _teacher;
+
+     <span class="keyword">public</span> Teacher Teacher
+     {
+         <span class="keyword">get</span>
+         {
+             <span class="keyword">return</span> _teacher;
+         }
+         <span class="keyword">set</span>
+         {
+             _teacher = <span class="keyword">value</span>;
+             RaisePropertyChanged(() =&gt; Teacher);
+         }
+     }
+
+     <span class="keyword">public</span> RelayCommand ChangeTeacherNameCommand
+     {
+         <span class="keyword">get</span>; <span class="keyword">set</span>;
+     }
+
+     <span class="keyword">public</span> RelayCommand AddStudentCommand
+     {
+         <span class="keyword">get</span>; <span class="keyword">set</span>;
+     }
+
+     <span class="keyword">public</span> RelayCommand ChangeLastStudentNameCommand
+     {
+         <span class="keyword">get</span>; <span class="keyword">set</span>;
+     }
+     <span class="function"><span class="keyword">public</span> <span class="title">Window2ViewModel</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         Teacher = <span class="keyword">new</span> Teacher()
+         {
+             Name = <span class="string">"LaoZhao"</span>,
+             Age = <span class="number">30</span>,
+             Students = <span class="keyword">new</span> ObservableCollection&lt;Student&gt;()
+         {
+             <span class="keyword">new</span> Student()
+             {
+                 Name=<span class="string">"LaoZhange"</span>,
+                 Age = <span class="number">18</span>
+             }
+         }
+         };
+
+         InitCommand();
+     }
+     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">InitCommand</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         ChangeTeacherNameCommand = <span class="keyword">new</span> RelayCommand(() =&gt;
+         {
+             Task.Factory.StartNew(() =&gt;
+             {
+                 Teacher.Name = <span class="string">"MaYun"</span>;
+             });
+         });
+
+         <span class="comment">//AddStudentCommand = new RelayCommand(() =&gt;</span>
+         <span class="comment">//{</span>
+         <span class="comment">//    Task.Factory.StartNew(() =&gt;</span>
+         <span class="comment">//    {</span>
+         <span class="comment">//        Teacher.Students.Add(new Student()</span>
+         <span class="comment">//        {</span>
+         <span class="comment">//            Name = "LaoLi",</span>
+         <span class="comment">//            Age = 25</span>
+         <span class="comment">//        });</span>
+         <span class="comment">//    });</span>
+         <span class="comment">//});</span>
+         AddStudentCommand = <span class="keyword">new</span> RelayCommand(() =&gt;
+         {
+             Task.Factory.StartNew(() =&gt;
+             {
+                 DispatcherHelper.CheckBeginInvokeOnUI(() =&gt;
+                 {
+                     Teacher.Students.Add(<span class="keyword">new</span> Student()
+                     {
+                         Name = <span class="string">"LaoLi"</span>,
+                         Age = <span class="number">25</span>
+                     });
+                 });
+             });
+         });
+
+         ChangeLastStudentNameCommand = <span class="keyword">new</span> RelayCommand(() =&gt;
+         {
+             Task.Factory.StartNew(() =&gt;
+             {
+                 <span class="keyword">var</span> student = Teacher.Students.LastOrDefault();
+
+                 <span class="keyword">if</span> (student != <span class="literal">null</span>)
+                 {
+                     student.Name = <span class="string">"TheLast"</span>;
+                 }
+             });
+         });
+     }
+ }
+</code></pre>
+</li>
+<li>添加Dispatcherhelp，这个类是框架会自动把某个UI要做的事情委托给对应的UI，统一了调用方式，不用在代码中指定用那个UI的线程来更新，因为大多数时候很多人喜欢用Dispath.invoke(action)这种方式，这种会造成整个窗口的卡，所以一定要了解WPF的UI线程和其它工作线程的关系以及委托方式。<pre><code class="csharp"><span class="function"><span class="keyword">public</span> <span class="title">App</span>(<span class="params"></span>)</span>
+<span class="function">     </span>{
+         DispatcherHelper.Initialize();
+     }
+</code></pre>
+</li>
+<li>关联与前面的窗口一样就是指定Datacontext<pre><code class="csharp">         SimpleIoc.Default.Register&lt;Window2ViewModel&gt;();
+<span class="keyword">public</span> Window2ViewModel View2
+     {
+         <span class="keyword">get</span>
+         {
+             <span class="keyword">return</span> ServiceLocator.Current.GetInstance&lt;Window2ViewModel&gt;();
+         }
+     }
+</code></pre>
+</li>
+<li>这里是我喜欢的方式，其它方式可以参考同页面传递消息的文章<pre><code class="xml">DataContext="{Binding Source={StaticResource Locator},Path=View2}"
+</code></pre>
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2></li>
+</ol>
+<ul>
+<li>model不仅仅是对象，可以是数据库等各种数据来源与之交互，可以想到用ORM框架来建立合造的model关系映射</li>
+<li>一定要注意UI线程要做的操作，有可能信息没有及时在页面是更新很有可能是uI线程出了问题</li>
+<li>了解框架的封装和WPF自带的处理要求可能有助于理解框架，同样可以参看源码</li>
+<li>mvvm的框架很多，这个只是其中之一，后面我们会讲到mvvm的原理，这样对框架可以达到通一而知其它<br><img src="/2017/11/26/MVVM-05-MvvmLight页面与Model层的交互含UI线程/004.gif" alt="result"><br><a href="https://github.com/Ants-double/BlogCode" target="_blank" rel="external">源码</a></li>
+</ul>
+<hr>
+<blockquote>
+<p>学习是一个很有成就感的事件，可是总结是更有意义的事件。最近一段时间要不写wpf了，做个总结以防忘记，话说最近一段的时间的wpf全是winform那样基于事件的。很多的代码都是控制显示的感觉很不好。这里也是推广一下，你可以不用框架，但是一定要用wpf绑定这是它的优点。</p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://ants-double.xin/2017/11/26/MVVM-05-MvvmLight页面与Model层的交互含UI线程/" data-title="[MVVM]05-MvvmLight页面与Model层的交互含UI线程  | Ants-double" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/11/25/MVVM-04-MVVMLight不支持命令的控件把事件转换成命令/"  title="[MVVM]04-MVVMLight不支持命令的控件把事件转换成命令">
+ <strong>旧一篇:</strong><br/> 
+ <span>[MVVM]04-MVVMLight不支持命令的控件把事件转换成命令
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="[MVVM]05-MvvmLight页面与Model层的交互含UI线程 " data-thread-key="MVVM-05-MvvmLight页面与Model层的交互含UI线程" data-author-key="Ants-double" data-url="http://ants-double.xin/post/MVVM-05-MvvmLight页面与Model层的交互含UI线程"></div>
+	
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	<div class="copyright">
+		<span>Powered by <a href="https://github.com/hexojs/hexo">Hexo</a> and theme by 
+		<a href="https://github.com/levonlin/Tinnypp">Tinnypp</a>.</span>
+		
+			<span>© Ants-double</span>
+		
+	<div>
+</div></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"tinnypp"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';    //change to ds.src = '/js/embed.js'; to add useragent for duoshuo
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+<script type="text/javascript">
+  function footerPosition() {
+    var contentHeight = document.documentElement.scrollHeight,
+        winHeight = window.innerHeight;
+    if(contentHeight <= winHeight) {
+      $('footer').addClass('fixed-bottom');
+    } else {
+      $('footer').removeClass('fixed-bottom');
+    }
+  }
+  footerPosition();
+  $(window).resize(footerPosition);
+</script>
+
+
+  </body>
+</html>
