@@ -1,0 +1,382 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>[linux]挂载硬盘安装mysql和mono进行.net开发 | Ants-double</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Ants-double">
+    
+    <meta name="description" content="Ubuntu14.04挂载硬盘迁移Mysql前期准备
+设置root 密码（如果已有不用重设）进入终端 快捷键Ctrl+ALT+T  
+
+输入  123456789sudo passwd root```  *然后设定新密码*  2. 用root账户登录``` su root```  ## 安装mysq">
+    
+    
+    
+    
+    <link rel="alternative" href="/Tinnypp/atom.xml" title="Ants-double" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/myLogo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/myLogo.png">
+    
+
+  
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    
+  
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d182ed77fc48758bf45a33835ee35745";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','.............Add your swiftype userID...............');
+</script>
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Ants-double">Ants-double</a></h1>
+				<h2 class="blog-motto">每天进步一点点</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/Tinnypp">首页</a></li>
+					
+						<li><a href="/Tinnypp/archives">归档</a></li>
+					
+					<li>
+					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-inpu" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>-->
+
+				</ul>
+			</nav>	
+</div>
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/12/07/linux-挂载硬盘安装mysql和mono进行-net开发/" title="[linux]挂载硬盘安装mysql和mono进行.net开发" itemprop="url">[linux]挂载硬盘安装mysql和mono进行.net开发</a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2017-12-07T11:53:25.000Z" itemprop="datePublished">2017-12-07</time>
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title"></strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu14-04挂载硬盘迁移Mysql"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu14.04挂载硬盘迁移Mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前期准备"><span class="toc-number">1.1.</span> <span class="toc-text">前期准备</span></a></li></ol></li></ol>
+		</div>
+		
+		<h1 id="Ubuntu14-04挂载硬盘迁移Mysql"><a href="#Ubuntu14-04挂载硬盘迁移Mysql" class="headerlink" title="Ubuntu14.04挂载硬盘迁移Mysql"></a>Ubuntu14.04挂载硬盘迁移Mysql</h1><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol>
+<li><p>设置root 密码（如果已有不用重设）<br>进入终端 快捷键Ctrl+ALT+T  </p>
+<ul>
+<li>输入  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sudo passwd root</div><div class="line">```  </div><div class="line">*然后设定新密码*  </div><div class="line">2. 用root账户登录</div><div class="line">``` </div><div class="line">su root</div><div class="line">```  </div><div class="line">## 安装mysql  (默认所有操作在root下，如果不是所有的命令前加sudo)</div><div class="line">1. 更新系统</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>apt-get update</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> *不能确定某些软件依赖库是否影响mysql的安装情况下可以不更新软件包也就是不执行下面的命*  </div><div class="line"></div><div class="line"> ``` </div><div class="line"> apt-get upgrade</div><div class="line"> ```  </div><div class="line">2. 安装mysql(指定版本默认的是5.5，5.5有问题)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>apt-get install mysql-client-core-5.6<br>apt-get install mysql-client-5.6<br>apt-get install mysql-server-5.6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**安装过程中要输入密码(Tab键进行切换），如果不输入要重设，重设麻烦，如果真忘了后面附上重设的方法**  </div><div class="line"></div><div class="line">3. 检测是否成功</div></pre></td></tr></table></figure></p>
+<p>ps -ef|grep mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4. 查看监听端口</div></pre></td></tr></table></figure></p>
+<p>netstat -tap |grep mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">5. 停止服务</div></pre></td></tr></table></figure></p>
+<p>service mysql stop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">6. 开启服务</div></pre></td></tr></table></figure></p>
+<p>service mysql start<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">7. 重启服务</div></pre></td></tr></table></figure></p>
+<p>service mysql restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**到此mysql是安装完毕**</div><div class="line">## 挂载外接硬盘</div><div class="line">- 查看有没有挂载过</div></pre></td></tr></table></figure></p>
+<p>df -lh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">*如果发现列表中有硬盘跳过这一部分,直接去对应的文件夹下面操作就可以，如果没有按以下操作挂载*</div><div class="line">1. 查看硬盘所有的分区</div></pre></td></tr></table></figure></p>
+<p>fdisk -lu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. 硬盘进行分区</div></pre></td></tr></table></figure></p>
+<p>fdisk /dev/sda<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">*/dev/sda这个是相对的，要与你要分的硬盘对应，也就是与第一步查到的信息对应*</div><div class="line"> 执行时会出一个提示菜单 一般英语都能看懂，这里记录一下  </div><div class="line"></div><div class="line">- 第一次提示输入 n 也就是new 的第一个字母，新建一个分区  </div><div class="line"></div><div class="line">- 第二次提示输入 e 也就是extended 的第一个字母，分区类型为扩展分区  </div><div class="line"></div><div class="line">- 第三次提示输入 1 也就是整个硬盘分成一个区，当然这个看自己的情况而定  </div><div class="line">- 第四次提示输入 p 也就是parents 查看当前分区的分区表</div><div class="line">- 第五次提示输入 w 也就是write 写入分区表也就是保存下来的意思。   </div><div class="line"></div><div class="line">  **再执行一下第一步的命令查看一下分区是不是发现系统已经认识了硬盘了**</div><div class="line"></div><div class="line">3. 格式化硬盘 格式最好与mysql默认存的格式一致，一盘是ext4</div></pre></td></tr></table></figure></p>
+<p>mkfs -t ext4 /dev/sda<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- 执行中会提示要不要格式化直接输入 y  </div><div class="line">- 再提示开始和结束数据块直接按Enter 回车，然后就是等，这个期间不要断电  </div><div class="line">4. 挂载硬盘分区</div></pre></td></tr></table></figure></p>
+<p>mount -t ext4 /dev/sda /devdata<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">*说明一下/devdata*</div><div class="line">- 这是根目录下的一个文件夹以后访问这个文件就是访问这个硬盘，ubuntu没有盘符的概念，所有的一切都是文件。  </div><div class="line">- 如查提示没有/devdata 那就新建一个操作如下</div></pre></td></tr></table></figure></p>
+<p>cd /<br>mkdir devdata<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">5. 再查看一下分区是否挂载成功</div></pre></td></tr></table></figure></p>
+<p>df -lh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">6. 操作成功了，但是如果系统重启要重新执行一下这个命令，如果不想每次都执行要更改配置文件</div><div class="line">文件位置为/etc/fstab</div><div class="line">在最后添加一行</div></pre></td></tr></table></figure></p>
+<p>/dev/sda /Projects ext4 defaults 0 3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- 要参文件上在的格式保持一致，前期第6步可以先不做  </div><div class="line">## 迁移mysql</div><div class="line">1. 新建一个文件夹用来保存mysql的数据，名子随意这里仍用mysql</div></pre></td></tr></table></figure></p>
+<p>mkdir p /devdata/mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. 停止mysql服务</div></pre></td></tr></table></figure></p>
+<p>service mysql stop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3. 查看默认mysql文件夹的权限和用户组关系,目录在/var/lib</div></pre></td></tr></table></figure></p>
+<p>ls -l<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4. 修改新建文件夹的用户组关系</div></pre></td></tr></table></figure></p>
+<p>chown -vR mysql:mysql /devdata/mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">5. 修改新建文件夹的权限</div></pre></td></tr></table></figure></p>
+<p>chmod -vR 700 /devdata/mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">6. 迁移文件,进入/var/lib</div></pre></td></tr></table></figure></p>
+<p>cp -av /var/lib/mysql/* /devdata/mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">7. 修改mysql的配置文件，也就是说你搬家了也去告诉一下村长，不要别人找不到你问村长指个错的地方也是找不到你</div><div class="line">- 文件路径为/etc/mysql/my.cnf</div><div class="line">- 修改datadir 这一行为/devdata/mysql *这个与前面的文件夹一致*</div><div class="line">8. 修改apparmor,ubuntu 的安全机制，文件位置在/etc/apparmor.d/usr.sbin.mysqld</div><div class="line">- 修改原来的路径/var/lib/mysql / 为/devdata/mysql 共有两个挨着都要修改</div><div class="line">- 这个一定要改不改可能启动不了</div><div class="line">9. 重启apparmor和mysql有顺序</div></pre></td></tr></table></figure></p>
+<p>service apparmor reload<br>service mysql restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 如果不行那就进去重启</div></pre></td></tr></table></figure></p>
+<p>/etc/init.d/apparmor restart<br>/etc/init.d/mysql restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">10. 删除原来的文件,前面用的复制不是剪切为了以防万一</div></pre></td></tr></table></figure></p>
+<p>rm -rvf /var/lib/mysql/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## 配置mysql充许远程连接</div><div class="line">- 网上流传的改表名不太靠谱</div><div class="line">1. 登录mysql</div></pre></td></tr></table></figure></p>
+<p>mysql -uroot -p123<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. 切换到mysqlDB</div></pre></td></tr></table></figure></p>
+<p>use mysql;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3. 授权</div></pre></td></tr></table></figure></p>
+<p>grant all privileges on <em>.</em> to ‘root’@’%’ identified by ‘123’ with grant option;<br>plush privileges;<br>exit;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- root 就是要授权的用户名，可以自己定义</div><div class="line">- % 就是远程的ip %是全部</div><div class="line">- 123 就是root对应的密码</div><div class="line">4. 去除本地限制，打开/etc/mysql/my.cnf</div><div class="line">找到address 这一行注释掉前面加一个#</div><div class="line">##  安装 Momo</div><div class="line">1. 添加momo库到你的系统</div></pre></td></tr></table></figure></p>
+<p>sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF<br>echo “deb <a href="http://download.mono-project.com/repo/ubuntu" target="_blank" rel="external">http://download.mono-project.com/repo/ubuntu</a> xenial main” | sudo tee /etc/apt/sources.list.d/mono-official.list<br>sudo apt-get update<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. 安装</div></pre></td></tr></table></figure></p>
+<p>sudo apt-get install mono-devel<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 这种文件带开发工具，如果不想带只是运行</div></pre></td></tr></table></figure></p>
+<p>sudo apt-get install mono-complete<br>```</p>
+<hr>
+<blockquote>
+<p>做一个负责任的人，就是对自己负责，学习结合实际，并学会总结。</p>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://ants-double.xin/2017/12/07/linux-挂载硬盘安装mysql和mono进行-net开发/" data-title="[linux]挂载硬盘安装mysql和mono进行.net开发 | Ants-double" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/11/30/RTSP-WPF用VLC显示RTSP视频/"  title="[RTSP]WPF用VLC显示RTSP视频">
+ <strong>旧一篇:</strong><br/> 
+ <span>[RTSP]WPF用VLC显示RTSP视频
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="[linux]挂载硬盘安装mysql和mono进行.net开发" data-thread-key="linux-挂载硬盘安装mysql和mono进行-net开发" data-author-key="Ants-double" data-url="http://ants-double.xin/post/linux-挂载硬盘安装mysql和mono进行-net开发"></div>
+	
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	<div class="copyright">
+		<span>Powered by <a href="https://github.com/hexojs/hexo">Hexo</a> and theme by 
+		<a href="https://github.com/levonlin/Tinnypp">Tinnypp</a>.</span>
+		
+			<span>© Ants-double</span>
+		
+	<div>
+</div></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"tinnypp"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';    //change to ds.src = '/js/embed.js'; to add useragent for duoshuo
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+<script type="text/javascript">
+  function footerPosition() {
+    var contentHeight = document.documentElement.scrollHeight,
+        winHeight = window.innerHeight;
+    if(contentHeight <= winHeight) {
+      $('footer').addClass('fixed-bottom');
+    } else {
+      $('footer').removeClass('fixed-bottom');
+    }
+  }
+  footerPosition();
+  $(window).resize(footerPosition);
+</script>
+
+
+  </body>
+</html>
